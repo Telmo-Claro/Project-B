@@ -3,6 +3,7 @@ public static class Menu
     public static void welcomingMenu()
     {
         while (true) {
+            Console.Clear();
             Console.WriteLine("------------------------------");
             Console.WriteLine("WELCOME TO ROTTERDAM AIRLINES!");
             Console.WriteLine("------------------------------");
