@@ -12,3 +12,7 @@ C:\Users\Koletrol\Documents\GitHub\Project-B\Program\obj\Debug\net8.0\refint\Pro
 C:\Users\Koletrol\Documents\GitHub\Project-B\Program\obj\Debug\net8.0\Program.pdb
 C:\Users\Koletrol\Documents\GitHub\Project-B\Program\obj\Debug\net8.0\Program.genruntimeconfig.cache
 C:\Users\Koletrol\Documents\GitHub\Project-B\Program\obj\Debug\net8.0\ref\Program.dll
+C:\Users\Koletrol\Documents\GitHub\Project-B\Program\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\Koletrol\Documents\GitHub\Project-B\Program\obj\Debug\net8.0\Program.csproj.AssemblyReference.cache
+C:\Users\Koletrol\Documents\GitHub\Project-B\Program\obj\Debug\net8.0\Program.sourcelink.json
+C:\Users\Koletrol\Documents\GitHub\Project-B\Program\obj\Debug\net8.0\Program.csproj.Up2Date

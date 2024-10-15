@@ -10,14 +10,21 @@ public static class Menu
             Console.WriteLine("What do you wish to do:");
             Console.WriteLine("(1) Log in.");
             Console.WriteLine("(2) Create an account.");
-            Console.WriteLine("(3) Exit");
+            Console.WriteLine("(3) Exit.");
             Console.Write("> ");
-            var option = Console.ReadKey().ToString;
+            string option = Console.ReadKey().KeyChar.ToString();
             if(option == "1")
             { 
-                
+                // implement Log In.
             }
-
+            else if(option == "2")
+            {
+                // implement Create an Account.
+            }
+            else if(option == "3")
+            {
+                Environment.Exit(0);
+            }
         }
     }
 }
