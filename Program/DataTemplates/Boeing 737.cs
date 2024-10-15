@@ -1,0 +1,4 @@
+﻿public class Boeing737 : Aircraft
+{
+    public Boeing737() : base(195) { }
+}

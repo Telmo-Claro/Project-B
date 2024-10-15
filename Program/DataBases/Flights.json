@@ -1,0 +1,11 @@
+[
+  {
+    "Aircraft": null,
+    "Departure": "Rotterdam",
+    "Destinaiton": "Wrone",
+    "Duration": 8.0,
+    "FlightNumber": "TREN2042",
+    "TimeArrival": null,
+    "TimeDeparture": null
+  }
+]
