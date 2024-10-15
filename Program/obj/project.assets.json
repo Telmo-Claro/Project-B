@@ -55,24 +55,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Telmo\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Koletrol\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Telmo\\Documents\\GitHub\\Project-B\\Program\\Program.csproj",
+      "projectUniqueName": "C:\\Users\\Koletrol\\Documents\\GitHub\\Project-B\\Program\\Program.csproj",
       "projectName": "Program",
-      "projectPath": "c:\\Users\\Telmo\\Documents\\GitHub\\Project-B\\Program\\Program.csproj",
-      "packagesPath": "C:\\Users\\Telmo\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Telmo\\Documents\\GitHub\\Project-B\\Program\\obj\\",
+      "projectPath": "C:\\Users\\Koletrol\\Documents\\GitHub\\Project-B\\Program\\Program.csproj",
+      "packagesPath": "C:\\Users\\Koletrol\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Koletrol\\Documents\\GitHub\\Project-B\\Program\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Telmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Koletrol\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -124,7 +119,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
