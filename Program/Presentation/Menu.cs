@@ -102,13 +102,22 @@ public static class Menu
 
     public static void bookFlightMenu()
     {
+        int page = 1;
         while(true)
         {
             Console.Clear();
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("ROTTERDAM AIRLINES - BOOKING A FLIGHT");
             Console.WriteLine("-------------------------------------");
-        
+            Console.WriteLine("               Flights               ");
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("FlightNumber|Departure|Destination|   Date   |TimeDeparture|TimeArrival|Duration|    Country    |Aircraft");
+            ViewFlights.View(page);
+            Console.WriteLine("--------------");
+            Console.WriteLine($"Page: {page}");
+            Console.WriteLine("--------------");
+            Console.WriteLine("To book a flight call: 010420777");
+            page = PageScroller.NextPage(Console.ReadKey().Key, page);
             // implement bookFlight
         }
     }
