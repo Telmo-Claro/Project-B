@@ -19,7 +19,8 @@ public static class FlightDataRW
     {
         try
         {
-            string jsonString = JsonSerializer.Serialize(flights);
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            string jsonString = JsonSerializer.Serialize(flights, options);
             File.WriteAllText("DataBases\\Flights.json", jsonString);
         }
         catch (Exception e)

@@ -15,22 +15,22 @@
     <Compile Update="DataAcess\FlightDataRW.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="DataTemplates\Airbus 330.cs">
+    <Compile Update="DataModels\Airbus 330.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="DataTemplates\Aircraft.cs">
+    <Compile Update="DataModels\Aircraft.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="DataTemplates\Boeing 737.cs">
+    <Compile Update="DataModels\Boeing 737.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Update="DataTemplates\Boeing787.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="DataTemplates\Flight.cs">
+    <Compile Update="DataModels\Flight.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Update="Logic\test.cs">
+    <Compile Update="Logic\ViewFlights.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
