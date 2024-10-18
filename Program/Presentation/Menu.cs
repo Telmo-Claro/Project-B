@@ -80,23 +80,50 @@ public static class Menu
     {
         while(true)
         {
+            string? firstName = "";
+            string? lastName = "";
+            string? email = "";
+            string? password = "";
+            string? phoneNumber = "";
             Console.Clear();
             Console.WriteLine("-----------------------------------");
             Console.WriteLine("ROTTERDAM AIRLINES - CREATE ACCOUNT");
             Console.WriteLine("-----------------------------------");
-            
-            Console.WriteLine("First name: ");
-            string firstName = Console.ReadLine();
-            Console.WriteLine("Last name: ");
-            string lastName = Console.ReadLine();
-            Console.WriteLine("Enter email: ");
-            string email = Console.ReadLine();
-            Console.WriteLine("Phone number: ");
-            int phoneNumber = Convert.ToInt32(Console.ReadLine);
-            Console.WriteLine("Enter password: ");
-            string password = Console.ReadLine();
+            while (firstName == "")
+            {
+                Console.WriteLine("First name: ");
+                firstName = Console.ReadLine();
+            }
 
-            // implement create account function
+            while (lastName == "")
+            {
+                Console.WriteLine("Last name: ");
+                lastName = Console.ReadLine();
+            }
+
+            while (email == "")
+            {
+                Console.WriteLine("Enter email: ");
+                email = Console.ReadLine();
+            }
+            while (phoneNumber == "")
+            {
+                Console.WriteLine("Phone number: ");
+                phoneNumber = Console.ReadLine();
+            }
+
+            while (password == "")
+            {
+                Console.WriteLine("Enter password: ");
+                password = Console.ReadLine();
+            }
+
+            if (firstName != null && lastName != null && email != null && phoneNumber != null && password != null)
+            {
+                Account account = new Account(firstName, lastName, email, phoneNumber, password);
+                AccountDataRW.WriteJson(account);
+            }
+            break;
         }
     }
 
