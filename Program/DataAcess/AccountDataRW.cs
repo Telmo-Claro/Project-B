@@ -24,12 +24,14 @@ public static class AccountDataRW
                     }
                 }
                 Console.WriteLine("No matches with the given credentials");
+                Console.ReadKey();
                 Menu.loginMenu();
             }
         }
         catch (Exception e)
         {
             Console.WriteLine($"Error writing JSON {e.Message}");
+            Console.ReadKey();
         }
         return null;
     }

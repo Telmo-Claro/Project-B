@@ -14,7 +14,6 @@ public static class Menu
             Console.WriteLine("(1) Log in.");
             Console.WriteLine("(2) Create an account.");
             Console.WriteLine("(3) Exit.");
-            Console.WriteLine("4 rawr");
             Console.Write("> ");
             string option = Console.ReadKey().KeyChar.ToString();
             if(option == "1")
@@ -31,7 +30,7 @@ public static class Menu
             }
             else if(option == "4")
             {
-                // AccountDataRW.CheckAccount();
+                loginMenu();
             }
         }
     }
@@ -46,29 +45,29 @@ public static class Menu
             Console.WriteLine("---------------------------");
             
             Console.WriteLine("Enter email [Q to exit]");
-            string email = Console.ReadLine();
+            string? email = Console.ReadLine();
             if(email == "q")
             {
                 break;
             }
 
             Console.WriteLine("Enter password [Q to exit]");
-            string password = Console.ReadLine();
+            string? password = Console.ReadLine();
             if(password == "q")
             {
                 break;
             }
-            // implement login function
+            loggedInMenu(AccountDataRW.LoggingIn(email, password));
         }
     }
 
-    public static void loggedInMenu()
+    public static void loggedInMenu(Account account)
     {
         while(true)
         {
             Console.Clear();
             Console.WriteLine("------------------------------------");
-            Console.WriteLine("ROTTERDAM AIRLINES - WELCOME {USER}!");
+            Console.WriteLine($"ROTTERDAM AIRLINES - Welcome {account.FirstName}!");
             Console.WriteLine("------------------------------------");
             
             Console.WriteLine("What do you wish to do:");
@@ -77,6 +76,7 @@ public static class Menu
             Console.WriteLine("(3) Change account information.");
             Console.WriteLine("(4) Delete account.");
             Console.WriteLine("(5) Exit.");
+            Console.ReadKey();
             // implement login function
         }
     } 
