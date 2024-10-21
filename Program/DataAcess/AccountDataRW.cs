@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 
@@ -30,7 +31,7 @@ public static class AccountDataRW
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error writing JSON {e.Message}");
+            Console.WriteLine($"Error reading JSON {e.Message}");
             Console.ReadKey();
         }
         return null;
@@ -70,5 +71,90 @@ public static class AccountDataRW
         {
             Console.WriteLine($"Error writing JSON: {e.Message}");
         }
+    }
+
+    public static void ChangeJson(string jsonstring)
+    {
+        string filepath = "DataBases\\Accounts.json";
+
+        try
+        {
+            if (File.Exists(filepath))
+            {
+                File.WriteAllText(filepath, jsonstring);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error changing JSON: {e.Message}");
+        }
+    }
+    public static void DeleteAccount(string email)
+    {
+        string filepath = "DataBases\\Accounts.json";
+
+        try
+        {
+            if (File.Exists(filepath))
+            {
+                string jsonString = File.ReadAllText(filepath);
+                var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
+
+                foreach (var account in accounts)
+                {
+                    if (account.Email == email)
+                    {
+                        accounts.Remove(account);
+                        break;
+                    }
+                }
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string updatedJsonString = JsonSerializer.Serialize(accounts, options);
+
+                ChangeJson(updatedJsonString);
+                Console.Clear();
+                Console.WriteLine("Account deleted succesfully");
+
+                Console.ReadKey();
+                Menu.welcomingMenu();
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error Deleting Json: {e.Message}");
+            Console.ReadKey();
+        }
+    }
+    public static void ChangeData(Account account)
+    {
+        string filepath = "DataBases\\Accounts.json";
+
+        try
+        {
+            if (File.Exists(filepath))
+            {
+                string jsonString = File.ReadAllText(filepath);
+                var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
+
+                foreach (var x in accounts)
+                {
+                    if (x.Email == account.Email)
+                    {
+                        accounts.Remove(account);
+                        break;
+                    }
+                }
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string updatedJsonString = JsonSerializer.Serialize(accounts, options);
+
+                ChangeJson(updatedJsonString);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error Deleting Prior Info: {e.Message}");
+        }
+
+        Menu.creatAccountMenu();
     }
 }
