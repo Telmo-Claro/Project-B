@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 
@@ -123,5 +124,37 @@ public static class AccountDataRW
             Console.WriteLine($"Error Deleting Json: {e.Message}");
             Console.ReadKey();
         }
+    }
+    public static void ChangeData(Account account)
+    {
+        string filepath = "DataBases\\Accounts.json";
+
+        try
+        {
+            if (File.Exists(filepath))
+            {
+                string jsonString = File.ReadAllText(filepath);
+                var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
+
+                foreach (var x in accounts)
+                {
+                    if (x.Email == account.Email)
+                    {
+                        accounts.Remove(account);
+                        break;
+                    }
+                }
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string updatedJsonString = JsonSerializer.Serialize(accounts, options);
+
+                ChangeJson(updatedJsonString);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error Deleting Prior Info: {e.Message}");
+        }
+
+        Menu.creatAccountMenu();
     }
 }

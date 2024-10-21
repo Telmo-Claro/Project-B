@@ -1,4 +1,6 @@
 using System.Runtime.CompilerServices;
+using System;
+using System.Diagnostics;
 
 public static class Menu
 {
@@ -69,7 +71,7 @@ public static class Menu
             Console.WriteLine("------------------------------------");
             Console.WriteLine($"ROTTERDAM AIRLINES - Welcome {account.FirstName}!");
             Console.WriteLine("------------------------------------");
-            
+
             Console.WriteLine("What do you wish to do:");
             Console.WriteLine("(1) View and book flights.");
             Console.WriteLine("(2) View booking history.");
@@ -84,11 +86,16 @@ public static class Menu
             }
             else if (option == "2")
             {
-                // implement book history
+                string youtubeUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = youtubeUrl,
+                    UseShellExecute = true
+                });
             }
             else if (option == "3")
             {
-                // change account info
+                AccountDataRW.ChangeData(account);
             }
             else if (option == "4")
             {
@@ -103,7 +110,7 @@ public static class Menu
                 Console.WriteLine("Wrong input");
                 Console.ReadKey();
             }
-            
+
         }
     } 
 
