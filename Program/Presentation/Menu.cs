@@ -14,6 +14,7 @@ public static class Menu
             Console.WriteLine("(1) Log in.");
             Console.WriteLine("(2) Create an account.");
             Console.WriteLine("(3) Exit.");
+            Console.WriteLine("4 rawr");
             Console.Write("> ");
             string option = Console.ReadKey().KeyChar.ToString();
             if(option == "1")
@@ -27,6 +28,10 @@ public static class Menu
             else if(option == "3")
             {
                 Environment.Exit(0);
+            }
+            else if(option == "4")
+            {
+                // AccountDataRW.CheckAccount();
             }
         }
     }
