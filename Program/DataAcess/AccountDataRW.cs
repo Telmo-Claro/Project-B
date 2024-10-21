@@ -1,7 +1,40 @@
+using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 
 public static class AccountDataRW
 {
+    public static Account LoggingIn(string email, string password)
+    {
+        string filepath = "DataBases\\Accounts.json";
+
+        try
+        {
+            if (File.Exists(filepath))
+            {
+                string jsonString = File.ReadAllText(filepath);
+                var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
+
+                foreach (var account in accounts)
+                {
+                    if (account.Email == email && account.Password == password)
+                    {
+                        Account User = new Account(account.FirstName, account.LastName, account.Email, account.PhoneNumber, account.Password);
+                        return User;
+                    }
+                }
+                Console.WriteLine("No matches with the given credentials");
+                Console.ReadKey();
+                Menu.loginMenu();
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error writing JSON {e.Message}");
+            Console.ReadKey();
+        }
+        return null;
+    }
     public static void WriteJson(Account account)
     {
         string filepath = "DataBases\\Accounts.json";
