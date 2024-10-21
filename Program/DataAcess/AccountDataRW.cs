@@ -30,7 +30,7 @@ public static class AccountDataRW
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error writing JSON {e.Message}");
+            Console.WriteLine($"Error reading JSON {e.Message}");
             Console.ReadKey();
         }
         return null;
@@ -69,6 +69,59 @@ public static class AccountDataRW
         catch (Exception e)
         {
             Console.WriteLine($"Error writing JSON: {e.Message}");
+        }
+    }
+
+    public static void ChangeJson(string jsonstring)
+    {
+        string filepath = "DataBases\\Accounts.json";
+
+        try
+        {
+            if (File.Exists(filepath))
+            {
+                File.WriteAllText(filepath, jsonstring);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error changing JSON: {e.Message}");
+        }
+    }
+    public static void DeleteAccount(string email)
+    {
+        string filepath = "DataBases\\Accounts.json";
+
+        try
+        {
+            if (File.Exists(filepath))
+            {
+                string jsonString = File.ReadAllText(filepath);
+                var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
+
+                foreach (var account in accounts)
+                {
+                    if (account.Email == email)
+                    {
+                        accounts.Remove(account);
+                        break;
+                    }
+                }
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string updatedJsonString = JsonSerializer.Serialize(accounts, options);
+
+                ChangeJson(updatedJsonString);
+                Console.Clear();
+                Console.WriteLine("Account deleted succesfully");
+
+                Console.ReadKey();
+                Menu.welcomingMenu();
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error Deleting Json: {e.Message}");
+            Console.ReadKey();
         }
     }
 }

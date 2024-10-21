@@ -76,8 +76,34 @@ public static class Menu
             Console.WriteLine("(3) Change account information.");
             Console.WriteLine("(4) Delete account.");
             Console.WriteLine("(5) Exit.");
-            Console.ReadKey();
-            // implement login function
+            string option = Console.ReadKey().KeyChar.ToString();
+
+            if (option == "1")
+            {
+                bookFlightMenu();
+            }
+            else if (option == "2")
+            {
+                // implement book history
+            }
+            else if (option == "3")
+            {
+                // change account info
+            }
+            else if (option == "4")
+            {
+                AccountDataRW.DeleteAccount(account.Email);
+            }
+            else if (option == "5")
+            {
+                Environment.Exit(0);
+            }
+            else
+            {
+                Console.WriteLine("Wrong input");
+                Console.ReadKey();
+            }
+            
         }
     } 
 
@@ -127,6 +153,8 @@ public static class Menu
             {
                 Account account = new Account(firstName, lastName, email, phoneNumber, password);
                 AccountDataRW.WriteJson(account);
+
+                loggedInMenu(account);
             }
             break;
         }
