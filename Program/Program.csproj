@@ -39,6 +39,7 @@
     <None Update="DataBases\Flights.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Remove=".gitignore" />
   </ItemGroup>
 
 </Project>
