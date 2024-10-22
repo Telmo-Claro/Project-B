@@ -32,19 +32,19 @@ public static class Admin
 
             if (option == "1")
             {
-                ViewFlightsMethod(); 
+                ViewFlightsMethod();
             }
             // else if (option == "2")
             // {
             //     AddFlight();
             // }
-            else if (option == "3")
-            {
-                DeleteFlight();
-            }
+            // else if (option == "3")
+            // {
+            //     DeleteFlight();
+            // }
             else if (option == "4")
             {
-                break; 
+                break;
             }
         }
     }
@@ -70,7 +70,7 @@ public static class Admin
             return false;
         }
     }
-    
+
     public static void ViewFlightsMethod() // done 
     {
         int page = 1;
@@ -95,23 +95,23 @@ public static class Admin
     //     Console.WriteLine("Press any key to return.");
     //     Console.ReadKey();
     // }
-    
-    public static void DeleteFlight() 
-    {
-        Console.Clear();
-        Console.Write("Enter the flight number to delete: ");
-        string flightNumber = Console.ReadLine();
 
-        if (FlightDataRW.DeleteFlight(flightNumber))
-        {
-            Console.WriteLine($"Flight {flightNumber} deleted successfully.");
-        }
-        else
-        {
-            Console.WriteLine($"Flight {flightNumber} not found.");
-        }
-        
-        Console.WriteLine("Press any key to continue.");
-        Console.ReadKey();
-    }
+    // public static void DeleteFlight() 
+    // {
+    //     Console.Clear();
+    //     Console.Write("Enter the flight number to delete: ");
+    //     string flightNumber = Console.ReadLine();
+
+    //     if (FlightDataRW.DeleteFlight(flightNumber))
+    //     {
+    //         Console.WriteLine($"Flight {flightNumber} deleted successfully.");
+    //     }
+    //     else
+    //     {
+    //         Console.WriteLine($"Flight {flightNumber} not found.");
+    //     }
+
+    //     Console.WriteLine("Press any key to continue.");
+    //     Console.ReadKey();
+    // }
 }

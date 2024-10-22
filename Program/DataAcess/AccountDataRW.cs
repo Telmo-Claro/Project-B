@@ -18,7 +18,7 @@ public static class AccountDataRW
                 // Try to deserialize the content to a List of Accounts
                 var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
 
-                if(accounts is null) return null;
+                if (accounts is null) return null;
 
                 foreach (var account in accounts)
                 {
@@ -26,7 +26,7 @@ public static class AccountDataRW
                     {
                         Account User = new Account(account.FirstName, account.LastName, account.Email, account.PhoneNumber, account.Password);
                         return User;
-                    }                       
+                    }
                 }
                 Console.WriteLine("No matches with the given credentials");
                 Console.ReadKey();
@@ -141,7 +141,7 @@ public static class AccountDataRW
                 string jsonString = File.ReadAllText(filepath);
                 var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
                 if (accounts is null) return;
-                
+
                 foreach (var x in accounts)
                 {
                     if (x.Email == account.Email)

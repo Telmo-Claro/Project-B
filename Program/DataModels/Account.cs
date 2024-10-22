@@ -6,7 +6,7 @@ public class Account
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
     public string Password { get; set; }
-
+    public List<Flight> bookedFlights { get; set; }
     public Account(string firstname, string lastname, string email, string phonenumber, string password)
     {
         this.FirstName = firstname;
@@ -14,5 +14,6 @@ public class Account
         this.Email = email;
         this.PhoneNumber = phonenumber;
         this.Password = password;
+        this.bookedFlights = [];
     }
 }
