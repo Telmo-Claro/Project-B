@@ -7,7 +7,7 @@ public static class AccountDataRW
 {
     public static Account LoggingIn(string email, string password)
     {
-        string filepath = "DataBases\\Accounts.json";
+        string filepath = Path.Combine("DataBases", "Flights.json");
 
         try
         {
@@ -38,7 +38,7 @@ public static class AccountDataRW
     }
     public static void WriteJson(Account account)
     {
-        string filepath = "DataBases\\Accounts.json";
+        string filepath = Path.Combine("DataBases", "Flights.json");
         List<Account> accounts = new List<Account>();
 
         try
