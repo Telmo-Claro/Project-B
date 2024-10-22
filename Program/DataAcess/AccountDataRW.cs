@@ -7,7 +7,7 @@ public static class AccountDataRW
 {
     public static Account LoggingIn(string email, string password)
     {
-        string filepath = Path.Combine("DataBases", "Flights.json");
+        string filepath = Path.Combine("DataBases", "Accounts.json");
 
         try
         {
@@ -38,7 +38,7 @@ public static class AccountDataRW
     }
     public static void WriteJson(Account account)
     {
-        string filepath = Path.Combine("DataBases", "Flights.json");
+        string filepath = Path.Combine("DataBases", "Accounts.json");
         List<Account> accounts = new List<Account>();
 
         try
@@ -75,7 +75,7 @@ public static class AccountDataRW
 
     public static void ChangeJson(string jsonstring)
     {
-        string filepath = "DataBases\\Accounts.json";
+        string filepath = Path.Combine("DataBases", "Accounts.json");
 
         try
         {
@@ -91,7 +91,7 @@ public static class AccountDataRW
     }
     public static void DeleteAccount(string email)
     {
-        string filepath = "DataBases\\Accounts.json";
+        string filepath = Path.Combine("DataBases", "Accounts.json");
 
         try
         {
@@ -127,7 +127,7 @@ public static class AccountDataRW
     }
     public static void ChangeData(Account account)
     {
-        string filepath = "DataBases\\Accounts.json";
+        string filepath = Path.Combine("DataBases", "Accounts.json");
 
         try
         {

@@ -18,11 +18,11 @@ namespace ProgramTest
             };
             Directory.CreateDirectory("DataBases");
             string jsonString = JsonSerializer.Serialize(FlightData);
-            File.WriteAllText("DataBases\\Flights.json", jsonString);
+            File.WriteAllText(Path.Combine("DataBases", "Flights.json"), jsonString);
 
             // Act
             List<Flight> flights = FlightDataRW.ReadJson();
-            File.Delete("DataBases\\Flights.json");
+            File.Delete(Path.Combine("DataBases", "Flights.json"));
 
             // Assert
             Assert.AreEqual(2, flights.Count);
@@ -43,9 +43,9 @@ namespace ProgramTest
             // Act
             Directory.CreateDirectory("DataBases");
             FlightDataRW.WriteJson(FlightData);
-            string jsonString = File.ReadAllText("DataBases\\Flights.json");
+            string jsonString = File.ReadAllText(Path.Combine("DataBases", "Flights.json"));
             List<Flight>? Flights = JsonSerializer.Deserialize<List<Flight>>(jsonString);
-            File.Delete("DataBases\\Flights.json");
+            File.Delete(Path.Combine("DataBases", "Flights.json"));
 
             // Assert
             Assert.AreEqual(2, Flights.Count);
