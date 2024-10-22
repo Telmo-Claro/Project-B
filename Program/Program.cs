@@ -4,7 +4,6 @@ public class Program
 {
     public static void Main()
     {
-        //Menu.welcomingMenu();
-        Menu.bookFlightMenu();
+        Menu.welcomingMenu();
     }
 }
