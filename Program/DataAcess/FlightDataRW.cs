@@ -5,7 +5,7 @@ public static class FlightDataRW
     {
         try
         {
-            string jsonString = File.ReadAllText("DataBases\\Flights.json");
+            string jsonString = File.ReadAllText(Path.Combine("DataBases", "Flights.json"));
             return JsonSerializer.Deserialize<List<Flight>>(jsonString)!;
         }
         catch (Exception e)
@@ -21,7 +21,7 @@ public static class FlightDataRW
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
             string jsonString = JsonSerializer.Serialize(flights, options);
-            File.WriteAllText("DataBases\\Flights.json", jsonString);
+            File.WriteAllText(Path.Combine("DataBases", "Flights.json"), jsonString);
         }
         catch (Exception e)
         {
