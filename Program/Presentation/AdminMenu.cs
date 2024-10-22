@@ -23,10 +23,10 @@ public static class Admin
             Console.WriteLine("-------------");
             Console.WriteLine("ADMIN PANEL");
             Console.WriteLine("--------------");
-            Console.WriteLine("(1) View all flights.");
-            Console.WriteLine("(2) Add a new flight.");
-            Console.WriteLine("(3) Delete a flight.");
-            Console.WriteLine("(4) Exit.");
+            Console.WriteLine("(1) View all flights");
+            Console.WriteLine("(2) Add a new flight");
+            Console.WriteLine("(3) Delete a flight");
+            Console.WriteLine("(4) Exit");
             Console.Write("> ");
             string option = Console.ReadKey().KeyChar.ToString();
 
@@ -81,7 +81,7 @@ public static class Admin
             ViewFlights.View(page);
             Console.WriteLine($"Page: {page}");
 
-            Console.WriteLine("Press any key to return.");
+            Console.WriteLine("Press any key to return");
             page = PageScroller.NextPage(Console.ReadKey().Key, page);
         }
     }

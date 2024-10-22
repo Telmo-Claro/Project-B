@@ -14,9 +14,9 @@ public static class Menu
             Console.WriteLine("------------------------------");
 
             Console.WriteLine("What do you wish to do:");
-            Console.WriteLine("(1) Log in.");
-            Console.WriteLine("(2) Create an account.");
-            Console.WriteLine("(3) Exit.");
+            Console.WriteLine("(1) Log in");
+            Console.WriteLine("(2) Create an account");
+            Console.WriteLine("(3) Exit");
             Console.Write("> ");
             string option = Console.ReadKey().KeyChar.ToString();
             if (option == "1")
@@ -100,11 +100,11 @@ public static class Menu
             Console.WriteLine("------------------------------------");
 
             Console.WriteLine("What do you wish to do:");
-            Console.WriteLine("(1) View and book flights.");
-            Console.WriteLine("(2) View booking history.");
-            Console.WriteLine("(3) Change account information.");
-            Console.WriteLine("(4) Delete account.");
-            Console.WriteLine("(5) Exit.");
+            Console.WriteLine("(1) View and book flights");
+            Console.WriteLine("(2) View booking history");
+            Console.WriteLine("(3) Change account information");
+            Console.WriteLine("(4) Delete account");
+            Console.WriteLine("(5) Exit");
             string option = Console.ReadKey().KeyChar.ToString();
 
             if (option == "1")
