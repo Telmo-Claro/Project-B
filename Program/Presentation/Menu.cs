@@ -6,7 +6,8 @@ public static class Menu
 {
     public static void welcomingMenu()
     {
-        while (true) {
+        while (true)
+        {
             Console.Clear();
             Console.WriteLine("------------------------------");
             Console.WriteLine("WELCOME TO ROTTERDAM AIRLINES!");
@@ -18,19 +19,19 @@ public static class Menu
             Console.WriteLine("(3) Exit.");
             Console.Write("> ");
             string option = Console.ReadKey().KeyChar.ToString();
-            if(option == "1")
+            if (option == "1")
             {
                 loginMenu();
             }
-            else if(option == "2")
+            else if (option == "2")
             {
                 creatAccountMenu();
             }
-            else if(option == "3")
+            else if (option == "3")
             {
                 Environment.Exit(0);
             }
-            else if(option == "4")
+            else if (option == "4")
             {
                 loginMenu();
             }
@@ -39,33 +40,55 @@ public static class Menu
 
     public static void loginMenu()
     {
-        while(true)
+        while (true)
         {
             Console.Clear();
             Console.WriteLine("---------------------------");
             Console.WriteLine("ROTTERDAM AIRLINES - LOG IN");
             Console.WriteLine("---------------------------");
-            
+
             Console.WriteLine("Enter email [Q to exit]");
             string? email = Console.ReadLine();
-            if(email == "q")
+            if (string.IsNullOrWhiteSpace(email) || email.ToLower() == "q")
             {
                 break;
+            }
+
+            // Check if email contains '@'
+            if (!email.Contains("@"))
+            {
+                Console.WriteLine("Invalid email. Please ensure it contains an '@'.");
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+                continue;
             }
 
             Console.WriteLine("Enter password [Q to exit]");
             string? password = Console.ReadLine();
-            if(password == "q")
+            if (string.IsNullOrWhiteSpace(password) || password.ToLower() == "q")
             {
                 break;
             }
-            loggedInMenu(AccountDataRW.LoggingIn(email, password));
+
+            // Call LoggingIn and check for null result
+            var account = AccountDataRW.LoggingIn(email, password);
+            if (account != null)
+            {
+                loggedInMenu(account);
+            }
+            else
+            {
+                Console.WriteLine("Invalid email or password. Please try again.");
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+            }
         }
     }
 
+
     public static void loggedInMenu(Account account)
     {
-        while(true)
+        while (true)
         {
             Console.Clear();
             Console.WriteLine("------------------------------------");
@@ -112,11 +135,11 @@ public static class Menu
             }
 
         }
-    } 
+    }
 
     public static void creatAccountMenu()
     {
-        while(true)
+        while (true)
         {
             string? firstName = "";
             string? lastName = "";
@@ -170,7 +193,7 @@ public static class Menu
     public static void bookFlightMenu()
     {
         int page = 1;
-        while(true)
+        while (true)
         {
             Console.Clear();
             Console.WriteLine("-------------------------------------");
