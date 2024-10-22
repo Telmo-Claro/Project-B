@@ -11,9 +11,11 @@ public static class AccountDataRW
 
         try
         {
+            // Check if the file exists
             if (File.Exists(filepath))
             {
                 string jsonString = File.ReadAllText(filepath);
+                // Try to deserialize the content to a List of Accounts
                 var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
 
                 if(accounts is null) return null;
@@ -49,7 +51,7 @@ public static class AccountDataRW
             if (File.Exists(filepath))
             {
                 string jsonString = File.ReadAllText(filepath);
-                
+
                 // If the file is empty, treat it as an empty array
                 if (string.IsNullOrWhiteSpace(jsonString))
                 {
