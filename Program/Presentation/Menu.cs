@@ -1,6 +1,4 @@
 using System.Runtime.CompilerServices;
-using System;
-using System.Diagnostics;
 
 public static class Menu
 {
@@ -17,7 +15,9 @@ public static class Menu
             Console.WriteLine("(1) Log in.");
             Console.WriteLine("(2) Create an account.");
             Console.WriteLine("(3) Exit.");
+            Console.WriteLine("(P) Admin Panel.");
             Console.Write("> ");
+          
             string option = Console.ReadKey().KeyChar.ToString();
             if (option == "1")
             {
@@ -35,6 +35,8 @@ public static class Menu
             {
                 loginMenu();
             }
+            else if (option == "p")
+                Admin.AdminMenu(); 
         }
     }
 
@@ -94,46 +96,15 @@ public static class Menu
             Console.WriteLine("------------------------------------");
             Console.WriteLine($"ROTTERDAM AIRLINES - Welcome {account.FirstName}!");
             Console.WriteLine("------------------------------------");
-
+            
             Console.WriteLine("What do you wish to do:");
             Console.WriteLine("(1) View and book flights.");
             Console.WriteLine("(2) View booking history.");
             Console.WriteLine("(3) Change account information.");
             Console.WriteLine("(4) Delete account.");
             Console.WriteLine("(5) Exit.");
-            string option = Console.ReadKey().KeyChar.ToString();
-
-            if (option == "1")
-            {
-                bookFlightMenu();
-            }
-            else if (option == "2")
-            {
-                string youtubeUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = youtubeUrl,
-                    UseShellExecute = true
-                });
-            }
-            else if (option == "3")
-            {
-                AccountDataRW.ChangeData(account);
-            }
-            else if (option == "4")
-            {
-                AccountDataRW.DeleteAccount(account.Email);
-            }
-            else if (option == "5")
-            {
-                Environment.Exit(0);
-            }
-            else
-            {
-                Console.WriteLine("Wrong input");
-                Console.ReadKey();
-            }
-
+            Console.ReadKey();
+            // implement login function
         }
     }
 
@@ -183,8 +154,6 @@ public static class Menu
             {
                 Account account = new Account(firstName, lastName, email, phoneNumber, password);
                 AccountDataRW.WriteJson(account);
-
-                loggedInMenu(account);
             }
             break;
         }
