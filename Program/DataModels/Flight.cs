@@ -28,4 +28,7 @@ public class Flight
     [JsonPropertyName("Aircraft")]
     public required Aircraft Aircraft { get; set; }
 
+    [JsonPropertyName("Status")]
+    public required string Status { get; set; }
+
 }
