@@ -14,7 +14,7 @@ static class ViewFlights
     }
     private static string FlightInfo(Flight flight)
     {
-        return $"{SpacesAdd(flight.FlightNumber, "FlightNumber")}|{SpacesAdd(flight.Departure, "Departure")}|{SpacesAdd(flight.Destination, "Destination")}|{flight.Date.ToShortDateString()}|{flight.TimeDeparture}     |{flight.TimeArrival}   |{flight.Duration}|{SpacesAdd(flight.Country, "    Country    ")}|{flight.Aircraft}";
+        return $"{SpacesAdd(flight.FlightNumber, "FlightNumber")}|{SpacesAdd(flight.Departure, "Departure")}|{SpacesAdd(flight.Destination, "Destination")}|{flight.Date.ToShortDateString()}|{flight.TimeDeparture}     |{flight.TimeArrival}   |{flight.Duration}|{SpacesAdd(flight.Country, "    Country    ")}|{SpacesAdd(flight.Aircraft.ToString(), "   Aircraft ")} |{SpacesAdd(flight.Status, "Status")}";
     }
     public static void View()
     {
@@ -22,7 +22,7 @@ static class ViewFlights
         {
             for (int i = 0; i < 12; i++)
             {
-                Console.WriteLine(FlightInfo(_flights[i]));
+                 Console.WriteLine(FlightInfo(_flights[i]));
             }
         }
         else
@@ -41,7 +41,7 @@ static class ViewFlights
         {
             for (int i = IndexStart; i < 12 + IndexStart; i++)
             {
-                Console.WriteLine(FlightInfo(_flights[i]));
+                    Console.WriteLine(FlightInfo(_flights[i]));
             }
         }
         else

@@ -178,7 +178,7 @@ public static class Menu
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("               Flights               ");
             Console.WriteLine("-------------------------------------");
-            Console.WriteLine("FlightNumber|Departure|Destination|   Date   |TimeDeparture|TimeArrival|Duration|    Country    |Aircraft");
+            Console.WriteLine("FlightNumber|Departure|Destination|   Date   |TimeDeparture|TimeArrival|Duration|    Country    |   Aircraft  | Status");
             ViewFlights.View(page);
             Console.WriteLine("--------------");
             Console.WriteLine($"Page: {page}");
