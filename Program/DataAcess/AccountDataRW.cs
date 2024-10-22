@@ -5,7 +5,7 @@ using System.Text.Json;
 
 public static class AccountDataRW
 {
-    public static Account LoggingIn(string email, string password)
+    public static Account? LoggingIn(string email, string password)
     {
         string filepath = Path.Combine("DataBases", "Accounts.json");
 
@@ -16,13 +16,15 @@ public static class AccountDataRW
                 string jsonString = File.ReadAllText(filepath);
                 var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
 
+                if(accounts is null) return null;
+
                 foreach (var account in accounts)
                 {
                     if (account.Email == email && account.Password == password)
                     {
                         Account User = new Account(account.FirstName, account.LastName, account.Email, account.PhoneNumber, account.Password);
                         return User;
-                    }
+                    }                       
                 }
                 Console.WriteLine("No matches with the given credentials");
                 Console.ReadKey();
@@ -99,6 +101,7 @@ public static class AccountDataRW
             {
                 string jsonString = File.ReadAllText(filepath);
                 var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
+                if (accounts is null) return;
 
                 foreach (var account in accounts)
                 {
@@ -135,7 +138,8 @@ public static class AccountDataRW
             {
                 string jsonString = File.ReadAllText(filepath);
                 var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
-
+                if (accounts is null) return;
+                
                 foreach (var x in accounts)
                 {
                     if (x.Email == account.Email)
