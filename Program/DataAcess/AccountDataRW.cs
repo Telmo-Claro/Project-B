@@ -5,16 +5,20 @@ using System.Text.Json;
 
 public static class AccountDataRW
 {
-    public static Account LoggingIn(string email, string password)
+    public static Account? LoggingIn(string email, string password)
     {
         string filepath = Path.Combine("DataBases", "Accounts.json");
 
         try
         {
+            // Check if the file exists
             if (File.Exists(filepath))
             {
                 string jsonString = File.ReadAllText(filepath);
+                // Try to deserialize the content to a List of Accounts
                 var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
+
+                if(accounts is null) return null;
 
                 foreach (var account in accounts)
                 {
@@ -22,7 +26,7 @@ public static class AccountDataRW
                     {
                         Account User = new Account(account.FirstName, account.LastName, account.Email, account.PhoneNumber, account.Password);
                         return User;
-                    }
+                    }                       
                 }
                 Console.WriteLine("No matches with the given credentials");
                 Console.ReadKey();
@@ -47,7 +51,7 @@ public static class AccountDataRW
             if (File.Exists(filepath))
             {
                 string jsonString = File.ReadAllText(filepath);
-                
+
                 // If the file is empty, treat it as an empty array
                 if (string.IsNullOrWhiteSpace(jsonString))
                 {
@@ -99,6 +103,7 @@ public static class AccountDataRW
             {
                 string jsonString = File.ReadAllText(filepath);
                 var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
+                if (accounts is null) return;
 
                 foreach (var account in accounts)
                 {
@@ -135,7 +140,8 @@ public static class AccountDataRW
             {
                 string jsonString = File.ReadAllText(filepath);
                 var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
-
+                if (accounts is null) return;
+                
                 foreach (var x in accounts)
                 {
                     if (x.Email == account.Email)
