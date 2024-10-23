@@ -14,6 +14,9 @@ public class Account
         this.Email = email;
         this.PhoneNumber = phonenumber;
         this.Password = password;
-        this.bookedFlights = [];
+        this.bookedFlights = [
+            new Flight { FlightNumber = "TREN0001", Departure = "Rotterdam", Destination = "Wronie", Date = DateTime.Now, TimeDeparture = new TimeSpan(6,0,0), TimeArrival = new TimeSpan(7,0,0), Duration = new TimeSpan(1,0,0), Country = "Poland", Aircraft = new Boeing787(), Status = "Planned" },
+            new Flight { FlightNumber = "TREN0002", Departure = "Rotterdam", Destination = "Lisbon", Date = DateTime.Now, TimeDeparture = new TimeSpan(6,0,0), TimeArrival = new TimeSpan(7,0,0), Duration = new TimeSpan(1,0,0), Country = "Portugal", Aircraft = new Boeing787(), Status = "Planned" }
+        ];
     }
 }

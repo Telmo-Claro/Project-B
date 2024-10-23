@@ -113,12 +113,13 @@ public static class Menu
             }
             else if (option == "2")
             {
-                string youtubeUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = youtubeUrl,
-                    UseShellExecute = true
-                });
+                ViewBookedFlights.PrintBookedFlight(account.bookedFlights);
+                // string youtubeUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+                // Process.Start(new ProcessStartInfo
+                // {
+                //     FileName = youtubeUrl,
+                //     UseShellExecute = true
+                // });
             }
             else if (option == "3")
             {
