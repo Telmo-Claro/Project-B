@@ -30,5 +30,5 @@ public class Flight
 
     [JsonPropertyName("Status")]
     public required string Status { get; set; }
-
+    
 }
