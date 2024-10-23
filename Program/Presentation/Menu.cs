@@ -212,7 +212,9 @@ public static class Menu
             Console.WriteLine($"Page: {page}");
             Console.WriteLine("--------------");
             Console.WriteLine("To book a flight call: 010420777");
-            page = PageScroller.NextPage(Console.ReadKey().Key, page);
+            ConsoleKey Key = Console.ReadKey().Key;
+            page = PageScroller.NextPage(Key, page);
+            if (Key == ConsoleKey.Escape) { break; }
             // implement bookFlight
         }
     }
