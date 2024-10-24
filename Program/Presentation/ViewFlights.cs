@@ -1,5 +1,3 @@
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
 static class ViewFlights
 {
     private static readonly List<Flight> _flights = FlightDataRW.ReadJson();
@@ -35,14 +33,25 @@ static class ViewFlights
     }
     public static void View(int page)
     {
-
+        int IndexEnd = _flights.Count;
         int IndexStart = (page - 1) * 12;
         if (_flights.Count > 11)
         {
-            for (int i = IndexStart; i < 12 + IndexStart; i++)
+            if (IndexEnd - IndexStart < 12)
             {
+                for (int i = IndexStart; i < IndexEnd - IndexStart; i++)
+                {
                     Console.WriteLine(FlightInfo(_flights[i]));
+                }
             }
+            else
+            {
+                for (int i = IndexStart; i < 12 + IndexStart; i++)
+                {
+                    Console.WriteLine(FlightInfo(_flights[i]));
+                }
+            }
+            
         }
         else
         {
