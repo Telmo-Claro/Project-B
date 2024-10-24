@@ -39,7 +39,7 @@ static class ViewFlights
         {
             if (IndexEnd - IndexStart < 12)
             {
-                for (int i = IndexStart; i < IndexEnd - IndexStart; i++)
+                for (int i = IndexStart; i < IndexEnd; i++)
                 {
                     Console.WriteLine(FlightInfo(_flights[i]));
                 }
