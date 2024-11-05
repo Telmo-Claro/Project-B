@@ -1,6 +1,4 @@
-﻿namespace Program.DataModels;
-
-public class CreditCard : IPay
+﻿public class CreditCard : IPay
 {
     public string? FirstName { get; set; }
     public string? LastName { get; set; }

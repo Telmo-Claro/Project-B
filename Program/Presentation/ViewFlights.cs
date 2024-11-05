@@ -1,6 +1,3 @@
-using Program.DataAccess;
-using Program.DataModels;
-
 public static class ViewFlights
 {
     private static readonly List<Flight> _flights = FlightDataRW.ReadJson();

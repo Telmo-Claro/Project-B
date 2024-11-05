@@ -1,5 +1,3 @@
-using Program.DataModels;
-
 public static class ViewBookedFlights
 {
     public static void PrintBookedFlight(List<Flight> bookedFlights)

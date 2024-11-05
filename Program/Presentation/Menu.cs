@@ -1,9 +1,3 @@
-using Program.DataAccess;
-using Program.DataModels;
-using Program.Logic;
-
-namespace Program.Presentation;
-
 public static class Menu
 {
     public static void WelcomingMenu()

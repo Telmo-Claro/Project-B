@@ -1,7 +1,4 @@
 ﻿using System.Text.Json;
-using Program.DataModels;
-
-namespace Program.DataAccess;
 
 public static class FlightDataRW
 {

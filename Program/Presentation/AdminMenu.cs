@@ -1,9 +1,3 @@
-using Program.DataAccess;
-using Program.DataModels;
-using Program.Logic;
-
-namespace Program.Presentation;
-
 public static class Admin
 {
     private static readonly string AdminUsername = "snus";
@@ -94,90 +88,7 @@ public static class Admin
             page = PageScroller.NextPage(Console.ReadKey().Key, page);
         }
     }
-    
-    public static void DeleteFlight()
-    {
-        List<Flight> flightList = FlightDataRW.ReadJson();
-        Console.Clear();
-
-        while (true)
-        {
-            Console.WriteLine("Enter the flight number to delete\nType '/Quit' to return to the menu");
-            string? input = Console.ReadLine();
-            if (input == "/Quit") // '/Quit' ipv 'any key' om misclicks te voorkomen. 
-            {
-                return; 
-            }
-            Flight? flightToRemove = null;
-            
-            foreach (var flight in flightList)
-            {
-                if (flight.FlightNumber != null && flight.FlightNumber.Equals(input, StringComparison.OrdinalIgnoreCase))
-                {
-                    flightToRemove = flight;
-                    break; 
-                } /* ^ Dit stukje zoekt in een lijst van vluchten naar een specifieke vlucht(=input van user)
-        wanneer de vlucht is gevonden, wordt deze opgeslagen, en stopt de loop. */
-            } 
-            
-            if (flightToRemove == null) 
-            {
-                Console.Clear();
-                Console.WriteLine("No flight found with that number. Please try again.");
-                continue; 
-            }
-            
-            Console.Clear();
-            Console.WriteLine("Flight Details:");
-            Console.WriteLine($"    Flight Number: {flightToRemove.FlightNumber}");
-            Console.WriteLine($"    Departure: {flightToRemove.Departure}");
-            Console.WriteLine($"    Destination: {flightToRemove.Destination}");
-            Console.WriteLine($"    Date: {flightToRemove.Date:yyyy-MM-dd}");
-            Console.WriteLine($"    Time Departure: {flightToRemove.TimeDeparture}");
-            Console.WriteLine($"    Time Arrival: {flightToRemove.TimeArrival}");
-            Console.WriteLine($"    Duration: {flightToRemove.Duration}");
-            Console.WriteLine($"    Status: {flightToRemove.Status}");
-            Console.WriteLine($"    Aircraft:{flightToRemove.Aircraft}");
-            Console.WriteLine("\nIs this is the correct flight?\n \nPress 1 to continue\nPress 2 to go back");
-
-            string? confirmInput = Console.ReadLine();
-
-            if (confirmInput.Equals("/Quit"))
-            {
-                return;
-            }
-            if (confirmInput == "2")
-            {
-                continue; 
-            }
-            
-            if (confirmInput == "1")
-            {
-                Console.WriteLine("\nAre you sure you want to delete this flight?\n \nPress 1 to delete the flight\nPress 2 to cancel");
-                confirmInput = Console.ReadLine();
-
-                if (confirmInput == "1")
-                {
-                    flightList.Remove(flightToRemove);
-                    FlightDataRW.WriteJson(flightList);
-                    Console.Clear();
-                    Console.WriteLine("Flight deleted successfully.");
-                    Console.WriteLine("");
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("Operation cancelled\n Returning to flight selection.");
-                    Console.WriteLine("");
-                    continue; 
-                }
-            }
-            else
-            {
-                Console.WriteLine("Invalid input\n Please enter 1 to continue or 2 to go back");
-            }
-        }
-    }
+  
     public static void DeleteFlight()
     {
         List<Flight> flightList = FlightDataRW.ReadJson();

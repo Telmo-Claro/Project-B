@@ -1,7 +1,4 @@
 ﻿using System.Text.Json.Serialization;
-
-namespace Program.DataModels;
-
 public class Aircraft
 {
     [JsonPropertyName("Name")]

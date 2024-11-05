@@ -1,5 +1,3 @@
-namespace Program.DataModels;
-
 public class Account
 {
     public int Id;
