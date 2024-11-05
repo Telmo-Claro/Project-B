@@ -171,12 +171,27 @@ public static class AccountDataRW
                                 Console.WriteLine("Password changed successfully!");
                                 break;
                             case 5:
-                                Console.Write("Choose new payment method [IDeal or CreditCard]: ");
-                                var input = Console.ReadLine();
-                                if (input == "IDeal" || input == "CreditCard")
+                                Console.Write("Enter payment method [IDeal or CreditCard]: ");
+                                string paymentString = Console.ReadLine();
+                                switch (paymentString)
                                 {
-                                    x.PaymentMethod = input;
-                                    Console.WriteLine("Payment method changed successfully!");
+                                    case "IDeal":
+                                        IDeal ideal = new IDeal();
+                                        x.PaymentMethod = ideal;
+                                        break;
+                                    case "CreditCard":
+                                        Console.Write("Enter card First Name: ");
+                                        string fname = Console.ReadLine();
+                                        Console.Write("Enter card Last Name: ");
+                                        string lname = Console.ReadLine();
+                                        Console.Write("Enter card number: ");
+                                        string number = Console.ReadLine();
+                                        CreditCard credit = new CreditCard(fname, lname, number);
+                                        x.PaymentMethod = credit;
+                                        break;
+                                    default:
+                                        Console.WriteLine("Wrong type!");
+                                        break;
                                 }
                                 break;
                             case 6:

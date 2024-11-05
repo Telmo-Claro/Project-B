@@ -196,7 +196,7 @@ public static class Menu
             string? email = "";
             string? password = "";
             string? phoneNumber = "";
-            string? paymentMethod = "";
+            IPay? paymentMethod = null;
             Console.Clear();
             Console.WriteLine("--------------------------");
             Console.WriteLine("TRENLINES - CREATE ACCOUNT");
@@ -230,10 +230,30 @@ public static class Menu
                 password = Console.ReadLine();
             }
 
-            while (paymentMethod == "")
+            while (paymentMethod != null)
             {
                 Console.Write("Enter payment method [IDeal or CreditCard]: ");
-                paymentMethod = Console.ReadLine();
+                string paymentString = Console.ReadLine();
+                switch (paymentString)
+                {
+                    case "IDeal":
+                        IDeal ideal = new IDeal();
+                        paymentMethod = ideal;
+                        break;
+                    case "CreditCard":
+                        Console.Write("Enter card First Name: ");
+                        string fname = Console.ReadLine();
+                        Console.Write("Enter card Last Name: ");
+                        string lname = Console.ReadLine();
+                        Console.Write("Enter card number: ");
+                        string number = Console.ReadLine();
+                        CreditCard credit = new CreditCard(fname, lname, number);
+                        paymentMethod = credit;
+                        break;
+                    default:
+                        Console.WriteLine("Wrong type!");
+                        break;
+                }
             }
 
             if (firstName != null && lastName != null && email != null && phoneNumber != null && password != null && paymentMethod != null)
