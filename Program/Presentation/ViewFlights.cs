@@ -1,4 +1,4 @@
-static class ViewFlights
+public static class ViewFlights
 {
     private static readonly List<Flight> _flights = FlightDataRW.ReadJson();
 
