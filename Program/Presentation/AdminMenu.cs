@@ -80,15 +80,59 @@ public static class Admin
             Console.WriteLine($"Page: {page}");
 
             Console.WriteLine("Press X to return to the menu");
+            Console.WriteLine("Press S search");
             var key = Console.ReadKey().Key;
             if (key == ConsoleKey.X)
             {
                 break;
             }
+            if (key == ConsoleKey.S)
+            {
+                Console.Clear();
+                Console.WriteLine("Search (leave empty for all):");
+                Console.Write("Location: ");
+                string ?location = Console.ReadLine();
+                Console.Write("Date (DD/MM/YYYY): ");
+                string ?date = Console.ReadLine();
+                ViewSearchFlightsMethod(location, date);
+                break;
+            }
             page = PageScroller.NextPage(Console.ReadKey().Key, page);
         }
     }
-  
+
+    public static void ViewSearchFlightsMethod(string ?locationSearch, string ?dateSearch)
+    {
+        int page = 1;
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("Displaying all flights:");
+            ViewFlights.View(page, locationSearch, dateSearch);
+            Console.WriteLine($"Page: {page}");
+
+            Console.WriteLine("Press X to return to the menu");
+            Console.WriteLine("Press S search");
+            var key = Console.ReadKey().Key;
+            if (key == ConsoleKey.X)
+            {
+                break;
+            }
+            if (key == ConsoleKey.S)
+            {
+                Console.Clear();
+                Console.WriteLine("Search (leave empty for all):");
+                Console.Write("Location: ");
+                string ?location = Console.ReadLine();
+                Console.Write("Date (DD/MM/YYYY): ");
+                string ?date = Console.ReadLine();
+                ViewSearchFlightsMethod(location, date);
+                break;
+            }
+            page = PageScroller.NextPage(Console.ReadKey().Key, page);
+        }
+    }
+
     public static void DeleteFlight()
     {
         List<Flight> flightList = FlightDataRW.ReadJson();

@@ -263,8 +263,7 @@ public static class Menu
             break;
         }
     }
-
-    public static void BookFlightMenu()
+    public static void ViewFlightMenu()
     {
         int page = 1;
         while (true)
@@ -280,11 +279,61 @@ public static class Menu
             Console.WriteLine("--------------");
             Console.WriteLine($"Page: {page}");
             Console.WriteLine("--------------");
+            Console.WriteLine("Press S search");
             Console.WriteLine("To book a flight call: 010420777");
             ConsoleKey key = Console.ReadKey().Key;
             page = PageScroller.NextPage(key, page);
             if (key == ConsoleKey.Escape || key == ConsoleKey.Tab) { break; }
-            // implement bookFlight
+            if (key == ConsoleKey.S)
+            {
+                Console.Clear();
+                Console.WriteLine("Search (leave empty for all):");
+                Console.Write("Location: ");
+                string? location = Console.ReadLine();
+                Console.Write("Date (DD/MM/YYYY): ");
+                string? date = Console.ReadLine();
+                ViewSearchFlightsMenu(location, date);
+                break;
+            }
         }
+    }
+    public static void ViewSearchFlightsMenu(string ?locationSearch, string ?dateSearch)
+    {
+        int page = 1;
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("----------------------------");
+            Console.WriteLine("TRENLINES - BOOKING A FLIGHT");
+            Console.WriteLine("----------------------------");
+            Console.WriteLine("           Flights          ");
+            Console.WriteLine("----------------------------");
+            Console.WriteLine("FlightNumber|Departure|Destination|   Date   |TimeDeparture|TimeArrival|Duration|    Country    |   Aircraft  | Status");
+            ViewFlights.View(page, locationSearch, dateSearch);
+            Console.WriteLine("--------------");
+            Console.WriteLine($"Page: {page}");
+            Console.WriteLine("--------------");
+            Console.WriteLine("Press S search");
+            Console.WriteLine("To book a flight call: 010420777");
+            ConsoleKey key = Console.ReadKey().Key;
+            page = PageScroller.NextPage(key, page);
+            if (key == ConsoleKey.Escape || key == ConsoleKey.Tab) { break; }
+            if (key == ConsoleKey.S)
+            {
+                Console.Clear();
+                Console.WriteLine("Search (leave empty for all):");
+                Console.Write("Location: ");
+                string? location = Console.ReadLine();
+                Console.Write("Date (DD/MM/YYYY): ");
+                string? date = Console.ReadLine();
+                ViewSearchFlightsMenu(location, date);
+                break;
+            }
+        }
+    }
+    public static void BookFlightMenu()
+    {
+        ViewFlightMenu();
+        // implement booking
     }
 }
