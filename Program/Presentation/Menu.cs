@@ -9,9 +9,9 @@ public static class Menu
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("------------------------------");
-            Console.WriteLine("WELCOME TO ROTTERDAM AIRLINES!");
-            Console.WriteLine("------------------------------");
+            Console.WriteLine("---------------------");
+            Console.WriteLine("WELCOME TO TRENLINES!");
+            Console.WriteLine("---------------------");
 
             Console.WriteLine("What do you wish to do:");
             Console.WriteLine("(1) Log in");
@@ -47,9 +47,9 @@ public static class Menu
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("---------------------------");
-            Console.WriteLine("ROTTERDAM AIRLINES - LOG IN");
-            Console.WriteLine("---------------------------");
+            Console.WriteLine("------------------");
+            Console.WriteLine("TRENLINES - LOG IN");
+            Console.WriteLine("------------------");
 
             Console.WriteLine("Enter email [Q to exit]");
             string? email = Console.ReadLine();
@@ -95,9 +95,9 @@ public static class Menu
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("------------------------------------");
-            Console.WriteLine($"ROTTERDAM AIRLINES - Welcome {account.FirstName}!");
-            Console.WriteLine("------------------------------------");
+            Console.WriteLine("----------------------------");
+            Console.WriteLine($"TRENLINES - Welcome {account.FirstName}!");
+            Console.WriteLine("----------------------------");
 
             Console.WriteLine("What do you wish to do:");
             Console.WriteLine("(1) View and book flights");
@@ -114,12 +114,6 @@ public static class Menu
             else if (option == "2")
             {
                 ViewBookedFlights.PrintBookedFlight(account.bookedFlights);
-                // string youtubeUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-                // Process.Start(new ProcessStartInfo
-                // {
-                //     FileName = youtubeUrl,
-                //     UseShellExecute = true
-                // });
             }
             else if (option == "3")
             {
@@ -152,9 +146,9 @@ public static class Menu
             string? password = "";
             string? phoneNumber = "";
             Console.Clear();
-            Console.WriteLine("-----------------------------------");
-            Console.WriteLine("ROTTERDAM AIRLINES - CREATE ACCOUNT");
-            Console.WriteLine("-----------------------------------");
+            Console.WriteLine("--------------------------");
+            Console.WriteLine("TRENLINES - CREATE ACCOUNT");
+            Console.WriteLine("--------------------------");
             while (firstName == "")
             {
                 Console.WriteLine("First name: ");
@@ -201,11 +195,11 @@ public static class Menu
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("-------------------------------------");
-            Console.WriteLine("ROTTERDAM AIRLINES - BOOKING A FLIGHT");
-            Console.WriteLine("-------------------------------------");
-            Console.WriteLine("               Flights               ");
-            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("----------------------------");
+            Console.WriteLine("TRENLINES - BOOKING A FLIGHT");
+            Console.WriteLine("----------------------------");
+            Console.WriteLine("           Flights          ");
+            Console.WriteLine("----------------------------");
             Console.WriteLine("FlightNumber|Departure|Destination|   Date   |TimeDeparture|TimeArrival|Duration|    Country    |   Aircraft  | Status");
             ViewFlights.View(page);
             Console.WriteLine("--------------");
