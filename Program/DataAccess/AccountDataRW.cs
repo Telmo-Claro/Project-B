@@ -24,7 +24,7 @@ public static class AccountDataRW
                 {
                     if (account.Email == email && account.Password == password)
                     {
-                        Account User = new Account(account.FirstName, account.LastName, account.Email, account.PhoneNumber, account.Password);
+                        Account User = new Account(account.FirstName, account.LastName, account.Email, account.PhoneNumber, account.Password, account.PaymentMethod);
                         return User;
                     }
                 }
@@ -130,10 +130,9 @@ public static class AccountDataRW
             Console.ReadKey();
         }
     }
-    public static void ChangeData(Account account)
+    public static void ChangeData(Account account, int choice)
     {
         string filepath = Path.Combine("DataBases", "Accounts.json");
-
         try
         {
             if (File.Exists(filepath))
@@ -144,10 +143,48 @@ public static class AccountDataRW
 
                 foreach (var x in accounts)
                 {
-                    if (x.Email == account.Email)
+                    if (x.Email == account.Email && x.Password == account.Password)
                     {
-                        accounts.Remove(account);
-                        break;
+                        switch (choice)
+                        {
+                            case 1:
+                                Console.Write("Enter new first name: ");
+                                x.FirstName = Console.ReadLine();
+                                Console.WriteLine();
+                                Console.Write("Enter new last name: ");
+                                x.LastName = Console.ReadLine();
+                                Console.WriteLine("Name changed successfully!");
+                                break;
+                            case 2:
+                                Console.Write("Enter new email: ");
+                                x.Email = Console.ReadLine();
+                                Console.WriteLine("Email changed successfully!");
+                                break;
+                            case 3:
+                                Console.Write("Enter new phone number: ");
+                                x.PhoneNumber = Console.ReadLine();
+                                Console.WriteLine("Phone number changed successfully");
+                                break;
+                            case 4:
+                                Console.Write("Enter new password: ");
+                                x.Password = Console.ReadLine();
+                                Console.WriteLine("Password changed successfully!");
+                                break;
+                            case 5:
+                                Console.Write("Choose new payment method [IDeal or CreditCard]: ");
+                                var input = Console.ReadLine();
+                                if (input == "IDeal" || input == "CreditCard")
+                                {
+                                    x.PaymentMethod = input;
+                                    Console.WriteLine("Payment method changed successfully!");
+                                }
+                                break;
+                            case 6:
+                                break;
+                            default:
+                                Console.WriteLine("Please enter a valid choice");
+                                break;
+                        }
                     }
                 }
                 var options = new JsonSerializerOptions { WriteIndented = true };
@@ -160,7 +197,5 @@ public static class AccountDataRW
         {
             Console.WriteLine($"Error Deleting Prior Info: {e.Message}");
         }
-
-        Menu.creatAccountMenu();
     }
 }

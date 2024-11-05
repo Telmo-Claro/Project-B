@@ -376,3 +376,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /.idea
+.idea/.idea.Program/.idea/projectSettingsUpdater.xml
