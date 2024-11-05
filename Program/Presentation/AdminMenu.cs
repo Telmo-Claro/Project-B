@@ -124,6 +124,7 @@ public static class Admin
             
             if (flightToRemove == null) 
             {
+                Console.Clear();
                 Console.WriteLine("No flight found with that number. Please try again.");
                 continue; 
             }
@@ -133,17 +134,20 @@ public static class Admin
             Console.WriteLine($"    Flight Number: {flightToRemove.FlightNumber}");
             Console.WriteLine($"    Departure: {flightToRemove.Departure}");
             Console.WriteLine($"    Destination: {flightToRemove.Destination}");
-            Console.WriteLine($"    Date: {flightToRemove.Date}");
+            Console.WriteLine($"    Date: {flightToRemove.Date:yyyy-MM-dd}");
             Console.WriteLine($"    Time Departure: {flightToRemove.TimeDeparture}");
             Console.WriteLine($"    Time Arrival: {flightToRemove.TimeArrival}");
             Console.WriteLine($"    Duration: {flightToRemove.Duration}");
             Console.WriteLine($"    Status: {flightToRemove.Status}");
             Console.WriteLine($"    Aircraft:{flightToRemove.Aircraft}");
-            Console.WriteLine("\nIf this is the correct flight?\nPress 1 to continue\nPress 2 to go back.");
+            Console.WriteLine("\nIs this is the correct flight?\n \nPress 1 to continue\nPress 2 to go back");
 
             string confirmInput = Console.ReadLine();
 
-            
+            if (confirmInput.Equals("/Quit"))
+            {
+                return;
+            }
             if (confirmInput == "2")
             {
                 continue; 
@@ -151,24 +155,28 @@ public static class Admin
             
             if (confirmInput == "1")
             {
-                Console.WriteLine("\nAre you sure you want to delete this flight? \n1) Yes\n2) No");
+                Console.WriteLine("\nAre you sure you want to delete this flight?\n \nPress 1 to delete the flight\nPress 2 to cancel");
                 confirmInput = Console.ReadLine();
 
                 if (confirmInput == "1")
                 {
                     flightList.Remove(flightToRemove);
                     FlightDataRW.WriteJson(flightList);
+                    Console.Clear();
                     Console.WriteLine("Flight deleted successfully.");
+                    Console.WriteLine("");
                 }
                 else
                 {
-                    Console.WriteLine("Operation cancelled. Returning to flight selection.");
+                    Console.Clear();
+                    Console.WriteLine("Operation cancelled\n Returning to flight selection.");
+                    Console.WriteLine("");
                     continue; 
                 }
             }
             else
             {
-                Console.WriteLine("Invalid input. Please enter 1 to continue or 2 to go back.");
+                Console.WriteLine("Invalid input\n Please enter 1 to continue or 2 to go back");
             }
         }
     }
@@ -184,13 +192,14 @@ public static void AddFlight()
 
         if (input == "/Quit")
         {
-            return;
+            return; 
+            
         }
         foreach (var flight in flightList)
         {
             if (flight.FlightNumber.Equals(input, StringComparison.OrdinalIgnoreCase))
             {
-                Console.WriteLine("This flight number already exists.");
+                Console.WriteLine("This flight number already exists");
                 continue;
             }
         }
@@ -199,12 +208,24 @@ public static void AddFlight()
         
         Console.WriteLine("Enter Country:");
         string country = Console.ReadLine();
+        if (country == "/Quit")
+        {
+            return;
+        }
 
         Console.WriteLine("Enter Destination City:");
         string destination = Console.ReadLine();
+        if (destination == "/Quit")
+        {
+            return;
+        }
 
         Console.WriteLine("Enter Date (YYYY-MM-DD):");
         string dateInput = Console.ReadLine();
+        if (dateInput.Equals("/Quit"))
+        {
+            return;
+        }
         DateTime date;
 
         if (!DateTime.TryParse(dateInput, out date))
@@ -215,6 +236,10 @@ public static void AddFlight()
 
         Console.WriteLine("Enter Time Departure (HH:mm:ss):");
         string timeDepartureInput = Console.ReadLine();
+        if (timeDepartureInput.Equals("/Quit"))
+        {
+            return;
+        }
         TimeSpan timeDeparture;
 
         if (!TimeSpan.TryParse(timeDepartureInput, out timeDeparture))
@@ -225,6 +250,10 @@ public static void AddFlight()
 
         Console.WriteLine("Enter Time Arrival (HH:mm:ss):");
         string timeArrivalInput = Console.ReadLine();
+        if (timeArrivalInput.Equals("/Quit"))
+        {
+            return;
+        }
         TimeSpan timeArrival;
 
         if (!TimeSpan.TryParse(timeArrivalInput, out timeArrival))
@@ -235,6 +264,10 @@ public static void AddFlight()
 
         Console.WriteLine("Enter Duration (HH:mm:ss):");
         string durationInput = Console.ReadLine();
+        if (durationInput.Equals("/Quit"))
+        {
+            return;
+        }
         TimeSpan duration;
 
         if (!TimeSpan.TryParse(durationInput, out duration))
@@ -245,12 +278,20 @@ public static void AddFlight()
 
         Console.WriteLine("Enter Status:");
         string status = Console.ReadLine();
+        if (status.Equals("/Quit"))
+        {
+            return;
+        }
         
         Console.WriteLine("Choose an aircraft type:");
         Console.WriteLine("1) Boeing 787 (228 seats)");
         Console.WriteLine("2) Airbus 330 (345 seats)");
         Console.WriteLine("3) Boeing 737 (195 seats)");
         string aircraftChoice = Console.ReadLine();
+        if (aircraftChoice.Equals("/Quit"))
+        {
+            return;
+        }
 
         string aircraftName = "";
         int totalSeats = 0;
@@ -270,7 +311,7 @@ public static void AddFlight()
                 totalSeats = 195;
                 break;
             default:
-                Console.WriteLine("Invalid choice. Flight not added.");
+                Console.WriteLine("Invalid choice. Choose again.");
                 continue;
         }
 
@@ -298,7 +339,24 @@ public static void AddFlight()
 
         flightList.Add(newFlight);
         FlightDataRW.WriteJson(flightList);
-        Console.WriteLine("Flight added successfully.");
+        Console.Clear();
+        Console.WriteLine("You successfully added this flight:"); 
+        Console.WriteLine($"    Flight Number: {newFlight.FlightNumber}"); 
+        Console.WriteLine($"    Departure: {newFlight.Departure}");
+        Console.WriteLine($"    Destination: {newFlight.Destination}"); 
+        Console.WriteLine($"    Date: {newFlight.Date}");
+        Console.WriteLine($"    Time of Departure: {newFlight.TimeDeparture}"); 
+        Console.WriteLine($"    Time of Arrival: {newFlight.TimeArrival}"); 
+        Console.WriteLine($"    Duration: {newFlight.Duration}"); 
+        Console.WriteLine($"    Status: {newFlight.Status}"); 
+        Console.WriteLine($"    Country: {newFlight.Country}"); 
+        Console.WriteLine($"    Aircraft: {newFlight.Aircraft.Name}; ({newFlight.Aircraft.TotalSeats} seats)"); 
+        Console.WriteLine($"    Seats Left: {leftSeats}");
+        Console.WriteLine("");  
+        
+        Console.WriteLine("Press any key to continue");
+        Console.ReadKey();
+        Console.Clear();
     }
 }
 }
