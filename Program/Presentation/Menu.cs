@@ -233,7 +233,7 @@ public static class Menu
                 password = Console.ReadLine();
             }
 
-            while (paymentMethod != null)
+            while (paymentMethod == null)
             {
                 Console.Write("Enter payment method [IDeal or CreditCard]: ");
                 string? paymentString = Console.ReadLine();
