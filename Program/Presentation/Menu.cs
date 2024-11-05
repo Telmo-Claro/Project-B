@@ -1,10 +1,12 @@
-using System.Runtime.CompilerServices;
-using System;
-using System.Diagnostics;
+using Program.DataAccess;
+using Program.DataModels;
+using Program.Logic;
+
+namespace Program.Presentation;
 
 public static class Menu
 {
-    public static void welcomingMenu()
+    public static void WelcomingMenu()
     {
         while (true)
         {
@@ -21,11 +23,11 @@ public static class Menu
             string option = Console.ReadKey().KeyChar.ToString();
             if (option == "1")
             {
-                loginMenu();
+                LoginMenu();
             }
             else if (option == "2")
             {
-                creatAccountMenu();
+                CreatAccountMenu();
             }
             else if (option == "3")
             {
@@ -33,16 +35,17 @@ public static class Menu
             }
             else if (option == "4")
             {
-                loginMenu();
+                LoginMenu();
             }
             else if (option == "p")
             {
                 Admin.AdminMenu();
             }
         }
+        // ReSharper disable once FunctionNeverReturns
     }
 
-    public static void loginMenu()
+    public static void LoginMenu()
     {
         while (true)
         {
@@ -78,7 +81,7 @@ public static class Menu
             var account = AccountDataRW.LoggingIn(email, password);
             if (account != null)
             {
-                loggedInMenu(account);
+                LoggedInMenu(account);
             }
             else
             {
@@ -90,7 +93,7 @@ public static class Menu
     }
 
 
-    public static void loggedInMenu(Account account)
+    public static void LoggedInMenu(Account account)
     {
         while (true)
         {
@@ -111,10 +114,10 @@ public static class Menu
             switch (input)
             {
                 case "1":
-                    bookFlightMenu();
+                    BookFlightMenu();
                     break;
                 case "2" :
-                    ViewBookedFlights.PrintBookedFlight(account.bookedFlights);
+                    ViewBookedFlights.PrintBookedFlight(account.BookedFlights);
                     break;
                 case "3":
                     try
@@ -127,14 +130,14 @@ public static class Menu
                         Console.WriteLine("(5) Change payment method");
                         Console.WriteLine("(6) Go back");
 
-                        int choice  = 0;
+                        int choice;
                         bool valid = false;
                         while (!valid)
                         {
                             Console.Write("Please enter an option: ");
                             try
                             {
-                                choice = int.Parse(Console.ReadLine());
+                                choice = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
                                 AccountDataRW.ChangeData(account, choice);
                                 break;
                             }
@@ -164,10 +167,10 @@ public static class Menu
                     }
                     break;
                 case "5":
-                    welcomingMenu();
+                    WelcomingMenu();
                     break;
                 case "6":
-                    loggedInMenu(account);
+                    LoggedInMenu(account);
                     break;
                 default:
                     Console.WriteLine("Wrong input");
@@ -187,7 +190,7 @@ public static class Menu
         Console.WriteLine($"Account payment method: {account.PaymentMethod}");
         Console.WriteLine("--------------------------------------------");
     }
-    public static void creatAccountMenu()
+    public static void CreatAccountMenu()
     {
         while (true)
         {
@@ -196,7 +199,7 @@ public static class Menu
             string? email = "";
             string? password = "";
             string? phoneNumber = "";
-            string? paymentMethod = "";
+            IPay? paymentMethod = null;
             Console.Clear();
             Console.WriteLine("--------------------------");
             Console.WriteLine("TRENLINES - CREATE ACCOUNT");
@@ -230,10 +233,30 @@ public static class Menu
                 password = Console.ReadLine();
             }
 
-            while (paymentMethod == "")
+            while (paymentMethod == null)
             {
                 Console.Write("Enter payment method [IDeal or CreditCard]: ");
-                paymentMethod = Console.ReadLine();
+                string? paymentString = Console.ReadLine();
+                switch (paymentString)
+                {
+                    case "IDeal":
+                        IDeal ideal = new IDeal();
+                        paymentMethod = ideal;
+                        break;
+                    case "CreditCard":
+                        Console.Write("Enter card First Name: ");
+                        string? fname = Console.ReadLine();
+                        Console.Write("Enter card Last Name: ");
+                        string? lname = Console.ReadLine();
+                        Console.Write("Enter card number: ");
+                        string? number = Console.ReadLine();
+                        CreditCard credit = new CreditCard(fname, lname, number);
+                        paymentMethod = credit;
+                        break;
+                    default:
+                        Console.WriteLine("Wrong type!");
+                        break;
+                }
             }
 
             if (firstName != null && lastName != null && email != null && phoneNumber != null && password != null && paymentMethod != null)
@@ -241,13 +264,13 @@ public static class Menu
                 Account account = new Account(firstName, lastName, email, phoneNumber, password, paymentMethod);
                 AccountDataRW.WriteJson(account);
 
-                loggedInMenu(account);
+                LoggedInMenu(account);
             }
             break;
         }
     }
 
-    public static void bookFlightMenu()
+    public static void BookFlightMenu()
     {
         int page = 1;
         while (true)
@@ -264,9 +287,9 @@ public static class Menu
             Console.WriteLine($"Page: {page}");
             Console.WriteLine("--------------");
             Console.WriteLine("To book a flight call: 010420777");
-            ConsoleKey Key = Console.ReadKey().Key;
-            page = PageScroller.NextPage(Key, page);
-            if (Key == ConsoleKey.Escape || Key == ConsoleKey.Tab) { break; }
+            ConsoleKey key = Console.ReadKey().Key;
+            page = PageScroller.NextPage(key, page);
+            if (key == ConsoleKey.Escape || key == ConsoleKey.Tab) { break; }
             // implement bookFlight
         }
     }

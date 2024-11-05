@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json;
-public class Program
+﻿using Program.Presentation;
+
+namespace Program;
+
+public static class Program
 {
     public static void Main()
     {
-        Menu.welcomingMenu();
+        Menu.WelcomingMenu();
     }
 }

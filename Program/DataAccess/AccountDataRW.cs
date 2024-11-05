@@ -1,7 +1,8 @@
-using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
-using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
+using Program.DataModels;
+using Program.Presentation;
+
+namespace Program.DataAccess;
 
 public static class AccountDataRW
 {
@@ -24,13 +25,13 @@ public static class AccountDataRW
                 {
                     if (account.Email == email && account.Password == password)
                     {
-                        Account User = new Account(account.FirstName, account.LastName, account.Email, account.PhoneNumber, account.Password, account.PaymentMethod);
-                        return User;
+                        Account user = new Account(account.FirstName, account.LastName, account.Email, account.PhoneNumber, account.Password, account.PaymentMethod);
+                        return user;
                     }
                 }
                 Console.WriteLine("No matches with the given credentials");
                 Console.ReadKey();
-                Menu.loginMenu();
+                Menu.LoginMenu();
             }
         }
         catch (Exception e)
@@ -77,10 +78,10 @@ public static class AccountDataRW
         }
     }
 
-    public static void ChangeJson(string jsonstring)
-    {
-        string filepath = Path.Combine("DataBases", "Accounts.json");
 
+    private static void ChangeJson(string jsonstring)
+    {
+        var filepath = Path.Combine("DataBases", "Accounts.json");
         try
         {
             if (File.Exists(filepath))
@@ -93,7 +94,7 @@ public static class AccountDataRW
             Console.WriteLine($"Error changing JSON: {e.Message}");
         }
     }
-    public static void DeleteAccount(string email)
+    public static void DeleteAccount(string? email)
     {
         string filepath = Path.Combine("DataBases", "Accounts.json");
 
@@ -121,7 +122,7 @@ public static class AccountDataRW
                 Console.WriteLine("Account deleted succesfully");
 
                 Console.ReadKey();
-                Menu.welcomingMenu();
+                Menu.WelcomingMenu();
             }
         }
         catch (Exception e)
@@ -171,12 +172,27 @@ public static class AccountDataRW
                                 Console.WriteLine("Password changed successfully!");
                                 break;
                             case 5:
-                                Console.Write("Choose new payment method [IDeal or CreditCard]: ");
-                                var input = Console.ReadLine();
-                                if (input == "IDeal" || input == "CreditCard")
+                                Console.Write("Enter payment method [IDeal or CreditCard]: ");
+                                string? paymentString = Console.ReadLine();
+                                switch (paymentString)
                                 {
-                                    x.PaymentMethod = input;
-                                    Console.WriteLine("Payment method changed successfully!");
+                                    case "IDeal":
+                                        IDeal ideal = new IDeal();
+                                        x.PaymentMethod = ideal;
+                                        break;
+                                    case "CreditCard":
+                                        Console.Write("Enter card First Name: ");
+                                        string? fname = Console.ReadLine();
+                                        Console.Write("Enter card Last Name: ");
+                                        string? lname = Console.ReadLine();
+                                        Console.Write("Enter card number: ");
+                                        string? number = Console.ReadLine();
+                                        CreditCard credit = new CreditCard(fname, lname, number);
+                                        x.PaymentMethod = credit;
+                                        break;
+                                    default:
+                                        Console.WriteLine("Wrong type!");
+                                        break;
                                 }
                                 break;
                             case 6:
