@@ -1,4 +1,6 @@
-﻿public static class PageScroller
+﻿namespace Program.Logic;
+
+public static class PageScroller
 {
     public static int NextPage(ConsoleKey key, int page)
     {

@@ -1,8 +1,11 @@
+using Program.DataAccess;
+using Program.DataModels;
+
 public static class ViewFlights
 {
     private static readonly List<Flight> _flights = FlightDataRW.ReadJson();
 
-    private static string SpacesAdd(string str, string header)
+    private static string? SpacesAdd(string? str, string header)
     {
         if (str.Length < header.Length)
         {
