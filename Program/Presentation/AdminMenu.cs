@@ -20,9 +20,9 @@ public static class Admin
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("-------------");
-            Console.WriteLine("ADMIN PANEL");
-            Console.WriteLine("--------------");
+            Console.WriteLine("-----------------------");
+            Console.WriteLine("TRENLINES - ADMIN PANEL");
+            Console.WriteLine("-----------------------");
             Console.WriteLine("(1) View all flights");
             Console.WriteLine("(2) Add a new flight");
             Console.WriteLine("(3) Delete a flight");
@@ -52,7 +52,9 @@ public static class Admin
     private static bool AdminLogin() 
     {
         Console.Clear();
-        Console.WriteLine("---- ADMIN LOGIN ----");
+        Console.WriteLine("-----------------------");
+        Console.WriteLine("TRENLINES - ADMIN LOGIN");
+        Console.WriteLine("-----------------------");
         Console.Write("Username: ");
         string username = Console.ReadLine();
         Console.Write("Password: ");
@@ -85,7 +87,7 @@ public static class Admin
             var key = Console.ReadKey().Key;
             if (key == ConsoleKey.X)
             {
-                break; 
+                break;
             }
             page = PageScroller.NextPage(Console.ReadKey().Key, page);
         }
