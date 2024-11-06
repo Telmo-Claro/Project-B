@@ -140,7 +140,8 @@ public static class AccountDataRW
 
                 foreach (var x in accounts)
                 {
-                    if (x.Email == account.Email && x.Password == account.Password)
+                    if (x.Email == account.Email && x.Password == account.Password
+                        && x.FirstName == account.FirstName && x.LastName == account.LastName)
                     {
                         switch (choice)
                         {
@@ -169,8 +170,8 @@ public static class AccountDataRW
                                 break;
                             case 5:
                                 Console.Write("Enter payment method [IDeal or CreditCard]: ");
-                                string? paymentString = Console.ReadLine();
-                                x.PaymentMethod = ClassFactory.CreatePayment(paymentString);
+                                x.PaymentMethod = ClassFactory.CreatePayment(Console.ReadLine());
+                                Console.Write("Payment method changed successfully!");
                                 break;
                             case 6:
                                 break;

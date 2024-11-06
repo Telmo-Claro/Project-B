@@ -1,6 +1,6 @@
 ﻿public class ClassFactory
 {
-    public static Payment? CreatePayment(string type)
+    public static Payment? CreatePayment(string? type)
     {
         switch (type)
         {
