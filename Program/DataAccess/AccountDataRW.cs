@@ -173,7 +173,7 @@ public static class AccountDataRW
                                 switch (paymentString)
                                 {
                                     case "IDeal":
-                                        IDeal ideal = new IDeal();
+                                        Payment ideal = new IDeal();
                                         x.PaymentMethod = ideal;
                                         break;
                                     case "CreditCard":
@@ -183,7 +183,11 @@ public static class AccountDataRW
                                         string? lname = Console.ReadLine();
                                         Console.Write("Enter card number: ");
                                         string? number = Console.ReadLine();
-                                        CreditCard credit = new CreditCard(fname, lname, number);
+                                        Console.Write("Enter card Expiration Date: ");
+                                        string? date = Console.ReadLine();
+                                        Console.Write("Enter card Card CVC Number: ");
+                                        string? cvc = Console.ReadLine();
+                                        CreditCard credit = new CreditCard(fname, lname, number, date, cvc);
                                         x.PaymentMethod = credit;
                                         break;
                                     default:

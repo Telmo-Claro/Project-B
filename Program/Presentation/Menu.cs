@@ -193,7 +193,7 @@ public static class Menu
             string? email = "";
             string? password = "";
             string? phoneNumber = "";
-            IPay? paymentMethod = null;
+            Payment? paymentMethod = null;
             Console.Clear();
             Console.WriteLine("--------------------------");
             Console.WriteLine("TRENLINES - CREATE ACCOUNT");
@@ -234,7 +234,7 @@ public static class Menu
                 switch (paymentString)
                 {
                     case "IDeal":
-                        IDeal ideal = new IDeal();
+                        Payment ideal = new IDeal();
                         paymentMethod = ideal;
                         break;
                     case "CreditCard":
@@ -244,7 +244,11 @@ public static class Menu
                         string? lname = Console.ReadLine();
                         Console.Write("Enter card number: ");
                         string? number = Console.ReadLine();
-                        CreditCard credit = new CreditCard(fname, lname, number);
+                        Console.Write("Enter card Expiration Date: ");
+                        string? date = Console.ReadLine();
+                        Console.Write("Enter card Card CVC Number: ");
+                        string? cvc = Console.ReadLine();
+                        CreditCard credit = new CreditCard(fname, lname, number, date, cvc);
                         paymentMethod = credit;
                         break;
                     default:

@@ -6,9 +6,9 @@ public class Account
     public string? Email { get; set; }
     public string? PhoneNumber { get; set; }
     public string? Password { get; set; }
-    public IPay PaymentMethod { get; set; }
+    public Payment PaymentMethod { get; set; }
     public List<Flight> BookedFlights { get; set; }
-    public Account(string? firstname, string? lastname, string? email, string? phonenumber, string? password, IPay paymentMethod)
+    public Account(string? firstname, string? lastname, string? email, string? phonenumber, string? password, Payment paymentMethod)
     {
         this.FirstName = firstname;
         this.LastName = lastname;
