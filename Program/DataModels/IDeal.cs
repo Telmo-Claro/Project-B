@@ -1,10 +1,12 @@
-﻿public class IDeal : IPay
+﻿public class IDeal : Payment
 {
-    private string IDealURL { get; set; } = "https://tikkie.me/pay/99hmk7edsop5tts1lso8";
+    public IDeal() : base()
+    {
 
+    }
     public void Pay()
     {
         Console.WriteLine("Press X to pay with IDeal");
-        System.Diagnostics.Process.Start(IDealURL);
+        System.Diagnostics.Process.Start(_idealUrl);
     }
 }

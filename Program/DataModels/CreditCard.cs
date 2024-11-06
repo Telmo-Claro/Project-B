@@ -1,14 +1,12 @@
-﻿public class CreditCard : IPay
+﻿public class CreditCard : Payment
 {
-    public string? FirstName { get; set; }
-    public string? LastName { get; set; }
-    public string? Number { get; set; }
-
-    public CreditCard(string? firstName, string? lastName, string? number)
+    public CreditCard(string? firstName, string? lastName, string? number, string? expDate, string? cvcCode)
+        : base(firstName, lastName)
     {
-        FirstName = firstName;
-        LastName = lastName;
         Number = number;
+        ExpirationDate = expDate;
+        CvcCode = cvcCode;
+
     }
 
     public void Pay()
