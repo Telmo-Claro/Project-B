@@ -1,6 +1,6 @@
 ﻿public class CreditCard : Payment
 {
-    public CreditCard(string? firstName, string? lastName, string? number, string expDate, string cvcCode)
+    public CreditCard(string? firstName, string? lastName, string? number, string? expDate, string? cvcCode)
         : base(firstName, lastName)
     {
         Number = number;
