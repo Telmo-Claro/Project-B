@@ -184,6 +184,7 @@ public static class Menu
         Console.WriteLine($"Account payment method: {account.PaymentMethod}");
         Console.WriteLine("--------------------------------------------");
     }
+
     public static void CreatAccountMenu()
     {
         while (true)
@@ -215,6 +216,7 @@ public static class Menu
                 Console.Write("Enter email: ");
                 email = Console.ReadLine();
             }
+
             while (phoneNumber == "")
             {
                 Console.Write("Phone number: ");
@@ -231,42 +233,22 @@ public static class Menu
             {
                 Console.Write("Enter payment method [IDeal or CreditCard]: ");
                 string? paymentString = Console.ReadLine();
-                switch (paymentString)
+                if (paymentString != null) paymentMethod = ClassFactory.CreatePayment(paymentString);
+                if (firstName != null && lastName != null
+                                      && email != null && phoneNumber != null
+                                      && password != null && paymentMethod != null)
                 {
-                    case "IDeal":
-                        Payment ideal = new IDeal();
-                        paymentMethod = ideal;
-                        break;
-                    case "CreditCard":
-                        Console.Write("Enter card First Name: ");
-                        string? fname = Console.ReadLine();
-                        Console.Write("Enter card Last Name: ");
-                        string? lname = Console.ReadLine();
-                        Console.Write("Enter card number: ");
-                        string? number = Console.ReadLine();
-                        Console.Write("Enter card Expiration Date: ");
-                        string? date = Console.ReadLine();
-                        Console.Write("Enter card Card CVC Number: ");
-                        string? cvc = Console.ReadLine();
-                        CreditCard credit = new CreditCard(fname, lname, number, date, cvc);
-                        paymentMethod = credit;
-                        break;
-                    default:
-                        Console.WriteLine("Wrong type!");
-                        break;
+                    // firstName, lastName, email, phoneNumber, password, paymentMethod
+                    Account account = ClassFactory.CreateAccount(firstName, lastName, email, phoneNumber, password, paymentMethod);
+                    AccountDataRW.WriteJson(account);
+                    LoggedInMenu(account);
                 }
-            }
 
-            if (firstName != null && lastName != null && email != null && phoneNumber != null && password != null && paymentMethod != null)
-            {
-                Account account = new Account(firstName, lastName, email, phoneNumber, password, paymentMethod);
-                AccountDataRW.WriteJson(account);
-
-                LoggedInMenu(account);
+                break;
             }
-            break;
         }
     }
+
     public static void ViewFlightMenu()
     {
         int page = 1;
@@ -301,6 +283,7 @@ public static class Menu
             }
         }
     }
+
     public static void ViewSearchFlightsMenu(string ?locationSearch, string ?dateSearch)
     {
         int page = 1;

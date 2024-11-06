@@ -170,30 +170,7 @@ public static class AccountDataRW
                             case 5:
                                 Console.Write("Enter payment method [IDeal or CreditCard]: ");
                                 string? paymentString = Console.ReadLine();
-                                switch (paymentString)
-                                {
-                                    case "IDeal":
-                                        Payment ideal = new IDeal();
-                                        x.PaymentMethod = ideal;
-                                        break;
-                                    case "CreditCard":
-                                        Console.Write("Enter card First Name: ");
-                                        string? fname = Console.ReadLine();
-                                        Console.Write("Enter card Last Name: ");
-                                        string? lname = Console.ReadLine();
-                                        Console.Write("Enter card number: ");
-                                        string? number = Console.ReadLine();
-                                        Console.Write("Enter card Expiration Date: ");
-                                        string? date = Console.ReadLine();
-                                        Console.Write("Enter card Card CVC Number: ");
-                                        string? cvc = Console.ReadLine();
-                                        CreditCard credit = new CreditCard(fname, lname, number, date, cvc);
-                                        x.PaymentMethod = credit;
-                                        break;
-                                    default:
-                                        Console.WriteLine("Wrong type!");
-                                        break;
-                                }
+                                x.PaymentMethod = ClassFactory.CreatePayment(paymentString);
                                 break;
                             case 6:
                                 break;
