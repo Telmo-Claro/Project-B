@@ -13,7 +13,7 @@ public class Email
         message.Subject = "Your Flight Booking Confirmation";
         message.To.Add(new MailAddress(account.Email));
 
-        // HTML body template for the flight booking confirmation email
+        // HTML body for the flight booking confirmation email
         message.Body = @$"
             <html>
             <body style='font-family: Arial, sans-serif; color: #333; line-height: 1.6;'>
