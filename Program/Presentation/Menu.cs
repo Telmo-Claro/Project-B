@@ -87,7 +87,7 @@ public static class Menu
     }
 
 
-    public static void LoggedInMenu(Account account)
+    public static void LoggedInMenu(Account? account)
     {
         while (true)
         {
@@ -121,7 +121,7 @@ public static class Menu
                         Console.WriteLine("(2) Change email");
                         Console.WriteLine("(3) Change phone number");
                         Console.WriteLine("(4) Change password");
-                        Console.WriteLine("(5) Change payment method");
+                        Console.WriteLine("(5) View CreditCard information");
                         Console.WriteLine("(6) Go back");
 
                         int choice;
@@ -174,14 +174,24 @@ public static class Menu
         }
     }
 
-    public static void DisplayAccountInfo(Account account)
+    public static void DisplayAccountInfo(Account? account)
     {
         Console.Clear();
         Console.WriteLine("---------------- TRENLINES -----------------");
         Console.WriteLine($"Account name: {account.FirstName} {account.LastName}");
         Console.WriteLine($"Account email: {account.Email}");
         Console.WriteLine($"Account phone number: {account.PhoneNumber}");
-        Console.WriteLine($"Account payment method: {account.PaymentMethod}");
+        Console.WriteLine("--------------------------------------------");
+    }
+
+    public static void DisplayCreditCardInfo(Account? account)
+    {
+        Console.Clear();
+        Console.WriteLine("---------------- TRENLINES -----------------");
+        Console.WriteLine($"CreditCard name: {account.CreditCardInfo.FirstName} {account.CreditCardInfo.FirstName}");
+        Console.WriteLine($"CreditCard number: {account.CreditCardInfo.Number}");
+        Console.WriteLine($"CreditCard Expiration Date: {account.CreditCardInfo.ExpirationDate}");
+        Console.WriteLine($"CreditCard CVC: {account.CreditCardInfo.CvcCode}");
         Console.WriteLine("--------------------------------------------");
     }
 
@@ -194,7 +204,7 @@ public static class Menu
             string? email = "";
             string? password = "";
             string? phoneNumber = "";
-            Payment? paymentMethod = null;
+            CreditCard? creditCard = null;
             Console.Clear();
             Console.WriteLine("--------------------------");
             Console.WriteLine("TRENLINES - CREATE ACCOUNT");
@@ -229,26 +239,31 @@ public static class Menu
                 password = Console.ReadLine();
             }
 
-            while (paymentMethod == null)
+            bool choice = false;
+            Console.Write("Do you want to add a CreditCard? Y/N: ");
+            choice = Console.ReadKey().KeyChar.ToString().ToUpper() == "Y" ? true : false;
+            if (choice)
             {
-                Console.Write("Enter payment method [IDeal or CreditCard]: ");
-                string? paymentString = Console.ReadLine();
-                if (paymentString != null) paymentMethod = ClassFactory.CreatePayment(paymentString);
-                if (firstName != null && lastName != null
-                                      && email != null && phoneNumber != null
-                                      && password != null && paymentMethod != null)
-                {
-                    // firstName, lastName, email, phoneNumber, password, paymentMethod
-                    Account account = ClassFactory.CreateAccount(firstName, lastName, email, phoneNumber, password, paymentMethod);
-                    AccountDataRW.WriteJson(account);
-                    LoggedInMenu(account);
-                }
-
-                break;
+                creditCard = ClassFactory.CreateCreditCard();
             }
+
+            if (firstName != null && lastName != null
+                                  && email != null && phoneNumber != null
+                                  && password != null)
+            {
+                // firstName, lastName, email, phoneNumber, password
+                Account? account = ClassFactory.CreateAccount(firstName, lastName, email, phoneNumber, password);
+                if (choice)
+                {
+                    account.CreditCardInfo = creditCard;
+                }
+                AccountDataRW.WriteJson(account);
+                LoggedInMenu(account);
+
+            }
+            break;
         }
     }
-
     public static void ViewFlightMenu()
     {
         int page = 1;
