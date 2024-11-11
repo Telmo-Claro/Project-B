@@ -361,30 +361,30 @@ Date: {flight.Date}
 Departure time: {flight.TimeDeparture}
 Arrival time: {flight.TimeArrival}
 Duration: {flight.Duration}");
-
-                Console.WriteLine("Correct flight? (Y/N)");
-                ConsoleKey key = Console.ReadKey().Key;
-
-                if (key == ConsoleKey.Y)
-                {
-                    Console.WriteLine("boookkkkkk");
-                    Console.ReadKey();
-                    // book implementation
-                    break;
-                }
-                        
-                if (key == ConsoleKey.N)
-                {
-                    ViewFlightMenu();
-                }                    
-                else
-                {
-                    Console.WriteLine("Wrong input, please make sure the flightnumber is correct");
-                    Console.WriteLine("Press any key to continue");
-                    Console.ReadKey();
-                    ViewFlightMenu();
-                }
             }
+
+        Console.WriteLine("Correct flight? (Y/N)");
+        ConsoleKey key = Console.ReadKey().Key;
+        while (true)
+        {
+            if (key == ConsoleKey.Y)
+            {
+                Console.WriteLine("boookkkkkk");
+                Console.ReadKey();
+                // book implementation
+                break;
+            }
+                    
+            else if (key == ConsoleKey.N)
+            {
+                ViewFlightMenu();
+            }                    
+            else
+            {
+                Console.WriteLine("Wrong input");
+                break;
+            }
+        }
         }
 
 
