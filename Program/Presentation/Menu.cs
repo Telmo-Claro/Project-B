@@ -1,3 +1,6 @@
+using System.Net;
+using System.Runtime.CompilerServices;
+
 public static class Menu
 {
     public static void WelcomingMenu()
@@ -103,7 +106,7 @@ public static class Menu
             switch (input)
             {
                 case "1":
-                    ViewFlightMenu();
+                    BookFlightMenu(account);
                     break;
                 case "2" :
                     var bookingChoice = BookingMenu(account);
@@ -252,15 +255,15 @@ public static class Menu
         Console.WriteLine("--------------------------------------------");
     }
 
-    public static void DisplayCreditCardInfo(Account? account)
+    
+    public static string DisplayCreditCardInfo(Account? account)
     {
-        Console.Clear();
-        Console.WriteLine("---------------- TRENLINES -----------------");
-        Console.WriteLine($"CreditCard name: {account.CreditCardInfo.FirstName} {account.CreditCardInfo.FirstName}");
-        Console.WriteLine($"CreditCard number: {account.CreditCardInfo.Number}");
-        Console.WriteLine($"CreditCard Expiration Date: {account.CreditCardInfo.ExpirationDate}");
-        Console.WriteLine($"CreditCard CVC: {account.CreditCardInfo.CvcCode}");
-        Console.WriteLine("--------------------------------------------");
+        return "---------------- TRENLINES -----------------\n" +
+            $"CreditCard Name: {account.CreditCardInfo.FirstName} {account.CreditCardInfo.LastName}\n" +
+            $"CreditCard Number: {account.CreditCardInfo.Number}\n" +
+            $"CreditCard Expiration Date: {account.CreditCardInfo.ExpirationDate}\n" +
+            $"CreditCard CVC: {account.CreditCardInfo.CvcCode}\n" +
+            "--------------------------------------------\n";
     }
 
     public static void DisplayFlightInfo(Flight? flight)
@@ -325,6 +328,7 @@ public static class Menu
             choice = Console.ReadKey().KeyChar.ToString().ToUpper() == "Y" ? true : false;
             if (choice)
             {
+                Console.Clear();
                 creditCard = ClassFactory.CreateCreditCard();
             }
 
@@ -379,7 +383,7 @@ public static class Menu
             }
             if (key == ConsoleKey.B)
             {
-                BookFlightMenu();
+                break;
             }
         }
     }
@@ -418,13 +422,14 @@ public static class Menu
             }
             if (key == ConsoleKey.B)
             {
-                BookFlightMenu();
+                break;
             }
         }
     }
     private static readonly List<Flight> _flights = FlightDataRW.ReadJson();
-    public static void BookFlightMenu()
+    public static void BookFlightMenu(Account account)
     {
+        ViewFlightMenu();
         Console.Clear();
         Console.WriteLine("What is the flightnumber from the flight you would like to book?");
         string? givenFlightNumber = Console.ReadLine();
@@ -442,32 +447,81 @@ Date: {flight.Date}
 Departure time: {flight.TimeDeparture}
 Arrival time: {flight.TimeArrival}
 Duration: {flight.Duration}");
-            }
 
-        Console.WriteLine("Correct flight? (Y/N)");
-        ConsoleKey key = Console.ReadKey().Key;
+            Console.WriteLine("Correct flight? (Y/N)");
+            ConsoleKey key = Console.ReadKey().Key;
+            while (true)
+            {
+                if (key == ConsoleKey.Y)
+                {
+                    BookFlight(account, flight);
+                }
+
+                else if (key == ConsoleKey.N)
+                {
+                    Console.WriteLine(@"Make sure you enter the correct flightnumber.
+Press any key to continue.");
+                    Console.ReadKey();
+                    BookFlightMenu(account);
+                }                    
+                else
+                {
+                    Console.WriteLine("Wrong input");
+                    break;
+                }
+            }
+            }
+        }
+
+
+    }
+
+    public static void BookFlight(Account account, Flight flight)
+    {
+        if (account.CreditCardInfo is null)
+        {
+            Console.Clear();
+            Console.WriteLine("It seems like you don't have a card added to your account, let's add one!");
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+            Console.Clear();
+            account.CreditCardInfo = ClassFactory.CreateCreditCard();
+        }
+
         while (true)
         {
+            Console.Clear();
+            Console.WriteLine("Do you want to use this card? (Y/N)");
+            Console.Write(DisplayCreditCardInfo(account));
+            ConsoleKey key = Console.ReadKey().Key;
+
             if (key == ConsoleKey.Y)
             {
-                Console.WriteLine("boookkkkkk");
+                Console.Clear();
+                Console.WriteLine("Okay! We will use this card");
+                Console.WriteLine("Press any key to continue");
                 Console.ReadKey();
-                // book implementation
+                // add something extra for payment?
                 break;
             }
-                    
-            else if (key == ConsoleKey.N)
+            if (key == ConsoleKey.N)
             {
-                ViewFlightMenu();
-            }                    
-            else
-            {
-                Console.WriteLine("Wrong input");
+                // what now? lol
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
                 break;
             }
         }
-        }
 
+        Console.Clear();
+        account.BookedFlights.Add(flight);
+        string bookingCode = BookingCode.GenerateCode();
+        // Email.SendEmail(account, flight, bookingCode);
 
+        Console.WriteLine(@"Thank you so much for booking with Trenlines!
+We sent an email with additional information.
+Press any key to continue");
+        Console.ReadKey();
+        LoggedInMenu(account);
     }
 }
