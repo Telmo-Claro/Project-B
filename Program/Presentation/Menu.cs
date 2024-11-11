@@ -436,7 +436,7 @@ Press any key to continue.");
         Console.Clear();
         account.BookedFlights.Add(flight);
         string bookingCode = BookingCode.GenerateCode();
-        Email.SendEmail(account, flight, bookingCode);
+        // Email.SendEmail(account, flight, bookingCode);
 
         Console.WriteLine(@"Thank you so much for booking with Trenlines!
 We sent an email with additional information.
