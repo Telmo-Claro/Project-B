@@ -108,7 +108,7 @@ public static class Menu
             switch (input)
             {
                 case "1":
-                    BookFlightMenu();
+                    ViewFlightMenu();
                     break;
                 case "2" :
                     ViewBookedFlights.PrintBookedFlight(account.BookedFlights);
@@ -281,7 +281,7 @@ public static class Menu
             Console.WriteLine($"Page: {page}");
             Console.WriteLine("--------------");
             Console.WriteLine("Press S search");
-            Console.WriteLine("To book a flight call: 010420777");
+            Console.WriteLine("To book a flight, press B");
             ConsoleKey key = Console.ReadKey().Key;
             page = PageScroller.NextPage(key, page);
             if (key == ConsoleKey.Escape || key == ConsoleKey.Tab) { break; }
@@ -295,6 +295,10 @@ public static class Menu
                 string? date = Console.ReadLine();
                 ViewSearchFlightsMenu(location, date);
                 break;
+            }
+            if (key == ConsoleKey.B)
+            {
+                BookFlightMenu();
             }
         }
     }
@@ -316,7 +320,7 @@ public static class Menu
             Console.WriteLine($"Page: {page}");
             Console.WriteLine("--------------");
             Console.WriteLine("Press S search");
-            Console.WriteLine("To book a flight call: 010420777");
+            Console.WriteLine("To book a flight, check the flightnumber and press B");
             ConsoleKey key = Console.ReadKey().Key;
             page = PageScroller.NextPage(key, page);
             if (key == ConsoleKey.Escape || key == ConsoleKey.Tab) { break; }
@@ -331,11 +335,58 @@ public static class Menu
                 ViewSearchFlightsMenu(location, date);
                 break;
             }
+            if (key == ConsoleKey.B)
+            {
+                BookFlightMenu();
+            }
         }
     }
+    private static readonly List<Flight> _flights = FlightDataRW.ReadJson();
     public static void BookFlightMenu()
     {
-        ViewFlightMenu();
-        // implement booking
+        Console.Clear();
+        Console.WriteLine("What is the flightnumber from the flight you would like to book?");
+        string? givenFlightNumber = Console.ReadLine();
+
+        foreach (Flight flight in _flights)
+        {
+            if (flight.FlightNumber == givenFlightNumber)
+            {
+                Console.Clear();
+                Console.WriteLine(@$"Is this the flight you would like to book?
+Flightnumber: {flight.FlightNumber}
+Departure: {flight.Departure}
+Destination: {flight.Destination}
+Date: {flight.Date}
+Departure time: {flight.TimeDeparture}
+Arrival time: {flight.TimeArrival}
+Duration: {flight.Duration}");
+            }
+
+        Console.WriteLine("Correct flight? (Y/N)");
+        ConsoleKey key = Console.ReadKey().Key;
+        while (true)
+        {
+            if (key == ConsoleKey.Y)
+            {
+                Console.WriteLine("boookkkkkk");
+                Console.ReadKey();
+                // book implementation
+                break;
+            }
+                    
+            else if (key == ConsoleKey.N)
+            {
+                ViewFlightMenu();
+            }                    
+            else
+            {
+                Console.WriteLine("Wrong input");
+                break;
+            }
+        }
+        }
+
+
     }
 }
