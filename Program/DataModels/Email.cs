@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Mail;
 public class Email
 {
-    public static void SendEmail(Account account)
+    public static void SendEmail(Account account, Flight flight)
     {
         string fromMail = "trenlines010@gmail.com";
         string fromPassword = "wcmt inui pwzm ymvh";
@@ -27,19 +27,19 @@ public class Email
                         <table style='width: 100%; border-collapse: collapse; margin-top: 10px;'>
                             <tr>
                                 <th style='text-align: left; padding: 8px; background-color: #004080; color: white;'>Flight</th>
-                                <td style='padding: 8px;'>{{FlightNumber}}</td>
+                                <td style='padding: 8px;'>{flight.FlightNumber}</td>
                             </tr>
                             <tr>
                                 <th style='text-align: left; padding: 8px; background-color: #f1f1f1;'>Departure</th>
-                                <td style='padding: 8px;'>{{DepartureCity}} - {{DepartureTime}}</td>
+                                <td style='padding: 8px;'>{flight.Departure} - {flight.TimeDeparture}</td>
                             </tr>
                             <tr>
                                 <th style='text-align: left; padding: 8px; background-color: #f1f1f1;'>Arrival</th>
-                                <td style='padding: 8px;'>{{ArrivalCity}} - {{ArrivalTime}}</td>
+                                <td style='padding: 8px;'>{flight.Destination} - {flight.TimeArrival}</td>
                             </tr>
                             <tr>
                                 <th style='text-align: left; padding: 8px; background-color: #004080; color: white;'>Seat</th>
-                                <td style='padding: 8px;'>{{SeatNumber}}</td>
+                                <td style='padding: 8px;'>{{flight.SeatNumber}}</td>
                             </tr>
                         </table>
                         <p style='margin-top: 20px;'>If you have any questions or need further assistance, feel free to reach out to our support team.</p>
