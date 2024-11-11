@@ -15,25 +15,21 @@ public static class Menu
             Console.WriteLine("(3) Exit");
             Console.Write("> ");
             string option = Console.ReadKey().KeyChar.ToString();
-            if (option == "1")
+            switch (option)
             {
-                LoginMenu();
-            }
-            else if (option == "2")
-            {
-                CreatAccountMenu();
-            }
-            else if (option == "3")
-            {
-                Environment.Exit(0);
-            }
-            else if (option == "4")
-            {
-                LoginMenu();
-            }
-            else if (option == "p")
-            {
-                Admin.AdminMenu();
+                case "1":
+                    LoginMenu();
+                    break;
+                case "2":
+                    CreateAccountMenu();
+                    break;
+                case "3":
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("\nInvalid option. Please try again.");
+                    Console.ReadKey();
+                    break;
             }
         }
         // ReSharper disable once FunctionNeverReturns
@@ -86,7 +82,6 @@ public static class Menu
         }
     }
 
-
     public static void LoggedInMenu(Account? account)
     {
         while (true)
@@ -98,7 +93,7 @@ public static class Menu
 
             Console.WriteLine("What do you wish to do:");
             Console.WriteLine("(1) View and book flights");
-            Console.WriteLine("(2) View booking history");
+            Console.WriteLine("(2) View and manage bookings");
             Console.WriteLine("(3) Manage account");
             Console.WriteLine("(4) Delete account");
             Console.WriteLine("(5) Exit");
@@ -108,57 +103,18 @@ public static class Menu
             switch (input)
             {
                 case "1":
-                    BookFlightMenu();
+                    ViewFlightMenu();
                     break;
                 case "2" :
-                    ViewBookedFlights.PrintBookedFlight(account.BookedFlights);
+                    var bookingChoice = BookingMenu(account);
+                    AccountDataRW.Booking(account, bookingChoice);
+                    //ViewBookedFlights.PrintBookedFlight(account.BookedFlights);
                     break;
                 case "3":
-                    try
-                    {
-                        DisplayAccountInfo(account);
-                        Console.WriteLine("(1) Change name");
-                        Console.WriteLine("(2) Change email");
-                        Console.WriteLine("(3) Change phone number");
-                        Console.WriteLine("(4) Change password");
-                        Console.WriteLine("(5) View CreditCard information");
-                        Console.WriteLine("(6) Go back");
-
-                        int choice;
-                        bool valid = false;
-                        while (!valid)
-                        {
-                            Console.Write("Please enter an option: ");
-                            try
-                            {
-                                choice = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
-                                AccountDataRW.ChangeData(account, choice);
-                                break;
-                            }
-                            catch (Exception e)
-                            {
-                                Console.WriteLine(e);
-                                throw;
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        throw;
-                    }
-                    Console.ReadKey();
+                    ManageAccount(account);
                     break;
                 case "4":
-                    try
-                    {
-                        AccountDataRW.DeleteAccount(account.Email);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        throw;
-                    }
+                    DeleteAccount(account);
                     break;
                 case "5":
                     WelcomingMenu();
@@ -167,13 +123,125 @@ public static class Menu
                     LoggedInMenu(account);
                     break;
                 default:
-                    Console.WriteLine("Wrong input");
+                    Console.WriteLine("\nInvalid option. Please try again.");
                     Console.ReadKey();
                     break;
             }
         }
     }
+    
+    private static void DeleteAccount(Account? account)
+    {
+        try
+        {
+            AccountDataRW.DeleteAccount(account.Email);
+            Console.WriteLine("Account deleted successfully.");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"An error occurred: {e.Message}");
+        }
+        Console.ReadKey();
+    }
+    
+    public static void ManageAccount(Account? account)
+    {
+        try
+        {
+            DisplayAccountInfo(account);
+            Console.WriteLine("(1) Change name");
+            Console.WriteLine("(2) Change email");
+            Console.WriteLine("(3) Change phone number");
+            Console.WriteLine("(4) Change password");
+            Console.WriteLine("(5) View CreditCard information");
+            Console.WriteLine("(6) Go back");
 
+            int choice;
+            bool valid = false;
+            while (!valid)
+            {
+                Console.Write("Please enter an option: ");
+                if (int.TryParse(Console.ReadLine(), out choice))
+                {
+                    AccountDataRW.ChangeData(account, choice);
+                    valid = true;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"An error occurred: {e.Message}");
+        }
+        Console.ReadKey();
+    }
+
+    public static void ShowActiveBookings(Account account)
+    {
+        Console.Clear();
+        Console.WriteLine($"----------------------");
+        Console.WriteLine($"Current booked flights");
+        Console.WriteLine($"----------------------");
+        foreach (var flight in account.BookedFlights)
+        {
+            if (flight.Status == "Planned")
+            {
+                Console.WriteLine($"Flight number: {flight.FlightNumber}");
+                Console.WriteLine($"Flight Departure: {flight.Departure}");
+                Console.WriteLine($"Flight Destination: {flight.Destination}");
+                Console.WriteLine($"Flight Date: {flight.Date}");
+                Console.WriteLine($"Flight TimeDeparture: {flight.TimeDeparture}");
+                Console.WriteLine($"Flight TimeArrival: {flight.TimeArrival}");
+                Console.WriteLine();
+                Console.WriteLine("--------------------------------------------");  
+            }
+        }
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
+        
+    }
+
+    public static void ShowPastFlights(Account account)
+    {
+        Console.Clear();
+        Console.WriteLine($"----------------------");
+        Console.WriteLine($"Past flights");
+        Console.WriteLine($"----------------------");
+        foreach (var flight in account.BookedFlights)
+        {
+            if (flight.Status == "Departed")
+            {
+                Console.WriteLine($"Flight number: {flight.FlightNumber}");
+                Console.WriteLine($"Flight Departure: {flight.Departure}");
+                Console.WriteLine($"Flight Destination: {flight.Destination}");
+                Console.WriteLine($"Flight Date: {flight.Date}");
+                Console.WriteLine($"Flight TimeDeparture: {flight.TimeDeparture}");
+                Console.WriteLine($"Flight TimeArrival: {flight.TimeArrival}");
+                Console.WriteLine();
+                Console.WriteLine("--------------------------------------------");  
+            }
+        }
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
+    }
+
+    public static string? BookingMenu(Account? account)
+    {
+        Console.Clear();
+        Console.WriteLine("---------------- TRENLINES -----------------");
+        Console.WriteLine($"Hello {account.FirstName} {account.LastName}!");
+        Console.WriteLine($"(1) View booking details of active bookings");
+        Console.WriteLine($"(2) View booking details of past flights");
+        Console.WriteLine($"(3) Cancel booking");
+        Console.WriteLine($"(4) Go back");
+        Console.WriteLine("---------------- TRENLINES -----------------\n");
+        Console.Write("> ");
+        return Console.ReadLine();
+    }
+    
     public static void DisplayAccountInfo(Account? account)
     {
         Console.Clear();
@@ -195,7 +263,20 @@ public static class Menu
         Console.WriteLine("--------------------------------------------");
     }
 
-    public static void CreatAccountMenu()
+    public static void DisplayFlightInfo(Flight? flight)
+    {
+        Console.Clear();
+        Console.WriteLine("---------------- TRENLINES -----------------");
+        Console.WriteLine($"Flight number: {flight.FlightNumber}");
+        Console.WriteLine($"Departure: {flight.Departure}");
+        Console.WriteLine($"Destination: {flight.Destination}");
+        Console.WriteLine($"Date: {flight.Date}");
+        Console.WriteLine($"Time Departure: {flight.TimeDeparture}");
+        Console.WriteLine($"Time Arrival: {flight.TimeArrival}");
+        Console.WriteLine("--------------------------------------------");
+    }
+
+    public static void CreateAccountMenu()
     {
         while (true)
         {
@@ -281,7 +362,7 @@ public static class Menu
             Console.WriteLine($"Page: {page}");
             Console.WriteLine("--------------");
             Console.WriteLine("Press S search");
-            Console.WriteLine("To book a flight call: 010420777");
+            Console.WriteLine("To book a flight, press B");
             ConsoleKey key = Console.ReadKey().Key;
             page = PageScroller.NextPage(key, page);
             if (key == ConsoleKey.Escape || key == ConsoleKey.Tab) { break; }
@@ -295,6 +376,10 @@ public static class Menu
                 string? date = Console.ReadLine();
                 ViewSearchFlightsMenu(location, date);
                 break;
+            }
+            if (key == ConsoleKey.B)
+            {
+                BookFlightMenu();
             }
         }
     }
@@ -316,7 +401,7 @@ public static class Menu
             Console.WriteLine($"Page: {page}");
             Console.WriteLine("--------------");
             Console.WriteLine("Press S search");
-            Console.WriteLine("To book a flight call: 010420777");
+            Console.WriteLine("To book a flight, check the flightnumber and press B");
             ConsoleKey key = Console.ReadKey().Key;
             page = PageScroller.NextPage(key, page);
             if (key == ConsoleKey.Escape || key == ConsoleKey.Tab) { break; }
@@ -331,11 +416,58 @@ public static class Menu
                 ViewSearchFlightsMenu(location, date);
                 break;
             }
+            if (key == ConsoleKey.B)
+            {
+                BookFlightMenu();
+            }
         }
     }
+    private static readonly List<Flight> _flights = FlightDataRW.ReadJson();
     public static void BookFlightMenu()
     {
-        ViewFlightMenu();
-        // implement booking
+        Console.Clear();
+        Console.WriteLine("What is the flightnumber from the flight you would like to book?");
+        string? givenFlightNumber = Console.ReadLine();
+
+        foreach (Flight flight in _flights)
+        {
+            if (flight.FlightNumber == givenFlightNumber)
+            {
+                Console.Clear();
+                Console.WriteLine(@$"Is this the flight you would like to book?
+Flightnumber: {flight.FlightNumber}
+Departure: {flight.Departure}
+Destination: {flight.Destination}
+Date: {flight.Date}
+Departure time: {flight.TimeDeparture}
+Arrival time: {flight.TimeArrival}
+Duration: {flight.Duration}");
+            }
+
+        Console.WriteLine("Correct flight? (Y/N)");
+        ConsoleKey key = Console.ReadKey().Key;
+        while (true)
+        {
+            if (key == ConsoleKey.Y)
+            {
+                Console.WriteLine("boookkkkkk");
+                Console.ReadKey();
+                // book implementation
+                break;
+            }
+                    
+            else if (key == ConsoleKey.N)
+            {
+                ViewFlightMenu();
+            }                    
+            else
+            {
+                Console.WriteLine("Wrong input");
+                break;
+            }
+        }
+        }
+
+
     }
 }

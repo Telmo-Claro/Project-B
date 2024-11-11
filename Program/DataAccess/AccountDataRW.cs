@@ -197,4 +197,51 @@ public static class AccountDataRW
             Console.WriteLine($"Error Deleting Prior Info: {e.Message}");
         }
     }
+    
+    public static void Booking(Account? account, string? choice)
+    {
+        string filepath = Path.Combine("DataBases", "Accounts.json");
+        try
+        {
+            if (File.Exists(filepath))
+            {
+                string jsonString = File.ReadAllText(filepath);
+                var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
+                if (accounts is null) return;
+
+                foreach (var x in accounts)
+                {
+                    if (x.Email == account.Email && x.Password == account.Password
+                        && x.FirstName == account.FirstName && x.LastName == account.LastName)
+                    {
+                        switch (choice)
+                        {
+                            case "1":
+                                Menu.ShowActiveBookings(x);
+                                break;
+                            case "2":
+                                Menu.ShowPastFlights(x);
+                                break;
+                            case "3":
+                                
+                                break;
+                            case "4":
+                                break;
+                            default:
+                                Console.WriteLine("Please enter a valid choice");
+                                break;
+                        }
+                    }
+                }
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string updatedJsonString = JsonSerializer.Serialize(accounts, options);
+
+                ChangeJson(updatedJsonString);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error Deleting Prior Info: {e.Message}");
+        }
+    }
 }
