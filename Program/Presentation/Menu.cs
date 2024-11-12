@@ -194,8 +194,10 @@ public static class Menu
         Console.WriteLine($"----------------------");
         foreach (var flight in account.BookedFlights)
         {
+            int index = account.BookedFlights.IndexOf(flight);
             if (flight.Status == "Planned")
             {
+                Console.WriteLine($"Booking code {account.BookingCodes[index]}");
                 Console.WriteLine($"Flight number: {flight.FlightNumber}");
                 Console.WriteLine($"Flight Departure: {flight.Departure}");
                 Console.WriteLine($"Flight Destination: {flight.Destination}");
@@ -219,8 +221,10 @@ public static class Menu
         Console.WriteLine($"----------------------");
         foreach (var flight in account.BookedFlights)
         {
+            int index = account.BookedFlights.IndexOf(flight);
             if (flight.Status == "Departed")
             {
+                Console.WriteLine($"Booking code {account.BookingCodes[index]}");
                 Console.WriteLine($"Flight number: {flight.FlightNumber}");
                 Console.WriteLine($"Flight Departure: {flight.Departure}");
                 Console.WriteLine($"Flight Destination: {flight.Destination}");
