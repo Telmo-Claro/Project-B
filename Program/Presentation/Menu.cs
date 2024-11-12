@@ -34,7 +34,7 @@ public static class Menu
                     Console.ReadKey();
                     break;
             }
-            else if (option == "z")
+            if (option == "z")
             {
                 OverviewAirbus330.Display330();
             }
