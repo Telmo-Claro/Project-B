@@ -9,6 +9,8 @@ public class Aircraft
 
     [JsonPropertyName("LeftSeats")]
     public int LeftSeats { get; }
+    [JsonPropertyName("BookedSeats")]
+    public List<Seat> BookedSeats { get; } = [];
 
     public Aircraft(int totalSeats, string? name)
     {
