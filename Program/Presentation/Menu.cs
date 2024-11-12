@@ -40,7 +40,6 @@ public static class Menu
                     Console.ReadKey();
                     break;
             }
-
         }
         // ReSharper disable once FunctionNeverReturns
     }
