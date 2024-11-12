@@ -59,7 +59,7 @@
     }
 
     public static Account CreateAccount(string? firstName, string? lastName,
-        string? email, string? phoneNumber, string? password, Payment? creditCard)
+        string? email, string? phoneNumber, string? password, Payment creditCard)
     {
         Account account = new Account(firstName, lastName, email, phoneNumber, password, creditCard);
         return account;
