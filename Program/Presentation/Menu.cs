@@ -339,7 +339,7 @@ public static class Menu
             if (choice)
             {
                 Console.Clear();
-                creditCard = ClassFactory.CreateCreditCard();
+                creditCard = InputCreditCardInfo.CreateCreditCard();
             }
 
             if (firstName != null && lastName != null
@@ -487,6 +487,31 @@ Press any key to continue.");
 
     public static void BookFlight(Account account, Flight flight)
     {
+
+        List<Seat> seats = [];
+        switch (flight.Aircraft.Name)
+        {
+            case "Airbus 330":
+                {
+                    break;
+                }
+            case "Boeing 737":
+                {
+                    seats = OverviewBoeing737.Display737(flight);
+                    break;
+                }
+            case "Boeing 787":
+                {
+                    seats = OverviewBoeing787.Display787(flight);
+                    break;
+                }
+        }
+
+        int totalprice = Price.GetPrice(flight, seats);
+        Console.WriteLine($@"The costs will be {totalprice}
+Press any key to continue.");
+        Console.ReadKey();
+
         if (account.CreditCardInfo is null)
         {
             Console.Clear();
@@ -494,7 +519,7 @@ Press any key to continue.");
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
             Console.Clear();
-            account.CreditCardInfo = ClassFactory.CreateCreditCard();
+            account.CreditCardInfo = InputCreditCardInfo.CreateCreditCard();
             AccountDataRW.ChangeAccount(account);
         }
 
@@ -524,6 +549,7 @@ Press any key to continue.");
         }
 
         Console.Clear();
+
         string bookingCode = BookingCode.GenerateCode();
         account.BookedFlights.Add(flight);
         account.BookingCodes.Add(bookingCode);

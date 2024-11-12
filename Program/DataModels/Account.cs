@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 public class Account
@@ -7,19 +5,19 @@ public class Account
     public int Id { get; set; }
 
     [JsonPropertyName("FirstName")]
-    public string? FirstName { get; set; }
+    public string FirstName { get; set; }
 
     [JsonPropertyName("LastName")]
-    public string? LastName { get; set; }
+    public string LastName { get; set; }
 
     [JsonPropertyName("Email")]
-    public string? Email { get; set; }
+    public string Email { get; set; }
 
     [JsonPropertyName("PhoneNumber")]
-    public string? PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; }
 
     [JsonPropertyName("Password")]
-    public string? Password { get; set; }
+    public string Password { get; set; }
 
     [JsonPropertyName("CreditCardInfo")]
     public Payment? CreditCardInfo { get; set; }
@@ -30,7 +28,7 @@ public class Account
     [JsonPropertyName("BookingCodes")]
     public List<string> BookingCodes { get; set; }
 
-    public Account(string? firstName, string? lastName, string? email, string? phoneNumber, string? password, Payment? creditCardInfo = null)
+    public Account(string firstName, string lastName, string email, string phoneNumber, string password, Payment? creditCardInfo = null)
     {
         FirstName = firstName;
         LastName = lastName;

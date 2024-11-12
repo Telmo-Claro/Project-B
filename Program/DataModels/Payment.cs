@@ -1,10 +1,10 @@
 ﻿public class Payment
 {
-    public string? FirstName { get; set; }
-    public string? LastName { get; set; }
-    public string? Number { get; set; }
-    public string? ExpirationDate { get; set; }
-    public string? CvcCode { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string Number { get; set; }
+    public string ExpirationDate { get; set; }
+    public string CvcCode { get; set; }
     protected string _idealUrl { get; set; } = "https://tikkie.me/pay/99hmk7edsop5tts1lso8";
 
 

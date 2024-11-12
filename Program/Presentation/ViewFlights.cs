@@ -2,7 +2,7 @@ public static class ViewFlights
 {
     private static readonly List<Flight> _flights = FlightDataRW.ReadJson();
 
-    private static string? SpacesAdd(string? str, string header)
+    private static string SpacesAdd(string str, string header)
     {
         if (str.Length < header.Length)
         {
@@ -12,24 +12,24 @@ public static class ViewFlights
     }
     private static string FlightInfo(Flight flight)
     {
-        return $"{SpacesAdd(flight.FlightNumber, "FlightNumber")}|{SpacesAdd(flight.Departure, "Departure")}|{SpacesAdd(flight.Destination, "Destination")}|{flight.Date.ToShortDateString()}|{flight.TimeDeparture}     |{flight.TimeArrival}   |{flight.Duration}|{SpacesAdd(flight.Country, "    Country    ")}|{SpacesAdd(flight.Aircraft.ToString(), "   Aircraft ")} | {SpacesAdd("€"+flight.Price.ToString(), "Price")} |{SpacesAdd(flight.Status, "Status")}";
+        return $"{SpacesAdd(flight.FlightNumber, "FlightNumber")}|{SpacesAdd(flight.Departure, "Departure")}|{SpacesAdd(flight.Destination, "Destination")}|{flight.Date.ToShortDateString()}|{flight.TimeDeparture}     |{flight.TimeArrival}   |{flight.Duration}|{SpacesAdd(flight.Country, "    Country    ")}|{SpacesAdd(flight.Aircraft.ToString(), "   Aircraft ")} | {SpacesAdd("ï¿½"+flight.Price.ToString(), "Price")} |{SpacesAdd(flight.Status, "Status")}";
     }
     public static void View(int page)
     {
-        int IndexEnd = _flights.Count;
-        int IndexStart = (page - 1) * 12;
+        int indexEnd = _flights.Count;
+        int indexStart = (page - 1) * 12;
         if (_flights.Count > 11)
         {
-            if (IndexEnd - IndexStart < 12)
+            if (indexEnd - indexStart < 12)
             {
-                for (int i = IndexStart; i < IndexEnd; i++)
+                for (int i = indexStart; i < indexEnd; i++)
                 {
                     Console.WriteLine(FlightInfo(_flights[i]));
                 }
             }
             else
             {
-                for (int i = IndexStart; i < 12 + IndexStart; i++)
+                for (int i = indexStart; i < 12 + indexStart; i++)
                 {
                     Console.WriteLine(FlightInfo(_flights[i]));
                 }
@@ -63,20 +63,20 @@ public static class ViewFlights
             }
         }
 
-        int IndexEnd = flights.Count;
-        int IndexStart = (page - 1) * 12;
+        int indexEnd = flights.Count;
+        int indexStart = (page - 1) * 12;
         if (flights.Count > 11)
         {
-            if (IndexEnd - IndexStart < 12)
+            if (indexEnd - indexStart < 12)
             {
-                for (int i = IndexStart; i < IndexEnd; i++)
+                for (int i = indexStart; i < indexEnd; i++)
                 {
                     Console.WriteLine(FlightInfo(flights[i]));
                 }
             }
             else
             {
-                for (int i = IndexStart; i < 12 + IndexStart; i++)
+                for (int i = indexStart; i < 12 + indexStart; i++)
                 {
                     Console.WriteLine(FlightInfo(flights[i]));
                 }
