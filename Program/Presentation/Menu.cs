@@ -34,6 +34,10 @@ public static class Menu
                     Console.ReadKey();
                     break;
             }
+            else if (option == "z")
+            {
+                OverviewAirbus330.Display330();
+            }
         }
         // ReSharper disable once FunctionNeverReturns
     }
