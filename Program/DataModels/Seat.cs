@@ -12,7 +12,7 @@ public class Seat
 
     public int GetPrice()
     {
-        switch (SeatId)
+        switch (Type)
         {
             case "First Class":
                 return 200;
