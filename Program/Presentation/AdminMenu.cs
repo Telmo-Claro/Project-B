@@ -1,3 +1,5 @@
+using System;
+
 public static class Admin
 {
     private static readonly string AdminUsername = "snus";
@@ -362,20 +364,21 @@ public static class Admin
             Console.WriteLine($"Invalid input. Please enter a number between 0 and {totalSeats}.");
         }
 
-        
-        Flight newFlight = new Flight
-        {
-            FlightNumber = input,
-            Departure = departure,
-            Destination = destination,
-            Date = date,
-            TimeDeparture = timeDeparture,
-            TimeArrival = timeArrival,
-            Duration = duration,
-            Status = status,
-            Country = country, 
-            Aircraft = new Aircraft(totalSeats, aircraftName) 
-        };
+        Random rnd = new Random();
+            Flight newFlight = new Flight
+            {
+                FlightNumber = input,
+                Departure = departure,
+                Destination = destination,
+                Date = date,
+                TimeDeparture = timeDeparture,
+                TimeArrival = timeArrival,
+                Duration = duration,
+                Status = status,
+                Country = country,
+                Aircraft = new Aircraft(totalSeats, aircraftName),
+                Price = rnd.Next(50, 200)
+            };
 
         flightList.Add(newFlight);
         FlightDataRW.WriteJson(flightList);
@@ -392,7 +395,8 @@ public static class Admin
         Console.WriteLine($"    Country: {newFlight.Country}"); 
         Console.WriteLine($"    Aircraft: {newFlight.Aircraft.Name}; ({newFlight.Aircraft.TotalSeats} seats)"); 
         Console.WriteLine($"    Seats Left: {leftSeats}");
-        Console.WriteLine("");  
+        Console.WriteLine($"    Price: {newFlight.Price}");
+            Console.WriteLine("");  
         
         Console.WriteLine("Press any key to continue");
         Console.ReadKey();

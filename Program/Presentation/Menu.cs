@@ -29,14 +29,16 @@ public static class Menu
                 case "3":
                     Environment.Exit(0);
                     break;
+                case "p":
+                    Admin.AdminMenu();
+                    break;
+                case "z":
+                    OverviewAirbus330.Display330();
+                    break;
                 default:
                     Console.WriteLine("\nInvalid option. Please try again.");
                     Console.ReadKey();
                     break;
-            }
-            if (option == "z")
-            {
-                OverviewAirbus330.Display330();
             }
         }
         // ReSharper disable once FunctionNeverReturns
@@ -194,8 +196,10 @@ public static class Menu
         Console.WriteLine($"----------------------");
         foreach (var flight in account.BookedFlights)
         {
+            int index = account.BookedFlights.IndexOf(flight);
             if (flight.Status == "Planned")
             {
+                Console.WriteLine($"Booking code {account.BookingCodes[index]}");
                 Console.WriteLine($"Flight number: {flight.FlightNumber}");
                 Console.WriteLine($"Flight Departure: {flight.Departure}");
                 Console.WriteLine($"Flight Destination: {flight.Destination}");
@@ -219,8 +223,10 @@ public static class Menu
         Console.WriteLine($"----------------------");
         foreach (var flight in account.BookedFlights)
         {
+            int index = account.BookedFlights.IndexOf(flight);
             if (flight.Status == "Departed")
             {
+                Console.WriteLine($"Booking code {account.BookingCodes[index]}");
                 Console.WriteLine($"Flight number: {flight.FlightNumber}");
                 Console.WriteLine($"Flight Departure: {flight.Departure}");
                 Console.WriteLine($"Flight Destination: {flight.Destination}");
@@ -364,7 +370,7 @@ public static class Menu
             Console.WriteLine("----------------------------");
             Console.WriteLine("           Flights          ");
             Console.WriteLine("----------------------------");
-            Console.WriteLine("FlightNumber|Departure|Destination|   Date   |TimeDeparture|TimeArrival|Duration|    Country    |   Aircraft  | Status");
+            Console.WriteLine("FlightNumber|Departure|Destination|   Date   |TimeDeparture|TimeArrival|Duration|    Country    |   Aircraft  | Price | Status");
             ViewFlights.View(page);
             Console.WriteLine("--------------");
             Console.WriteLine($"Page: {page}");
@@ -489,7 +495,7 @@ Press any key to continue.");
             Console.ReadKey();
             Console.Clear();
             account.CreditCardInfo = ClassFactory.CreateCreditCard();
-            AccountDataRW.AddCreditcard(account);
+            AccountDataRW.ChangeAccount(account);
         }
 
         while (true)
@@ -518,10 +524,13 @@ Press any key to continue.");
         }
 
         Console.Clear();
+        string bookingCode = BookingCode.GenerateCode();
         account.BookedFlights.Add(flight);
-        AccountDataRW.AddBooking(account);
-        // string bookingCode = BookingCode.GenerateCode();
+        account.BookingCodes.Add(bookingCode);
+
         // Email.SendEmail(account, flight, bookingCode);
+
+        AccountDataRW.ChangeAccount(account);
 
         Console.WriteLine(@"Thank you so much for booking with Trenlines!
 We sent an email with additional information.

@@ -263,8 +263,7 @@ public static class AccountDataRW
         }
     }
 
-    // This goes to Logic
-    public static void AddBooking(Account account)
+    public static void ChangeAccount(Account account) // global method for adding booked flight, credit card and booking codes
     {
         string filepath = Path.Combine("DataBases", "Accounts.json");
         try
@@ -281,38 +280,7 @@ public static class AccountDataRW
                         && x.Email == account.Email && x.Password == account.Password)
                     {
                         x.BookedFlights = account.BookedFlights;
-                    }
-                }
-
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                string updatedJsonString = JsonSerializer.Serialize(accounts, options);
-
-                ChangeJson(updatedJsonString);
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error Changing Booked Flights Info: {e.Message}");
-        }
-    }
-
-    // This goes to logic
-    public static void AddCreditcard(Account account)
-    {
-        string filepath = Path.Combine("DataBases", "Accounts.json");
-        try
-        {
-            if (File.Exists(filepath))
-            {
-                string jsonString = File.ReadAllText(filepath);
-                var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
-                if (accounts is null) return;
-
-                foreach (Account x in accounts)
-                {
-                    if (x.FirstName == account.FirstName && x.LastName == account.LastName
-                        && x.Email == account.Email && x.Password == account.Password)
-                    {
+                        x.BookingCodes = account.BookingCodes;
                         x.CreditCardInfo = account.CreditCardInfo;
                     }
                 }
@@ -325,7 +293,7 @@ public static class AccountDataRW
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error Changing Booked Flights Info: {e.Message}");
+            Console.WriteLine($"Error Changing Data, Info: {e.Message}");
         }
     }
 }
