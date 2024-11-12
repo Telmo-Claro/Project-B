@@ -196,8 +196,10 @@ public static class Menu
         Console.WriteLine($"----------------------");
         foreach (var flight in account.BookedFlights)
         {
+            int index = account.BookedFlights.IndexOf(flight);
             if (flight.Status == "Planned")
             {
+                Console.WriteLine($"Booking code {account.BookingCodes[index]}");
                 Console.WriteLine($"Flight number: {flight.FlightNumber}");
                 Console.WriteLine($"Flight Departure: {flight.Departure}");
                 Console.WriteLine($"Flight Destination: {flight.Destination}");
@@ -221,8 +223,10 @@ public static class Menu
         Console.WriteLine($"----------------------");
         foreach (var flight in account.BookedFlights)
         {
+            int index = account.BookedFlights.IndexOf(flight);
             if (flight.Status == "Departed")
             {
+                Console.WriteLine($"Booking code {account.BookingCodes[index]}");
                 Console.WriteLine($"Flight number: {flight.FlightNumber}");
                 Console.WriteLine($"Flight Departure: {flight.Departure}");
                 Console.WriteLine($"Flight Destination: {flight.Destination}");
@@ -491,7 +495,7 @@ Press any key to continue.");
             Console.ReadKey();
             Console.Clear();
             account.CreditCardInfo = ClassFactory.CreateCreditCard();
-            AccountDataRW.AddCreditcard(account);
+            AccountDataRW.ChangeAccount(account);
         }
 
         while (true)
@@ -520,10 +524,13 @@ Press any key to continue.");
         }
 
         Console.Clear();
+        string bookingCode = BookingCode.GenerateCode();
         account.BookedFlights.Add(flight);
-        AccountDataRW.AddBooking(account);
-        // string bookingCode = BookingCode.GenerateCode();
+        account.BookingCodes.Add(bookingCode);
+
         // Email.SendEmail(account, flight, bookingCode);
+
+        AccountDataRW.ChangeAccount(account);
 
         Console.WriteLine(@"Thank you so much for booking with Trenlines!
 We sent an email with additional information.
