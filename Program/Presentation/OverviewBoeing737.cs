@@ -65,13 +65,6 @@ public static class OverviewBoeing737
                 continue;
             }
 
-            
-            bool seatIsTaken = bookedSeats.Exists(seat => seat.SeatId.Equals(input, StringComparison.OrdinalIgnoreCase));
-            if (seatIsTaken)
-            {
-                Console.WriteLine("Sorry, this seat is already taken. Please choose another seat.");
-                continue;
-            }
 
             // dit gaat naar logic layer later in sprint 3/4
             bool isWindowSeat = seatLetter == 'A' || seatLetter == 'F';
@@ -83,22 +76,22 @@ public static class OverviewBoeing737
 
             if (isWindowSeat && isBusinessClass)
             {
-                seatType = "Window seat in Business Class";
+                seatType = "Business Classs";
                 seatPrice = 100;
             }
             else if (isWindowSeat && isExtraLegroom)
             {
-                seatType = "Window seat with extra legroom";
+                seatType = "Extra leg room";
                 seatPrice = 20;
             }
             else if (isWindowSeat)
             {
-                seatType = "Window seat";
+                seatType = "Economy Class";
                 seatPrice = 0;
             }
             else if (isBusinessClass)
             {
-                seatType = "Business Class seat";
+                seatType = "Business Class";
                 seatPrice = 100;
             }
             else if (isExtraLegroom)
@@ -108,7 +101,7 @@ public static class OverviewBoeing737
             }
             else
             {
-                seatType = "Economy Class seat";
+                seatType = "Economy";
                 seatPrice = 0;
             }
             // check if the seat is booked

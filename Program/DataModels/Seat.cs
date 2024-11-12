@@ -14,9 +14,9 @@ public class Seat
     {
         switch (SeatId)
         {
-            case "First class":
+            case "First Class":
                 return 200;
-            case "Business class":
+            case "Business Class":
                 return 100;
             case "Extra leg room":
                 return 20;
