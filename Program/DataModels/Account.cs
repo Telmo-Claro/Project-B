@@ -27,6 +27,9 @@ public class Account
     [JsonPropertyName("BookedFlights")]
     public List<Flight> BookedFlights { get; set; }
 
+    [JsonPropertyName("BookingCodes")]
+    public List<string> BookingCodes { get; set; }
+
     public Account(string? firstName, string? lastName, string? email, string? phoneNumber, string? password, Payment? creditCardInfo = null)
     {
         FirstName = firstName;
@@ -36,5 +39,6 @@ public class Account
         Password = password;
         CreditCardInfo = creditCardInfo;
         BookedFlights = new List<Flight>();
+        BookingCodes = new List<string>();
     }
 }

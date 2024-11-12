@@ -24,8 +24,6 @@ public static class OverviewAirbus330
         Console.WriteLine("      ╰───╮  ╰───╯ B1 B2 B3 ╭───╮ B6 B7 B8 B9 B10 B11 B12 B13 B14 B15 B16 B17 B18 B19 B20 B21 B22 B23 B24 ╭───╮ B30 B31 B32 B33 B34 B35 B36 B37 B38 B39 B40 B41 B42     ╭───╮                  ╭───╯          ");
         Console.WriteLine("          ╰─────╮  A1 A2 A3 ╰───╯ A6 A7 A8 A9 A10 A11 A12 A13 A14 A15 A16 A17 A18 A19 A20 A21 A22 A23 A24 ╰───╯ A30 A31 A32 A33 A34 A35 A36 A37 A38 A39 A40 A41 A42     ╰───╯    ╭─────────────╯              ");
         Console.WriteLine("                ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                            ");
-
-
         while (true)
         {
             Console.WriteLine("\nEnter seat designation (e.g. A1, B2) or type 'exit' to quit:");
