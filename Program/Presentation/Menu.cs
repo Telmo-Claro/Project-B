@@ -489,7 +489,7 @@ Press any key to continue.");
             Console.ReadKey();
             Console.Clear();
             account.CreditCardInfo = ClassFactory.CreateCreditCard();
-            AccountDataRW.AddCreditcard(account);
+            AccountDataRW.ChangeAccount(account);
         }
 
         while (true)
@@ -518,10 +518,13 @@ Press any key to continue.");
         }
 
         Console.Clear();
+        string bookingCode = BookingCode.GenerateCode();
         account.BookedFlights.Add(flight);
-        AccountDataRW.AddBooking(account);
-        // string bookingCode = BookingCode.GenerateCode();
+        account.BookingCodes.Add(bookingCode);
+
         // Email.SendEmail(account, flight, bookingCode);
+
+        AccountDataRW.ChangeAccount(account);
 
         Console.WriteLine(@"Thank you so much for booking with Trenlines!
 We sent an email with additional information.
