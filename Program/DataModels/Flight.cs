@@ -30,5 +30,8 @@ public class Flight
 
     [JsonPropertyName("Status")]
     public required string? Status { get; set; }
-    
+
+    [JsonPropertyName("Price")]
+    public required int? Price { get; set; }
+
 }
