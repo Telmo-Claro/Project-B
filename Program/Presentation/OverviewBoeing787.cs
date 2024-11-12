@@ -69,13 +69,6 @@ public static class OverviewBoeing787
                 continue;
             }
 
-            bool seatIsTaken = bookedSeats.Exists(seat => seat.SeatId.Equals(input, StringComparison.OrdinalIgnoreCase));
-            if (seatIsTaken)
-            {
-                Console.WriteLine("This seat is already taken. Please choose another seat.");
-                continue;
-            }
-
             bool isWindowSeat = seatLetter == 'A' || seatLetter == 'L';  
             bool isFirstClass = seatNumber >= 1 && seatNumber <= 3;
             bool isBusinessClass = seatNumber >= 4 && seatNumber <= 6;
@@ -90,48 +83,48 @@ public static class OverviewBoeing787
             
             if (isWindowSeat && isBusinessClass)
             {
-                seatType = "Window seat in Business Class";
+                seatType = "Business Class";
                 seatPrice = 100;
             }
             else if (isFirstClass && isWindowSeat)
             {
-                seatType = "Window seat in First Class";
+                seatType = "First Class";
                 seatPrice = 200;
             }
             else if (isFirstClass)
             {
-                seatType = "First Class seat";
+                seatType = "First Class";
                 seatPrice = 200;
             }
             else if (isWindowSeat && isExtraLegroom)
             {
-                seatType = "Window seat with extra legroom";
+                seatType = "Extra leg room";
                 seatPrice = 20;
             }
             else if (isWindowSeat)
             {
                 
-                seatType = "Window seat in Economy Class";
+                seatType = "Economy Class";
                 seatPrice = 0;  
             }
             else if (isBusinessClass)
             {
-                seatType = "Business Class seat";
+                seatType = "Business Class";
                 seatPrice = 100;
             }
             else if (isExtraLegroom)
             {
-                seatType = "Extra legroom seat";
+                seatType = "Extra leg room";
                 seatPrice = 20;
             }
             else if (isEconomyClass)
             {
-                seatType = "Economy Class seat";
+                seatType = "Economy Class";
                 seatPrice = 0;  
             }
             else
             {
-                seatType = "Seat not available";
+                seatType = "Report to Devs";
                 seatPrice = 0;
             }
             // check if the seat is booked
