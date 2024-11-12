@@ -1,36 +1,13 @@
 public static class OverviewBoeing787
 {
-    public class Seat
+    public static List<Seat> Display787(Flight flight)
     {
-        public string SeatId { get; set; }
-        public string Type { get; set; }
-        public double Price { get; set; }
-        public bool IsTaken { get; set; }
-        public string AdditionalInfo { get; set; }
-
-        public Seat(string seatId, string type, double price, bool isTaken, string additionalInfo)
-        {
-            SeatId = seatId;
-            Type = type;
-            Price = price;
-            IsTaken = isTaken;
-            AdditionalInfo = additionalInfo;
-        }
-
-        public override string ToString()
-        {
-            return $"{SeatId} - {Type} - ${Price} - {(IsTaken ? "Taken" : "Available")} - {AdditionalInfo}";
-        }
-    }
-
-    public static void Display787()
-    {
-        List<Seat> bookedSeats = new List<Seat>(); // List booked seats later naar json veranderen.
+        List<Seat> bookedSeats = new List<Seat>();
         Console.WriteLine("Boeing 787:");
-        Console.WriteLine("First class row 1-3 - 200$");
-        Console.WriteLine("Business class from row 4-6 - 100$");
-        Console.WriteLine("Extra leg room row 16 and 27 - 20$");
-        Console.WriteLine("Economy from row 16-38 - 0$");
+        Console.WriteLine("First class row 1-3 - €200");
+        Console.WriteLine("Business class from row 4-6 - €100");
+        Console.WriteLine("Extra leg room row 16 and 27 - €20");
+        Console.WriteLine("Economy from row 16-38 - €0");
         
         Console.WriteLine("                ╭──────────────────────────┬───┬─────────────────┬───┬────────┬───────────┬─────────────────────────────────────────────────────────────────────────────────────────────┬───────╮");
         Console.WriteLine("          ╭─────╯                          │   │     L1 L2 L3    │   │        ╷ L4 L5 L6  ╷   L16 L17 L18 L19 L20 L21 L22 L23 L24 L25 ╭───╮     L27 L28 L29 L30 L31 L32 L33 L34 L35 L36 │ ╭───╮ ╰───────╮");
@@ -157,14 +134,23 @@ public static class OverviewBoeing787
                 seatType = "Seat not available";
                 seatPrice = 0;
             }
-
+            // check if the seat is booked
+            foreach (var Seat in flight.Aircraft.BookedSeats)
+            {
+                if (Seat.SeatId == input)
+                {
+                    Console.WriteLine("This seat is already booked");
+                    Console.ReadKey();
+                    continue;
+                }
+            }
 
             Console.WriteLine($"This is a {seatType}. Price: ${seatPrice}. Would you like to book this seat? (yes/no)");
             string bookingResponse = Console.ReadLine();
 
             if (bookingResponse.ToLower() == "yes")
             {
-                Seat bookedSeat = new Seat(input, seatType, seatPrice, true, "");
+                Seat bookedSeat = new Seat(input, seatType);
                 bookedSeats.Add(bookedSeat);
 
                 Console.WriteLine("Seat booked successfully!");
@@ -184,5 +170,6 @@ public static class OverviewBoeing787
         }
 
         Console.WriteLine("Done booking.");
+        return bookedSeats;
     }
 }
