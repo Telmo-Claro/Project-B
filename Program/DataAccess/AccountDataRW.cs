@@ -21,8 +21,7 @@ public static class AccountDataRW
                 {
                     if (account.Email == email && account.Password == password)
                     {
-                        Account user = new Account(account.FirstName, account.LastName, account.Email, account.PhoneNumber, account.Password);
-                        return user;
+                        return account;
                     }
                 }
                 Console.WriteLine("No matches with the given credentials");
@@ -197,7 +196,7 @@ public static class AccountDataRW
             Console.WriteLine($"Error Deleting Prior Info: {e.Message}");
         }
     }
-    
+
     public static void Booking(Account? account, string? choice)
     {
         string filepath = Path.Combine("DataBases", "Accounts.json");
@@ -223,7 +222,7 @@ public static class AccountDataRW
                                 Menu.ShowPastFlights(x);
                                 break;
                             case "3":
-                                
+
                                 break;
                             case "4":
                                 break;
@@ -242,6 +241,69 @@ public static class AccountDataRW
         catch (Exception e)
         {
             Console.WriteLine($"Error Deleting Prior Info: {e.Message}");
+        }
+    }
+
+    public static void AddBooking(Account account)
+    {
+        string filepath = Path.Combine("DataBases", "Accounts.json");
+        try
+        {
+            if (File.Exists(filepath))
+            {
+                string jsonString = File.ReadAllText(filepath);
+                var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
+                if (accounts is null) return;
+
+                foreach (Account x in accounts)
+                {
+                    if (x.FirstName == account.FirstName && x.LastName == account.LastName
+                        && x.Email == account.Email && x.Password == account.Password)
+                    {
+                        x.BookedFlights = account.BookedFlights;
+                    }
+                }
+
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string updatedJsonString = JsonSerializer.Serialize(accounts, options);
+
+                ChangeJson(updatedJsonString);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error Changing Booked Flights Info: {e.Message}");
+        }
+    }
+    public static void AddCreditcard(Account account)
+    {
+        string filepath = Path.Combine("DataBases", "Accounts.json");
+        try
+        {
+            if (File.Exists(filepath))
+            {
+                string jsonString = File.ReadAllText(filepath);
+                var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
+                if (accounts is null) return;
+
+                foreach (Account x in accounts)
+                {
+                    if (x.FirstName == account.FirstName && x.LastName == account.LastName
+                        && x.Email == account.Email && x.Password == account.Password)
+                    {
+                        x.CreditCardInfo = account.CreditCardInfo;
+                    }
+                }
+
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string updatedJsonString = JsonSerializer.Serialize(accounts, options);
+
+                ChangeJson(updatedJsonString);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error Changing Booked Flights Info: {e.Message}");
         }
     }
 }

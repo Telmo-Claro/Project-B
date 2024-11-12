@@ -110,9 +110,9 @@ public static class Menu
             switch (input)
             {
                 case "1":
-                    BookFlightMenu(account);
+                    ViewFlightMenu(account);
                     break;
-                case "2" :
+                case "2":
                     var bookingChoice = BookingMenu(account);
                     AccountDataRW.Booking(account, bookingChoice);
                     //ViewBookedFlights.PrintBookedFlight(account.BookedFlights);
@@ -136,7 +136,7 @@ public static class Menu
             }
         }
     }
-    
+
     private static void DeleteAccount(Account? account)
     {
         try
@@ -150,7 +150,7 @@ public static class Menu
         }
         Console.ReadKey();
     }
-    
+
     public static void ManageAccount(Account? account)
     {
         try
@@ -203,12 +203,12 @@ public static class Menu
                 Console.WriteLine($"Flight TimeDeparture: {flight.TimeDeparture}");
                 Console.WriteLine($"Flight TimeArrival: {flight.TimeArrival}");
                 Console.WriteLine();
-                Console.WriteLine("--------------------------------------------");  
+                Console.WriteLine("--------------------------------------------");
             }
         }
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
-        
+
     }
 
     public static void ShowPastFlights(Account account)
@@ -228,7 +228,7 @@ public static class Menu
                 Console.WriteLine($"Flight TimeDeparture: {flight.TimeDeparture}");
                 Console.WriteLine($"Flight TimeArrival: {flight.TimeArrival}");
                 Console.WriteLine();
-                Console.WriteLine("--------------------------------------------");  
+                Console.WriteLine("--------------------------------------------");
             }
         }
         Console.WriteLine("Press any key to continue...");
@@ -248,7 +248,7 @@ public static class Menu
         Console.Write("> ");
         return Console.ReadLine();
     }
-    
+
     public static void DisplayAccountInfo(Account? account)
     {
         Console.Clear();
@@ -259,7 +259,7 @@ public static class Menu
         Console.WriteLine("--------------------------------------------");
     }
 
-    
+
     public static string DisplayCreditCardInfo(Account? account)
     {
         return "---------------- TRENLINES -----------------\n" +
@@ -341,7 +341,7 @@ public static class Menu
                                   && password != null)
             {
                 // firstName, lastName, email, phoneNumber, password
-                Account? account = ClassFactory.CreateAccount(firstName, lastName, email, phoneNumber, password);
+                Account? account = ClassFactory.CreateAccount(firstName, lastName, email, phoneNumber, password, creditCard);
                 if (choice)
                 {
                     account.CreditCardInfo = creditCard;
@@ -353,7 +353,7 @@ public static class Menu
             break;
         }
     }
-    public static void ViewFlightMenu()
+    public static void ViewFlightMenu(Account account)
     {
         int page = 1;
         while (true)
@@ -382,17 +382,17 @@ public static class Menu
                 string? location = Console.ReadLine();
                 Console.Write("Date (DD/MM/YYYY): ");
                 string? date = Console.ReadLine();
-                ViewSearchFlightsMenu(location, date);
+                ViewSearchFlightsMenu(location, date, account);
                 break;
             }
             if (key == ConsoleKey.B)
             {
-                break;
+                BookFlightMenu(account);
             }
         }
     }
 
-    public static void ViewSearchFlightsMenu(string ?locationSearch, string ?dateSearch)
+    public static void ViewSearchFlightsMenu(string? locationSearch, string? dateSearch, Account account)
     {
         int page = 1;
         while (true)
@@ -421,19 +421,18 @@ public static class Menu
                 string? location = Console.ReadLine();
                 Console.Write("Date (DD/MM/YYYY): ");
                 string? date = Console.ReadLine();
-                ViewSearchFlightsMenu(location, date);
+                ViewSearchFlightsMenu(location, date, account);
                 break;
             }
             if (key == ConsoleKey.B)
             {
-                break;
+                BookFlightMenu(account);
             }
         }
     }
     private static readonly List<Flight> _flights = FlightDataRW.ReadJson();
     public static void BookFlightMenu(Account account)
     {
-        ViewFlightMenu();
         Console.Clear();
         Console.WriteLine("What is the flightnumber from the flight you would like to book?");
         string? givenFlightNumber = Console.ReadLine();
@@ -452,28 +451,28 @@ Departure time: {flight.TimeDeparture}
 Arrival time: {flight.TimeArrival}
 Duration: {flight.Duration}");
 
-            Console.WriteLine("Correct flight? (Y/N)");
-            ConsoleKey key = Console.ReadKey().Key;
-            while (true)
-            {
-                if (key == ConsoleKey.Y)
+                Console.WriteLine("Correct flight? (Y/N)");
+                ConsoleKey key = Console.ReadKey().Key;
+                while (true)
                 {
-                    BookFlight(account, flight);
-                }
+                    if (key == ConsoleKey.Y)
+                    {
+                        BookFlight(account, flight);
+                    }
 
-                else if (key == ConsoleKey.N)
-                {
-                    Console.WriteLine(@"Make sure you enter the correct flightnumber.
+                    else if (key == ConsoleKey.N)
+                    {
+                        Console.WriteLine(@"Make sure you enter the correct flightnumber.
 Press any key to continue.");
-                    Console.ReadKey();
-                    BookFlightMenu(account);
-                }                    
-                else
-                {
-                    Console.WriteLine("Wrong input");
-                    break;
+                        Console.ReadKey();
+                        BookFlightMenu(account);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Wrong input");
+                        break;
+                    }
                 }
-            }
             }
         }
 
@@ -490,6 +489,7 @@ Press any key to continue.");
             Console.ReadKey();
             Console.Clear();
             account.CreditCardInfo = ClassFactory.CreateCreditCard();
+            AccountDataRW.AddCreditcard(account);
         }
 
         while (true)
@@ -519,7 +519,8 @@ Press any key to continue.");
 
         Console.Clear();
         account.BookedFlights.Add(flight);
-        string bookingCode = BookingCode.GenerateCode();
+        AccountDataRW.AddBooking(account);
+        // string bookingCode = BookingCode.GenerateCode();
         // Email.SendEmail(account, flight, bookingCode);
 
         Console.WriteLine(@"Thank you so much for booking with Trenlines!
