@@ -35,6 +35,10 @@ public static class Menu
             {
                 Admin.AdminMenu();
             }
+            else if (option == "z")
+            {
+                OverviewAirbus330.Display330();
+            }
         }
         // ReSharper disable once FunctionNeverReturns
     }
