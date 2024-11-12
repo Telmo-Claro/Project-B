@@ -1,6 +1,3 @@
-using System.Net;
-using System.Runtime.CompilerServices;
-
 public static class Menu
 {
     public static void WelcomingMenu()
@@ -91,7 +88,7 @@ public static class Menu
         }
     }
 
-    public static void LoggedInMenu(Account? account)
+    public static void LoggedInMenu(Account account)
     {
         while (true)
         {
@@ -137,9 +134,10 @@ public static class Menu
                     break;
             }
         }
+        // ReSharper disable once FunctionNeverReturns
     }
 
-    private static void DeleteAccount(Account? account)
+    private static void DeleteAccount(Account account)
     {
         try
         {
@@ -153,7 +151,7 @@ public static class Menu
         Console.ReadKey();
     }
 
-    public static void ManageAccount(Account? account)
+    public static void ManageAccount(Account account)
     {
         try
         {
@@ -241,7 +239,7 @@ public static class Menu
         Console.ReadKey();
     }
 
-    public static string? BookingMenu(Account? account)
+    public static string? BookingMenu(Account account)
     {
         Console.Clear();
         Console.WriteLine("---------------- TRENLINES -----------------");
@@ -255,7 +253,7 @@ public static class Menu
         return Console.ReadLine();
     }
 
-    public static void DisplayAccountInfo(Account? account)
+    public static void DisplayAccountInfo(Account account)
     {
         Console.Clear();
         Console.WriteLine("---------------- TRENLINES -----------------");
@@ -266,7 +264,7 @@ public static class Menu
     }
 
 
-    public static string DisplayCreditCardInfo(Account? account)
+    public static string DisplayCreditCardInfo(Account account)
     {
         return "---------------- TRENLINES -----------------\n" +
             $"CreditCard Name: {account.CreditCardInfo.FirstName} {account.CreditCardInfo.LastName}\n" +
@@ -276,7 +274,7 @@ public static class Menu
             "--------------------------------------------\n";
     }
 
-    public static void DisplayFlightInfo(Flight? flight)
+    public static void DisplayFlightInfo(Flight flight)
     {
         Console.Clear();
         Console.WriteLine("---------------- TRENLINES -----------------");
@@ -333,28 +331,40 @@ public static class Menu
                 password = Console.ReadLine();
             }
 
-            bool choice = false;
-            Console.Write("Do you want to add a CreditCard? Y/N: ");
-            choice = Console.ReadKey().KeyChar.ToString().ToUpper() == "Y" ? true : false;
-            if (choice)
+            string choice;
+            do
             {
-                Console.Clear();
-                creditCard = ClassFactory.CreateCreditCard();
-            }
+                Console.Write("Do you want to add a CreditCard? Y/N: ");
+                choice = Console.ReadKey().KeyChar.ToString().ToUpper();
+                Console.WriteLine();
 
-            if (firstName != null && lastName != null
-                                  && email != null && phoneNumber != null
-                                  && password != null)
-            {
-                // firstName, lastName, email, phoneNumber, password
-                Account? account = ClassFactory.CreateAccount(firstName, lastName, email, phoneNumber, password, creditCard);
-                if (choice)
+                if (choice == "Y")
                 {
-                    account.CreditCardInfo = creditCard;
+                    Console.Clear();
+                    creditCard = InputCreditCardInfo.CreateCreditCard();
                 }
-                AccountDataRW.WriteJson(account);
-                LoggedInMenu(account);
+                else if (choice == "N")
+                {
+                    Console.WriteLine("No credit card will be added.");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid choice. Please enter [Y] or [N].");
+                }
+            } while (choice != "Y" && choice != "N");
 
+            if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName)
+                                                 && !string.IsNullOrEmpty(email)
+                                                 && !string.IsNullOrEmpty(phoneNumber)
+                                                 && !string.IsNullOrEmpty(password))
+            {
+                if (creditCard != null)
+                {
+                    Account account = ClassFactory.CreateAccount(firstName, lastName, email, phoneNumber, password, creditCard);
+                    account.CreditCardInfo = creditCard;
+                    AccountDataRW.WriteJson(account);
+                    LoggedInMenu(account);
+                }
             }
             break;
         }
@@ -494,7 +504,7 @@ Press any key to continue.");
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
             Console.Clear();
-            account.CreditCardInfo = ClassFactory.CreateCreditCard();
+            account.CreditCardInfo = InputCreditCardInfo.CreateCreditCard();
             AccountDataRW.ChangeAccount(account);
         }
 

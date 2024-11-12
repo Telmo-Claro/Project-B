@@ -192,7 +192,7 @@ public static class AccountDataRW
                                 bool boolChoice = Console.ReadKey().KeyChar.ToString().ToUpper() == "Y" ? true : false;
                                 if (boolChoice)
                                 {
-                                    x.CreditCardInfo = ClassFactory.CreateCreditCard();
+                                    x.CreditCardInfo = InputCreditCardInfo.CreateCreditCard();
                                     Console.WriteLine("Payment method changed successfully!");
                                 }
                                 break;

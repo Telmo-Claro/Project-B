@@ -62,13 +62,6 @@ public static class OverviewAirbus330
                 continue;
             }
 
-            bool seatIsTaken = bookedSeats.Exists(seat => seat.SeatId.Equals(input, StringComparison.OrdinalIgnoreCase));
-            if (seatIsTaken)
-            {
-                Console.WriteLine("This seat is already taken. Please choose another seat.");
-                continue;
-            }
-
             bool isWindowSeat = seatLetter == 'A' || seatLetter == 'J';
             bool isFirstClass = seatNumber >= 1 && seatNumber <= 3;
             bool isBusinessClass = seatNumber >= 6 && seatNumber <= 10;
@@ -81,49 +74,50 @@ public static class OverviewAirbus330
 
             if (isWindowSeat && isBusinessClass)
             {
-                seatType = "Window seat in Business Class";
+                seatType = "Business Class";
                 seatPrice = 150;
             }
             else if (isWindowSeat && isFirstClass)
             {
-                seatType = "Window seat in First Class";
+                seatType = "First Class";
                 seatPrice = 250;
             }
             else if (isFirstClass)
             {
-                seatType = "First Class seat";
+                seatType = "First Class";
                 seatPrice = 250;
             }
             else if (isWindowSeat && isExtraLegroom)
             {
-                seatType = "Window seat with extra legroom";
+                seatType = "Extra leg room";
                 seatPrice = 30;
             }
             else if (isWindowSeat)
             {
-                seatType = "Window seat in Economy Class";
+                seatType = "Economy Class";
                 seatPrice = 0;
             }
             else if (isBusinessClass)
             {
-                seatType = "Business Class seat";
+                seatType = "Business Class";
                 seatPrice = 150;
             }
             else if (isExtraLegroom)
             {
-                seatType = "Extra legroom seat";
+                seatType = "Extra leg room";
                 seatPrice = 30;
             }
             else if (isEconomyClass)
             {
-                seatType = "Economy Class seat";
+                seatType = "Economy Class";
                 seatPrice = 0;
             }
             else
             {
-                seatType = "Seat not available";
+                seatType = "Report to Devs";
                 seatPrice = 0;
             }
+
             // check if the seat is booked
             foreach (var Seat in flight.Aircraft.BookedSeats)
             {
