@@ -1,10 +1,6 @@
 ﻿public class IDeal : Payment
 {
-    public IDeal() : base()
-    {
-
-    }
-    public void Pay()
+    public new void Pay()
     {
         Console.WriteLine("Press X to pay with IDeal");
         System.Diagnostics.Process.Start(_idealUrl);
