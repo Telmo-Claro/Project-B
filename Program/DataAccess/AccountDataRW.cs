@@ -21,7 +21,7 @@ public static class AccountDataRW
                 {
                     if (account.Email == email && account.Password == password)
                     {
-                        Account user = new Account(account.FirstName, account.LastName, account.Email, account.PhoneNumber, account.Password, account.PaymentMethod);
+                        Account user = new Account(account.FirstName, account.LastName, account.Email, account.PhoneNumber, account.Password);
                         return user;
                     }
                 }
@@ -37,10 +37,10 @@ public static class AccountDataRW
         }
         return null;
     }
-    public static void WriteJson(Account account)
+    public static void WriteJson(Account? account)
     {
         string filepath = Path.Combine("DataBases", "Accounts.json");
-        List<Account> accounts = new List<Account>();
+        List<Account?> accounts = new List<Account?>();
 
         try
         {
@@ -127,7 +127,7 @@ public static class AccountDataRW
             Console.ReadKey();
         }
     }
-    public static void ChangeData(Account account, int choice)
+    public static void ChangeData(Account? account, int choice)
     {
         string filepath = Path.Combine("DataBases", "Accounts.json");
         try
@@ -140,7 +140,8 @@ public static class AccountDataRW
 
                 foreach (var x in accounts)
                 {
-                    if (x.Email == account.Email && x.Password == account.Password)
+                    if (x.Email == account.Email && x.Password == account.Password
+                        && x.FirstName == account.FirstName && x.LastName == account.LastName)
                     {
                         switch (choice)
                         {
@@ -168,11 +169,63 @@ public static class AccountDataRW
                                 Console.WriteLine("Password changed successfully!");
                                 break;
                             case 5:
-                                Console.Write("Enter payment method [IDeal or CreditCard]: ");
-                                string? paymentString = Console.ReadLine();
-                                x.PaymentMethod = ClassFactory.CreatePayment(paymentString);
+                                Menu.DisplayCreditCardInfo(x);
+                                Console.Write("Do you wish to change your information? y/n: ");
+                                bool boolChoice = Console.ReadKey().KeyChar.ToString().ToUpper() == "Y" ? true : false;
+                                if (boolChoice)
+                                {
+                                    x.CreditCardInfo = ClassFactory.CreateCreditCard();
+                                    Console.WriteLine("Payment method changed successfully!");
+                                }
                                 break;
                             case 6:
+                                break;
+                            default:
+                                Console.WriteLine("Please enter a valid choice");
+                                break;
+                        }
+                    }
+                }
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string updatedJsonString = JsonSerializer.Serialize(accounts, options);
+
+                ChangeJson(updatedJsonString);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error Deleting Prior Info: {e.Message}");
+        }
+    }
+    
+    public static void Booking(Account? account, string? choice)
+    {
+        string filepath = Path.Combine("DataBases", "Accounts.json");
+        try
+        {
+            if (File.Exists(filepath))
+            {
+                string jsonString = File.ReadAllText(filepath);
+                var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
+                if (accounts is null) return;
+
+                foreach (var x in accounts)
+                {
+                    if (x.Email == account.Email && x.Password == account.Password
+                        && x.FirstName == account.FirstName && x.LastName == account.LastName)
+                    {
+                        switch (choice)
+                        {
+                            case "1":
+                                Menu.ShowActiveBookings(x);
+                                break;
+                            case "2":
+                                Menu.ShowPastFlights(x);
+                                break;
+                            case "3":
+                                
+                                break;
+                            case "4":
                                 break;
                             default:
                                 Console.WriteLine("Please enter a valid choice");
