@@ -225,6 +225,8 @@ public static class AccountDataRW
             {
                 string jsonString = File.ReadAllText(filepath);
                 var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
+
+                bool cancelBooking = false;
                 if (accounts is null) return;
 
                 foreach (var x in accounts)
@@ -242,6 +244,7 @@ public static class AccountDataRW
                                 break;
                             case "3":
                                 Menu.CancelBooking(x);
+                                cancelBooking = true;
                                 break;
                             case "4":
                                 break;
@@ -251,10 +254,14 @@ public static class AccountDataRW
                         }
                     }
                 }
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                string updatedJsonString = JsonSerializer.Serialize(accounts, options);
+                // double write in Cancelbooking, this fixes this
+                if (!cancelBooking)
+                {
+                    var options = new JsonSerializerOptions { WriteIndented = true };
+                    string updatedJsonString = JsonSerializer.Serialize(accounts, options);
 
-                ChangeJson(updatedJsonString);
+                    ChangeJson(updatedJsonString);
+                }
             }
         }
         catch (Exception e)
