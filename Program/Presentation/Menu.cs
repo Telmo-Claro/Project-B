@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Runtime.CompilerServices;
 
@@ -493,6 +494,7 @@ Press any key to continue.");
         {
             case "Airbus 330":
                 {
+                    seats = OverviewAirbus330.Display330(flight);
                     break;
                 }
             case "Boeing 737":
@@ -507,46 +509,70 @@ Press any key to continue.");
                 }
         }
 
+        if (seats.Count == 0) { return; }
+        Console.WriteLine("if you are interested in the special experience press (1), you will be contacted about further details.");
+        Console.ReadKey();
+        Console.Clear();
+
         int totalprice = Price.GetPrice(flight, seats);
-        Console.WriteLine($@"The costs will be {totalprice}
+        Console.WriteLine($@"The costs will be €{totalprice}
 Press any key to continue.");
         Console.ReadKey();
 
-        if (account.CreditCardInfo is null)
-        {
-            Console.Clear();
-            Console.WriteLine("It seems like you don't have a card added to your account, let's add one!");
-            Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
-            Console.Clear();
-            account.CreditCardInfo = InputCreditCardInfo.CreateCreditCard();
-            AccountDataRW.ChangeAccount(account);
-        }
-
         while (true)
         {
-            Console.Clear();
-            Console.WriteLine("Do you want to use this card? (Y/N)");
-            Console.Write(DisplayCreditCardInfo(account));
             ConsoleKey key = Console.ReadKey().Key;
+            Console.Clear();
+            Console.WriteLine("Choose payment option:");
+            Console.WriteLine("(1) CreditCard");
+            Console.WriteLine("(2) IDeal");
+            if (key == ConsoleKey.D1)
+            {
+                if (account.CreditCardInfo is null)
+                {
+                    Console.Clear();
+                    Console.WriteLine("It seems like you don't have a card added to your account, let's add one!");
+                    Console.WriteLine("Press any key to continue");
+                    Console.ReadKey();
+                    Console.Clear();
+                    account.CreditCardInfo = InputCreditCardInfo.CreateCreditCard();
+                    AccountDataRW.ChangeAccount(account);
+                }
+                Console.Clear();
+                Console.WriteLine("Do you want to use this card? (Y/N)");
+                Console.Write(DisplayCreditCardInfo(account));
+                ConsoleKey key1 = Console.ReadKey().Key;
 
-            if (key == ConsoleKey.Y)
+                if (key1 == ConsoleKey.Y)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Okay! We will use this card");
+                    Console.WriteLine("Press any key to continue");
+                    Console.ReadKey();
+                    break;
+                        
+                }
+                if (key1 == ConsoleKey.N)
+                {
+                    // what now? lol
+                    Console.Clear();
+                    Console.WriteLine("Press any key to continue");
+                    Console.ReadKey();
+                    continue;
+                }
+                
+            }
+            if (key == ConsoleKey.D2)
             {
                 Console.Clear();
-                Console.WriteLine("Okay! We will use this card");
-                Console.WriteLine("Press any key to continue");
-                Console.ReadKey();
-                // add something extra for payment?
-                break;
-            }
-            if (key == ConsoleKey.N)
-            {
-                // what now? lol
-                Console.WriteLine("Press any key to continue");
+                Console.WriteLine("You have payed with IDeal");
                 Console.ReadKey();
                 break;
             }
         }
+        flight.Aircraft.BookedSeats.AddRange(seats);
+        _flights[_flights.IndexOf(flight)] = flight;
+        FlightDataRW.WriteJson(_flights);
 
         Console.Clear();
 
@@ -554,7 +580,7 @@ Press any key to continue.");
         account.BookedFlights.Add(flight);
         account.BookingCodes.Add(bookingCode);
 
-        // Email.SendEmail(account, flight, bookingCode);
+        Email.SendEmail(account, flight, seats);
 
         AccountDataRW.ChangeAccount(account);
 

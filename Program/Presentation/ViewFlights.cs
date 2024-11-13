@@ -12,7 +12,7 @@ public static class ViewFlights
     }
     private static string FlightInfo(Flight flight)
     {
-        return $"{SpacesAdd(flight.FlightNumber, "FlightNumber")}|{SpacesAdd(flight.Departure, "Departure")}|{SpacesAdd(flight.Destination, "Destination")}|{flight.Date.ToShortDateString()}|{flight.TimeDeparture}     |{flight.TimeArrival}   |{flight.Duration}|{SpacesAdd(flight.Country, "    Country    ")}|{SpacesAdd(flight.Aircraft.ToString(), "   Aircraft ")} | {SpacesAdd("�"+flight.Price.ToString(), "Price")} |{SpacesAdd(flight.Status, "Status")}";
+        return $"{SpacesAdd(flight.FlightNumber, "FlightNumber")}|{SpacesAdd(flight.Departure, "Departure")}|{SpacesAdd(flight.Destination, "Destination")}|{flight.Date.ToShortDateString()}|{flight.TimeDeparture}     |{flight.TimeArrival}   |{flight.Duration}|{SpacesAdd(flight.Country, "    Country    ")}|{SpacesAdd(flight.Aircraft.ToString(), "   Aircraft ")} | {SpacesAdd("€"+flight.Price.ToString(), "Price")} |{SpacesAdd(flight.Status, "Status")}";
     }
     public static void View(int page)
     {

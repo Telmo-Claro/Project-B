@@ -61,6 +61,13 @@ public static class OverviewAirbus330
                 Console.WriteLine("Invalid seat selection.");
                 continue;
             }
+            // check if the seat is booked
+            if (flight.Aircraft.BookedSeats.Any(seat => seat.SeatId == input))
+            {
+                Console.WriteLine("This seat is already booked");
+                Console.ReadKey();
+                continue;
+            }
 
             bool isWindowSeat = seatLetter == 'A' || seatLetter == 'J';
             bool isFirstClass = seatNumber >= 1 && seatNumber <= 3;
@@ -116,17 +123,6 @@ public static class OverviewAirbus330
             {
                 seatType = "Report to Devs";
                 seatPrice = 0;
-            }
-
-            // check if the seat is booked
-            foreach (var Seat in flight.Aircraft.BookedSeats)
-            {
-                if (Seat.SeatId == input)
-                {
-                    Console.WriteLine("This seat is already booked");
-                    Console.ReadKey();
-                    continue;
-                }
             }
 
             Console.WriteLine($"This is a {seatType}. Price: ${seatPrice}. Would you like to book this seat? (yes/no)");
