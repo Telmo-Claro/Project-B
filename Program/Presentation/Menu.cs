@@ -307,6 +307,8 @@ public static class Menu
                 string flightNumber = Console.ReadLine();
                 AccountDataRW.CancelBooking(account, flightNumber);
                 Console.WriteLine("Booking cancelled successfully!");
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
                 break;
             case "n":
                 BookingMenu(account);
