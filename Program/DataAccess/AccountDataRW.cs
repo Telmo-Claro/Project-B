@@ -222,7 +222,7 @@ public static class AccountDataRW
                                 Menu.ShowPastFlights(x);
                                 break;
                             case "3":
-
+                                Menu.CancelBooking(x);
                                 break;
                             case "4":
                                 break;
@@ -241,6 +241,44 @@ public static class AccountDataRW
         catch (Exception e)
         {
             Console.WriteLine($"Error Deleting Prior Info: {e.Message}");
+        }
+    }
+
+    public static void CancelBooking(Account account, string flightNumber)
+    {
+        string filepath = Path.Combine("DataBases", "Accounts.json");
+        try
+        {
+            if (File.Exists(filepath))
+            {
+                string jsonString = File.ReadAllText(filepath);
+                var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
+                if (accounts is null) return;
+
+                foreach (Account x in accounts)
+                {
+                    if (x.FirstName == account.FirstName && x.LastName == account.LastName
+                                                         && x.Email == account.Email
+                                                         && x.Password == account.Password)
+                    {
+                        foreach (var flight in x.BookedFlights)
+                        {
+                            if (flight.FlightNumber == flightNumber)
+                            {
+                                x.BookedFlights.Remove(flight);
+                            }
+                        }
+                    }
+                }
+
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string updatedJsonString = JsonSerializer.Serialize(accounts, options);
+                ChangeJson(updatedJsonString);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error Changing Data, Info: {e.Message}");
         }
     }
 
