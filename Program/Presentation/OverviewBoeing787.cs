@@ -69,6 +69,13 @@ public static class OverviewBoeing787
                 continue;
             }
 
+            if (flight.Aircraft.BookedSeats.Any(seat => seat.SeatId == input))
+            {
+                Console.WriteLine("This seat is already booked");
+                Console.ReadKey();
+                continue;
+            }
+
             bool isWindowSeat = seatLetter == 'A' || seatLetter == 'L';  
             bool isFirstClass = seatNumber >= 1 && seatNumber <= 3;
             bool isBusinessClass = seatNumber >= 4 && seatNumber <= 6;
@@ -126,16 +133,6 @@ public static class OverviewBoeing787
             {
                 seatType = "Report to Devs";
                 seatPrice = 0;
-            }
-            // check if the seat is booked
-            foreach (var Seat in flight.Aircraft.BookedSeats)
-            {
-                if (Seat.SeatId == input)
-                {
-                    Console.WriteLine("This seat is already booked");
-                    Console.ReadKey();
-                    continue;
-                }
             }
 
             Console.WriteLine($"This is a {seatType}. Price: ${seatPrice}. Would you like to book this seat? (yes/no)");

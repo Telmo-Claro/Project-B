@@ -1,12 +1,17 @@
 ﻿using System.Diagnostics;
+using System.Text.Json.Serialization;
 
 public class Seat
 {
+    [JsonPropertyName("SeatId")]
     public string SeatId { get; set; }
+
+    [JsonPropertyName("Type")]
     public string Type { get; set; }
-    public Seat(string iD, string type)
+
+    public Seat(string seatId, string type)
     {
-        SeatId = iD;
+        SeatId = seatId;
         Type = type;
     }
 

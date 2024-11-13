@@ -9,14 +9,16 @@ public class Aircraft
 
     [JsonPropertyName("LeftSeats")]
     public int LeftSeats { get; }
+
     [JsonPropertyName("BookedSeats")]
-    public List<Seat> BookedSeats { get; } = [];
+    public List<Seat> BookedSeats { get; set; }
 
     public Aircraft(int totalSeats, string? name)
     {
         TotalSeats = totalSeats;
         LeftSeats = totalSeats;
         Name = name;
+        BookedSeats = new List<Seat>();
     }
 
     public override string? ToString()

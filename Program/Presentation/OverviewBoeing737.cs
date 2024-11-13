@@ -65,6 +65,12 @@ public static class OverviewBoeing737
                 continue;
             }
 
+            if (flight.Aircraft.BookedSeats.Any(seat => seat.SeatId == input))
+            {
+                Console.WriteLine("This seat is already booked");
+                Console.ReadKey();
+                continue;
+            }
 
             // dit gaat naar logic layer later in sprint 3/4
             bool isWindowSeat = seatLetter == 'A' || seatLetter == 'F';
@@ -104,16 +110,7 @@ public static class OverviewBoeing737
                 seatType = "Economy";
                 seatPrice = 0;
             }
-            // check if the seat is booked
-            foreach (var Seat in flight.Aircraft.BookedSeats)
-            {
-                if (Seat.SeatId == input)
-                {
-                    Console.WriteLine("This seat is already booked");
-                    Console.ReadKey();
-                    continue;
-                }
-            }
+
             Console.WriteLine($"This is a {seatType}. Price: ${seatPrice}. Would you like to book this seat? (yes/no)");
             string bookingResponse = Console.ReadLine();
 
