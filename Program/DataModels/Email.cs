@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Mail;
 public class Email
 {
-    public static void SendEmail(Account account, Flight flight)
+    public static void SendEmail(Account account, Flight flight, List<Seat> seats)
     {
         string fromMail = "trenlines010@gmail.com";
         string fromPassword = "wcmt inui pwzm ymvh";
@@ -39,7 +39,7 @@ public class Email
                             </tr>
                             <tr>
                                 <th style='text-align: left; padding: 8px; background-color: #004080; color: white;'>Seat</th>
-                                <td style='padding: 8px;'>{{flight.SeatNumber}}</td>
+                                <td style='padding: 8px;'>{string.Join(", ", seats.Select(seat => seat.SeatId))}</td>
                             </tr>
                         </table>
                         <p style='margin-top: 20px;'>If you have any questions or need further assistance, feel free to reach out to our support team.</p>
