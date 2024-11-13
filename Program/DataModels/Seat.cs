@@ -2,7 +2,7 @@
 
 public class Seat
 {
-    public string SeatId {  get; set; }
+    public string SeatId { get; set; }
     public string Type { get; set; }
     public Seat(string iD, string type)
     {
@@ -12,7 +12,7 @@ public class Seat
 
     public int GetPrice()
     {
-        switch (SeatId)
+        switch (Type)
         {
             case "First Class":
                 return 200;
@@ -23,7 +23,7 @@ public class Seat
             case "Economy":
                 return 0;
             default:
-                return 0;
+                return 8;
         }
     }
     public override string ToString()
