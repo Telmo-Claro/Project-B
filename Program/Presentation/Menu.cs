@@ -577,7 +577,7 @@ Press any key to continue.");
         Console.Clear();
 
         int totalprice = Price.GetPrice(flight, seats);
-        Console.WriteLine($@"The costs will be €{totalprice}
+        Console.WriteLine($@"The costs will be ï¿½{totalprice}
 Press any key to continue.");
         Console.ReadKey();
 
@@ -612,7 +612,7 @@ Press any key to continue.");
                     Console.WriteLine("Press any key to continue");
                     Console.ReadKey();
                     break;
-                        
+
                 }
                 if (key1 == ConsoleKey.N)
                 {
@@ -622,7 +622,7 @@ Press any key to continue.");
                     Console.ReadKey();
                     continue;
                 }
-                
+
             }
             if (key == ConsoleKey.D2)
             {
@@ -642,7 +642,7 @@ Press any key to continue.");
         account.BookedFlights.Add(flight);
         account.BookingCodes.Add(bookingCode);
 
-        Email.SendEmail(account, flight, seats);
+        Email.SendBookingEmail(account, flight, seats);
 
         AccountDataRW.ChangeAccount(account);
 
