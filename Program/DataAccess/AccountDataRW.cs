@@ -207,7 +207,8 @@ public static class AccountDataRW
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 string updatedJsonString = JsonSerializer.Serialize(accounts, options);
 
-                File.WriteAllText(filepath, updatedJsonString);            }
+                File.WriteAllText(filepath, updatedJsonString);
+            }
         }
         catch (Exception e)
         {
@@ -271,43 +272,49 @@ public static class AccountDataRW
     }
 
     public static void CancelBooking(Account account, string flightNumber)
-{
-    string filepath = Path.Combine("DataBases", "Accounts.json");
-    try
     {
-        if (File.Exists(filepath))
+        string filepath = Path.Combine("DataBases", "Accounts.json");
+        try
         {
-            string jsonString = File.ReadAllText(filepath);
-            var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
-            if (accounts is null) return;
-
-            foreach (Account x in accounts)
+            if (File.Exists(filepath))
             {
-                if (x.FirstName == account.FirstName && x.LastName == account.LastName
-                                                     && x.Email == account.Email
-                                                     && x.Password == account.Password)
+                Flight? cancelledFlight = null;
+                string jsonString = File.ReadAllText(filepath);
+                var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
+                if (accounts is null) return;
+
+                foreach (Account x in accounts)
                 {
-                    for (int i = x.BookedFlights.Count - 1; i >= 0; i--)
+                    if (x.FirstName == account.FirstName && x.LastName == account.LastName
+                                                         && x.Email == account.Email
+                                                         && x.Password == account.Password)
                     {
-                        if (x.BookedFlights[i].FlightNumber == flightNumber)
+                        for (int i = x.BookedFlights.Count - 1; i >= 0; i--)
                         {
-                            x.BookedFlights.RemoveAt(i);
-                            x.BookingCodes.RemoveAt(i);
+                            if (x.BookedFlights[i].FlightNumber == flightNumber)
+                            {
+                                cancelledFlight = x.BookedFlights[i];
+                                x.BookedFlights.RemoveAt(i);
+                                x.BookingCodes.RemoveAt(i);
+                            }
                         }
                     }
                 }
-            }
+                if (cancelledFlight is not null)
+                {
+                    Email.SendCancellationEmail(account, cancelledFlight);
+                }
 
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            string updatedJsonString = JsonSerializer.Serialize(accounts, options);
-            ChangeJson(updatedJsonString);
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string updatedJsonString = JsonSerializer.Serialize(accounts, options);
+                ChangeJson(updatedJsonString);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error Changing Data, Info: {e.Message}");
         }
     }
-    catch (Exception e)
-    {
-        Console.WriteLine($"Error Changing Data, Info: {e.Message}");
-    }
-}
 
 
     public static void ChangeAccount(Account account) // global method for adding booked flight, credit card and booking codes
