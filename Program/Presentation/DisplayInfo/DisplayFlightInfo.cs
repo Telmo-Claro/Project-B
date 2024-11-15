@@ -12,5 +12,4 @@
         Console.WriteLine($"Time Arrival: {flight.TimeArrival}");
         Console.WriteLine("--------------------------------------------");
     }
-
 }
