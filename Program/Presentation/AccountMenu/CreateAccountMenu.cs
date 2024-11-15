@@ -4,11 +4,11 @@
     {
         while (true)
         {
-            string? firstName = "";
-            string? lastName = "";
-            string? email = "";
-            string? password = "";
-            string? phoneNumber = "";
+            string firstName = "";
+            string lastName = "";
+            string email = "";
+            string password = "";
+            string phoneNumber = "";
             CreditCard? creditCard = null;
             Console.Clear();
             Console.WriteLine("--------------------------");
@@ -19,31 +19,26 @@
                 Console.Write("First name: ");
                 firstName = Console.ReadLine();
             }
-
             while (lastName == "")
             {
                 Console.Write("Last name: ");
                 lastName = Console.ReadLine();
             }
-
             while (email == "")
             {
                 Console.Write("Enter email: ");
                 email = Console.ReadLine();
             }
-
             while (phoneNumber == "")
             {
                 Console.Write("Phone number: ");
                 phoneNumber = Console.ReadLine();
             }
-
             while (password == "")
             {
                 Console.Write("Enter password: ");
                 password = Console.ReadLine();
             }
-
             bool choice = false;
             Console.Write("Do you want to add a CreditCard? Y/N: ");
             choice = Console.ReadKey().KeyChar.ToString().ToUpper() == "Y" ? true : false;

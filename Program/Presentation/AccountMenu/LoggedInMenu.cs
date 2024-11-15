@@ -15,10 +15,8 @@
             Console.WriteLine("(3) Manage account");
             Console.WriteLine("(4) Delete account");
             Console.WriteLine("(5) Exit");
-
-            string input = Console.ReadKey().KeyChar.ToString();
-
-            switch (input)
+            Console.Write("> ");
+            switch (Console.ReadKey().KeyChar.ToString())
             {
                 case "1":
                     Menu.ViewFlightMenu(account);
@@ -29,7 +27,7 @@
                     //ViewBookedFlights.PrintBookedFlight(account.BookedFlights);
                     break;
                 case "3":
-                    Menu.ManageAccount(account);
+                    ManageAccountMenu.ManageAccount(account);
                     break;
                 case "4":
                     DeleteAccountMenu.DeleteAccount(account);
