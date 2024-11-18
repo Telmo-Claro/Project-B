@@ -78,7 +78,7 @@ public static class OverviewBoeing737
             bool isExtraLegroom = (seatLetter == 'A' || seatLetter == 'B' || seatLetter == 'C' || seatLetter == 'D' || seatLetter == 'E' || seatLetter == 'F') && (seatNumber == 15 || seatNumber == 16);
 
             string seatType;
-            double seatPrice = 0;
+            int seatPrice = 0;
 
             if (isWindowSeat && isBusinessClass)
             {
@@ -116,7 +116,7 @@ public static class OverviewBoeing737
 
             if (bookingResponse.ToLower() == "yes")
             {
-                Seat bookedSeat = new Seat(input, seatType);  
+                Seat bookedSeat = new  Seat(input, seatType, seatPrice);  
                 bookedSeats.Add(bookedSeat);
 
                 Console.WriteLine("Seat booked successfully!");

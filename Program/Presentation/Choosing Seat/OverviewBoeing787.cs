@@ -86,7 +86,7 @@ public static class OverviewBoeing787
                  seatLetter == 'E' || seatLetter == 'F' || seatLetter == 'J' || seatLetter == 'K' || seatLetter == 'L');
 
             string seatType;
-            double seatPrice = 0;
+            int seatPrice = 0;
             
             if (isWindowSeat && isBusinessClass)
             {
@@ -140,7 +140,7 @@ public static class OverviewBoeing787
 
             if (bookingResponse.ToLower() == "yes")
             {
-                Seat bookedSeat = new Seat(input, seatType);
+                Seat bookedSeat = new Seat(input, seatType, seatPrice);
                 bookedSeats.Add(bookedSeat);
 
                 Console.WriteLine("Seat booked successfully!");
