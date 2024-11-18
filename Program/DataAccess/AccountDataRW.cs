@@ -80,7 +80,7 @@ public static class AccountDataRW
                 }
                 Console.WriteLine("No matches with the given credentials");
                 Console.ReadKey();
-                Menu.LoginMenu();
+                LoginMenu.Login();
             }
         }
         catch (Exception e)
@@ -133,7 +133,7 @@ public static class AccountDataRW
                     Console.WriteLine("Account deleted succesfully");
 
                     Console.ReadKey();
-                    Menu.WelcomingMenu();
+                    WelcomingMenu.Menu();
                 }
             }
         }
