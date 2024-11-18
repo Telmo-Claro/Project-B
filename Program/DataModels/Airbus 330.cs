@@ -1,11 +1,8 @@
-﻿using System.Text.Json.Serialization;
-
-public class Airbus330 : Aircraft
+﻿public class Airbus330 : Aircraft
 {
     public override List<string> ValidSeats { get; set; }
-
     public override string PlaneOverview { get; set; }
-    public Airbus330() : base(272, "Airbus 330")
+    public Airbus330() : base(329, "Airbus 330")
     {
         ValidSeats = ["J1", "J2", "J3", "J6", "J7", "J8", "J9", "J10", "J11", "J12", "J13", "J14", "J15", "J16", "J17", "J18", "J19", "J20", "J21", "J22", "J23", "J24", "J30", "J31", "J32", "J33", "J34", "J35", "J36", "J37", "J38", "J39", "J40", "J41", "J42", "J43",
             "H1", "H2", "H3", "H6", "H7", "H8", "H9", "H10", "H11", "H12", "H13", "H14", "H15", "H16", "H17", "H18", "H19", "H20", "H21", "H22", "H23", "H24", "H30", "H31", "H32", "H33", "H34", "H35", "H36", "H37", "H38", "H39", "H40", "H41", "H42",
@@ -15,6 +12,7 @@ public class Airbus330 : Aircraft
             "D1", "D2", "D3", "D6", "D7", "D8", "D9", "D10", "D11", "D12", "D13", "D14", "D15", "D16", "D17", "D18", "D19", "D20", "D21", "D22", "D23", "D24", "D30", "D31", "D32", "D33", "D34", "D35", "D36", "D37", "D38", "D39", "D40", "D41", "D42",
             "B1", "B2", "B3", "B6", "B7", "B8", "B9", "B10", "B11", "B12", "B13", "B14", "B15", "B16", "B17", "B18", "B19", "B20", "B21", "B22", "B23", "B24", "B30", "B31", "B32", "B33", "B34", "B35", "B36", "B37", "B38", "B39", "B40", "B41", "B42",
             "A1", "A2", "A3", "A6", "A7", "A8", "A9", "A10", "A11", "A12", "A13", "A14", "A15", "A16", "A17", "A18", "A19", "A20", "A21", "A22", "A23", "A24", "A30", "A31", "A32", "A33", "A34", "A35", "A36", "A37", "A38", "A39", "A40", "A41", "A42"];
+
         PlaneOverview = "Airbus 330:\n" +
             "First class: Row 1-3 - €250\n" +
             "Business class: Row 6-10 - €150\n" +

@@ -33,9 +33,7 @@ public static class Menu
                 case "p":
                     Admin.AdminMenu();
                     break;
-                //case "z":
-                //    OverviewAirbus330.Display330();
-                //    break;
+
                 default:
                     Console.WriteLine("\nInvalid option. Please try again.");
                     Console.ReadKey();
@@ -527,6 +525,7 @@ Duration: {flight.Duration}");
                     if (key == ConsoleKey.Y)
                     {
                         BookFlight(account, flight);
+                        break;
                     }
 
                     else if (key == ConsoleKey.N)

@@ -5,35 +5,22 @@
         int seatNumber = Int32.Parse(seat.Substring(1));
         char seatLetter = char.ToUpper(seat[0]);
 
-        bool isWindowSeat = seatLetter == 'A' || seatLetter == 'J';
-        bool isFirstClass = seatNumber >= 1 && seatNumber <= 3;
-        bool isBusinessClass = seatNumber >= 6 && seatNumber <= 10;
-        bool isEconomyClass = (seatNumber >= 11 && seatNumber <= 24) || (seatNumber >= 30 && seatNumber <= 42);
-        bool isExtraLegroom = seatNumber == 6 || seatNumber == 30;
+        bool isWindowSeat = seatLetter == 'A' || seatLetter == 'F';
+        bool isBusinessClass = seatNumber >= 1 && seatNumber <= 6;
+        bool isExtraLegroom = (seatLetter == 'A' || seatLetter == 'B' || seatLetter == 'C' || seatLetter == 'D' || seatLetter == 'E' || seatLetter == 'F') && (seatNumber == 15 || seatNumber == 16);
 
         string seatType;
         int seatPrice = 0;
-        string additionalInfo = "";
 
         if (isWindowSeat && isBusinessClass)
         {
-            seatType = "Business Class";
-            seatPrice = 150;
-        }
-        else if (isWindowSeat && isFirstClass)
-        {
-            seatType = "First Class";
-            seatPrice = 250;
-        }
-        else if (isFirstClass)
-        {
-            seatType = "First Class";
-            seatPrice = 250;
+            seatType = "Business Classs";
+            seatPrice = 100;
         }
         else if (isWindowSeat && isExtraLegroom)
         {
             seatType = "Extra leg room";
-            seatPrice = 30;
+            seatPrice = 20;
         }
         else if (isWindowSeat)
         {
@@ -43,21 +30,16 @@
         else if (isBusinessClass)
         {
             seatType = "Business Class";
-            seatPrice = 150;
+            seatPrice = 100;
         }
         else if (isExtraLegroom)
         {
-            seatType = "Extra leg room";
-            seatPrice = 30;
-        }
-        else if (isEconomyClass)
-        {
-            seatType = "Economy Class";
-            seatPrice = 0;
+            seatType = "Extra legroom seat";
+            seatPrice = 20;
         }
         else
         {
-            seatType = "Report to Devs";
+            seatType = "Economy";
             seatPrice = 0;
         }
 

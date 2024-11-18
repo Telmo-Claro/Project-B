@@ -26,6 +26,8 @@ public class Aircraft
         LeftSeats = totalSeats;
         Name = name;
         BookedSeats = new List<Seat>();
+        ValidSeats = new List<string>();
+        PlaneOverview = string.Empty;
     }
 
 
