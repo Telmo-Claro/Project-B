@@ -2,6 +2,6 @@
 {
     public static void Main()
     {
-        Menu.WelcomingMenu();
+        WelcomingMenu.Menu();
     }
 }
