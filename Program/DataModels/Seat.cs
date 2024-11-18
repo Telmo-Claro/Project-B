@@ -9,10 +9,13 @@ public class Seat
     [JsonPropertyName("Type")]
     public string Type { get; set; }
 
-    public Seat(string seatId, string type)
+    [JsonPropertyName("Price")]
+    public int Price { get; set; }
+    public Seat(string seatId, string type, int price)
     {
         SeatId = seatId;
         Type = type;
+        Price = price;
     }
 
     public int GetPrice()

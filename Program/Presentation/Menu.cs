@@ -268,6 +268,7 @@ Duration: {flight.Duration}");
                     if (key == ConsoleKey.Y)
                     {
                         BookFlight(account, flight);
+                        break;
                     }
 
                     else if (key == ConsoleKey.N)
@@ -292,25 +293,7 @@ Press any key to continue.");
     public static void BookFlight(Account account, Flight flight)
     {
 
-        List<Seat> seats = [];
-        switch (flight.Aircraft.Name)
-        {
-            case "Airbus 330":
-                {
-                    seats = OverviewAirbus330.Display330(flight);
-                    break;
-                }
-            case "Boeing 737":
-                {
-                    seats = OverviewBoeing737.Display737(flight);
-                    break;
-                }
-            case "Boeing 787":
-                {
-                    seats = OverviewBoeing787.Display787(flight);
-                    break;
-                }
-        }
+        List<Seat> seats = General_Seat_Logic.GetSeats(flight);
 
         if (seats.Count == 0) { return; }
         Console.WriteLine("if you are interested in the special experience press (1), you will be contacted about further details.");
