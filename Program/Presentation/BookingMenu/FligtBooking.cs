@@ -6,7 +6,7 @@ public static class FlightBooking
     {
 
         List<Seat> seats = [];
-        seats = BookingLogic.GetSeats(flight);
+        seats = General_Seat_Logic.GetSeats(flight);
 
         if (seats.Count == 0) { return; }
         Console.WriteLine("if you are interested in the special experience press (1), you will be contacted about further details.");
