@@ -5,6 +5,7 @@
         try
         {
             DisplayAccountInfo.AccountInfo(account);
+            DisplayCreditCardInfo.CreditCardInfo(account);
             Console.WriteLine("(1) Change name");
             Console.WriteLine("(2) Change email");
             Console.WriteLine("(3) Change phone number");

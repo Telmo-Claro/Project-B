@@ -43,7 +43,7 @@ Press any key to continue.");
                 }
                 Console.Clear();
                 Console.WriteLine("Do you want to use this card? (Y/N)");
-                Console.Write(DisplayCreditCardInfo.CreditCardInfo(account));
+                DisplayCreditCardInfo.CreditCardInfo(account);
                 ConsoleKey key1 = Console.ReadKey().Key;
 
                 if (key1 == ConsoleKey.Y)
