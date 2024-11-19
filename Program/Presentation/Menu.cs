@@ -301,7 +301,7 @@ Press any key to continue.");
         Console.Clear();
 
         int totalprice = Price.GetPrice(flight, seats);
-        Console.WriteLine($@"The costs will be �{totalprice}
+        Console.WriteLine($@"The costs will be €{totalprice}
 Press any key to continue.");
         Console.ReadKey();
 
