@@ -1,4 +1,6 @@
-﻿public static class DisplayAccountInfo
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+public static class DisplayAccountInfo
 {
     public static void AccountInfo(Account? account)
     {
