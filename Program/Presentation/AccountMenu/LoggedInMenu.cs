@@ -22,7 +22,7 @@
                     Menu.ViewFlightMenu(account);
                     break;
                 case "2":
-                    var bookingChoice = Menu.BookingMenu(account);
+                    var bookingChoice = Menu.ManageFlightMenu(account);
                     AccountDataRW.Booking(account, bookingChoice);
                     //ViewBookedFlights.PrintBookedFlight(account.BookedFlights);
                     break;

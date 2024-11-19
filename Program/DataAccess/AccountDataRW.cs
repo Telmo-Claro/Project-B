@@ -187,7 +187,7 @@ public static class AccountDataRW
                                 Console.WriteLine("Password changed successfully!");
                                 break;
                             case 5:
-                                Menu.DisplayCreditCardInfo(x);
+                                DisplayCreditCardInfo.CreditCardInfo(x);
                                 Console.Write("Do you wish to change your information? y/n: ");
                                 bool boolChoice = Console.ReadKey().KeyChar.ToString().ToUpper() == "Y" ? true : false;
                                 if (boolChoice)
@@ -238,10 +238,10 @@ public static class AccountDataRW
                         switch (choice)
                         {
                             case "1":
-                                Menu.ShowActiveBookings(x);
+                                DisplayBookedFlights.ShowActiveBookings(x);
                                 break;
                             case "2":
-                                Menu.ShowPastFlights(x);
+                                DisplayBookedFlights.ShowPastFlights(x);
                                 break;
                             case "3":
                                 Menu.CancelBooking(x);
