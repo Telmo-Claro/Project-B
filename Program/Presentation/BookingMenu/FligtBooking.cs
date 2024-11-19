@@ -68,6 +68,7 @@ Press any key to continue.");
             if (key == ConsoleKey.D2)
             {
                 Console.Clear();
+                IDeal.Pay();
                 Console.WriteLine("You have payed with IDeal");
                 Console.ReadKey();
                 break;
