@@ -24,12 +24,11 @@
             switch (input)
             {
                 case "1":
-                    Menu.ViewFlightMenu(account);
+                    ViewFlightMenu.DisplayMenu(account);
                     break;
                 case "2":
-                    var bookingChoice = Menu.ManageFlightMenu(account);
-                    AccountDataRW.Booking(account, bookingChoice);
-                    //ViewBookedFlights.PrintBookedFlight(account.BookedFlights);
+                    var bookingChoice = MainBookingPresentation.DisplayMain(account);
+                    ManageBookingsLogic.ManageBooking(account, bookingChoice);
                     break;
                 case "3":
                     ChangeAccountDataPresentation.DisplayMenu(account);

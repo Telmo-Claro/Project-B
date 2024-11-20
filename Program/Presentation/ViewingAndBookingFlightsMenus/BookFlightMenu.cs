@@ -5,6 +5,7 @@ public static class BookFlightMenu
     {
         Console.Clear();
         Console.WriteLine("What is the flight number from the flight you would like to book?");
+        Console.Write("> ");
         string? givenFlightNumber = Console.ReadLine();
 
         foreach (Flight flight in _flights)
@@ -21,6 +22,7 @@ public static class BookFlightMenu
                 Console.WriteLine($"Arrival time: {flight.TimeArrival}");
                 Console.WriteLine($"Duration: {flight.Duration}");
                 Console.WriteLine("Correct flight? (Y/N)");
+                Console.Write("> ");
                 
                 ConsoleKey key = Console.ReadKey().Key;
                 while (true)
@@ -32,6 +34,7 @@ public static class BookFlightMenu
 
                     else if (key == ConsoleKey.N)
                     {
+                        Console.WriteLine();
                         Console.WriteLine("Make sure you enter the correct flight number.");
                         Console.WriteLine("Press any key to continue.");
                         Console.ReadKey();

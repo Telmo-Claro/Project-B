@@ -44,15 +44,16 @@
 
             AirplaneOverview(flight, SelectedSeats);
 
-            Console.WriteLine("\nEnter seat designation (e.g. A1, B2) or type 'exit' to quit:");
+            Console.WriteLine("\nEnter seat designation (e.g. A1, B2) or type 'continue' to continue:");
             Console.WriteLine("\nBooked Seats:");
             foreach (var seat1 in SelectedSeats)
             {
                 Console.WriteLine(seat1);
             }
+            Console.Write("> ");
             string input = Console.ReadLine();
 
-            if (input.ToLower() == "exit")
+            if (input.ToLower() == "continue")
             {
                 break;
             }
@@ -78,7 +79,7 @@
                 Thread.Sleep(1000);
                 continue;
             }
-
+            
             Seat seat;
             switch (flight.Aircraft.Name)
             {
@@ -95,29 +96,36 @@
                     seat = General_Seat_Logic.MakeSeat(input);
                     break;
             }
-            Console.WriteLine($"This is a {seat.Type}. Price: ${seat.Price}. Would you like to reserve this seat?");
+            Console.WriteLine($"\nThis is a {seat.Type}. \nPrice: ${seat.Price}. \nWould you like to reserve this seat?");
             Console.WriteLine("(1) Yes");
             Console.WriteLine("(2) No");
-            Console.WriteLine(">");
+            Console.Write("> ");
             ConsoleKey bookingResponse = Console.ReadKey().Key;
             while (true)
             {
                 if (bookingResponse == ConsoleKey.D1)
                 {
                     SelectedSeats.Add(seat);
-                    Console.WriteLine("Seat reserved successfully!");
+                    Console.WriteLine("\nSeat reserved successfully!");
                     Thread.Sleep(1000);
                     break;
                 }
-                if (bookingResponse == ConsoleKey.D2)
+                else if (bookingResponse == ConsoleKey.D2) 
                 {
                     break;
                 }
-                else { break; }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Invalid input. Please enter 1 or 2.");
+                    Console.Write("> ");
+                    bookingResponse = Console.ReadKey().Key;
+                }
             }
         }
         Console.WriteLine("Done reserving.");
         Thread.Sleep(1000);
+        Console.Write("> ");
         return SelectedSeats;
     }
 }

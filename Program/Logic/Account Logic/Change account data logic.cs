@@ -59,6 +59,7 @@
                             ChangeAccountDataPresentation.DisplayMenu(account);
                             break;
                         case "5":
+                            Console.WriteLine();
                             Console.WriteLine("Are you sure you want to change your CreditCard? [Y/N]");
                             Console.Write("> ");
                     
@@ -86,6 +87,7 @@
                             LoggedInPresentation.DisplayMenu(account);
                             break;
                         default:
+                            Console.WriteLine();
                             Console.WriteLine("Please enter a valid choice!");
                             Thread.Sleep(2000);
                             break;
