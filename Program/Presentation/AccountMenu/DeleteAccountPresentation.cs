@@ -1,10 +1,10 @@
-﻿public static class DeleteAccountMenu
+﻿public static class DeleteAccountPresentation
 {
-    public static void DeleteAccount(Account account)
+    public static void DisplayMenu(Account account)
     {
         try
         {
-            AccountDataRW.DeleteAccount(account.Email);
+            DeleteAccountLogic.DeleteAccount(account.Email);
             Console.WriteLine("Account deleted successfully.");
         }
         catch (Exception e)

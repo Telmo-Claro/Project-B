@@ -1,6 +1,6 @@
-﻿public static class LoggedInMenu
+﻿public static class LoggedInPresentation
 {
-    public static void LoggedIn(Account account)
+    public static void DisplayMenu(Account account)
     {
         while (true)
         {
@@ -27,16 +27,16 @@
                     //ViewBookedFlights.PrintBookedFlight(account.BookedFlights);
                     break;
                 case "3":
-                    ManageAccountMenu.ManageAccount(account);
+                    ChangeAccountDataPresentation.DisplayMenu(account);
                     break;
                 case "4":
-                    DeleteAccountMenu.DeleteAccount(account);
+                    DeleteAccountPresentation.DisplayMenu(account);
                     break;
                 case "5":
                     WelcomingMenu.Menu();
                     break;
                 case "6":
-                    LoggedIn(account);
+                    DisplayMenu(account);
                     break;
                 default:
                     Console.WriteLine("\nInvalid option. Please try again.");

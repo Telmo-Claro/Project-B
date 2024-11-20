@@ -1,6 +1,6 @@
-﻿public static class CreateAccountMenu
+﻿public static class CreateAccountPresentation
 {
-    public static void CreateAccount()
+    public static void DisplayMenu()
     {
         while (true)
         {
@@ -39,10 +39,15 @@
                 Console.Write("Enter password: ");
                 password = Console.ReadLine();
             }
-            bool choice = false;
+            
             Console.Write("Do you want to add a CreditCard? Y/N: ");
-            choice = Console.ReadKey().KeyChar.ToString().ToUpper() == "Y" ? true : false;
-            if (choice)
+            string input = "";
+            do
+            {
+                input = Console.ReadLine().ToLower();
+            } while (input is not "y" or "n");
+
+            if (input == "y")
             {
                 Console.Clear();
                 creditCard = InputCreditCardInfo.CreateCreditCard();
@@ -53,13 +58,13 @@
                                   && password != null)
             {
                 // firstName, lastName, email, phoneNumber, password
-                Account? account = ClassFactory.CreateAccount(firstName, lastName, email, phoneNumber, password, creditCard);
-                if (choice)
+                Account account = ClassFactory.CreateAccount(firstName, lastName, email, phoneNumber, password, creditCard);
+                if (input == "y")
                 {
                     account.CreditCardInfo = creditCard;
                 }
-                AccountDataRW.WriteJson(account);
-                LoggedInMenu.LoggedIn(account);
+                AddAccountLogic.AddAccount(account);
+                LoggedInPresentation.DisplayMenu(account);
 
             }
             break;

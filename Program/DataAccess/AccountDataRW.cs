@@ -2,18 +2,22 @@ using System.Text.Json;
 
 public static class AccountDataRW
 {
+    private static readonly string
+        _filepath = Path.Combine("DataBases", "Accounts.json"); // Standard filepath for accounts
+
     // Data access - Read from file
-    public static List<Account>? ReadAccountsFromFile(string filepath)
+    public static List<Account>? ReadFromJson()
     {
         try
         {
-            if (File.Exists(filepath))
+            if (File.Exists(_filepath))
             {
-                string jsonString = File.ReadAllText(filepath);
+                string jsonString = File.ReadAllText(_filepath);
                 if (string.IsNullOrWhiteSpace(jsonString))
                 {
                     jsonString = "[]";
                 }
+
                 return JsonSerializer.Deserialize<List<Account>>(jsonString);
             }
         }
@@ -21,33 +25,17 @@ public static class AccountDataRW
         {
             Console.WriteLine($"Error reading JSON: {e.Message}");
         }
+
         return new List<Account>();
     }
 
-    // Data access - Read to file
-    public static void WriteJson(Account? account)
+    public static void WriteToJson(List<Account> accounts)
     {
-        string filepath = Path.Combine("DataBases", "Accounts.json");
-        var accounts = ReadAccountsFromFile(filepath);
-
-        if (accounts != null)
-        {
-            var existingAccount = accounts.FirstOrDefault(x => x.Id == account.Id);
-            if (existingAccount != null)
-            {
-                accounts.Remove(existingAccount);
-                accounts.Add(account);
-            }
-            else
-            {
-                accounts.Add(account);
-            }
-        }
         try
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
-            string updatedJsonString = JsonSerializer.Serialize(accounts, options);
-            File.WriteAllText(filepath, updatedJsonString);
+            string jsonString = JsonSerializer.Serialize(accounts, options);
+            File.WriteAllText(_filepath, jsonString);
         }
         catch (Exception e)
         {
@@ -55,168 +43,7 @@ public static class AccountDataRW
         }
     }
 
-    // This goes to Logic
-    public static Account? LoggingIn(string email, string password)
-    {
-        string filepath = Path.Combine("DataBases", "Accounts.json");
-
-        try
-        {
-            // Check if the file exists
-            if (File.Exists(filepath))
-            {
-                string jsonString = File.ReadAllText(filepath);
-                // Try to deserialize the content to a List of Accounts
-                var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
-
-                if (accounts is null) return null;
-
-                foreach (var account in accounts)
-                {
-                    if (account.Email == email && account.Password == password)
-                    {
-                        return account;
-                    }
-                }
-                Console.WriteLine("No matches with the given credentials");
-                Console.ReadKey();
-                LoginMenu.Login();
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error reading JSON {e.Message}");
-            Console.ReadKey();
-        }
-        return null;
-    }
-
-    // Merge with writeJson
-    public static void ChangeJson(string jsonstring)
-    {
-        var filepath = Path.Combine("DataBases", "Accounts.json");
-        try
-        {
-            if (File.Exists(filepath))
-            {
-                File.WriteAllText(filepath, jsonstring);
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error changing JSON: {e.Message}");
-        }
-    }
-
-    // This goes to Logic
-    public static void DeleteAccount(string? email)
-    {
-        string filepath = Path.Combine("DataBases", "Accounts.json");
-
-        try
-        {
-            if (File.Exists(filepath))
-            {
-                string jsonString = File.ReadAllText(filepath);
-                var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
-                if (accounts is null) return;
-
-                var accountToRemove = accounts.FirstOrDefault(x => x.Email == email);
-                if (accountToRemove != null)
-                {
-                    accounts.Remove(accountToRemove);
-                    var options = new JsonSerializerOptions { WriteIndented = true };
-                    string updatedJsonString = JsonSerializer.Serialize(accounts, options);
-
-                    ChangeJson(updatedJsonString);
-                    Console.Clear();
-                    Console.WriteLine("Account deleted succesfully");
-
-                    Console.ReadKey();
-                    WelcomingMenu.Menu();
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error Deleting Json: {e.Message}");
-            Console.ReadKey();
-        }
-    }
-
-    // This goes to Logic
-    public static void ChangeData(Account? account, int choice)
-    {
-        string filepath = Path.Combine("DataBases", "Accounts.json");
-        try
-        {
-            if (File.Exists(filepath))
-            {
-                string jsonString = File.ReadAllText(filepath);
-                var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
-                if (accounts is null) return;
-
-                foreach (var x in accounts)
-                {
-                    if (x.Email == account.Email && x.Password == account.Password
-                        && x.FirstName == account.FirstName && x.LastName == account.LastName)
-                    {
-                        switch (choice)
-                        {
-                            case 1:
-                                Console.Write("Enter new first name: ");
-                                x.FirstName = Console.ReadLine();
-                                Console.WriteLine();
-                                Console.Write("Enter new last name: ");
-                                x.LastName = Console.ReadLine();
-                                Console.WriteLine("Name changed successfully!");
-                                break;
-                            case 2:
-                                Console.Write("Enter new email: ");
-                                x.Email = Console.ReadLine();
-                                Console.WriteLine("Email changed successfully!");
-                                break;
-                            case 3:
-                                Console.Write("Enter new phone number: ");
-                                x.PhoneNumber = Console.ReadLine();
-                                Console.WriteLine("Phone number changed successfully");
-                                break;
-                            case 4:
-                                Console.Write("Enter new password: ");
-                                x.Password = Console.ReadLine();
-                                Console.WriteLine("Password changed successfully!");
-                                break;
-                            case 5:
-                                DisplayCreditCardInfo.CreditCardInfo(x);
-                                Console.Write("Do you wish to change your information? y/n: ");
-                                bool boolChoice = Console.ReadKey().KeyChar.ToString().ToUpper() == "Y" ? true : false;
-                                if (boolChoice)
-                                {
-                                    x.CreditCardInfo = InputCreditCardInfo.CreateCreditCard();
-                                    Console.WriteLine("Payment method changed successfully!");
-                                }
-                                break;
-                            case 6:
-                                break;
-                            default:
-                                Console.WriteLine("Please enter a valid choice");
-                                break;
-                        }
-                    }
-                }
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                string updatedJsonString = JsonSerializer.Serialize(accounts, options);
-
-                File.WriteAllText(filepath, updatedJsonString);
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error Deleting Prior Info: {e.Message}");
-        }
-    }
-
-    // This goes to Logic
+    // This goes to Booking Logic
     public static void Booking(Account? account, string? choice)
     {
         string filepath = Path.Combine("DataBases", "Accounts.json");
@@ -233,7 +60,7 @@ public static class AccountDataRW
                 foreach (var x in accounts)
                 {
                     if (x.Email == account.Email && x.Password == account.Password
-                        && x.FirstName == account.FirstName && x.LastName == account.LastName)
+                                                 && x.FirstName == account.FirstName && x.LastName == account.LastName)
                     {
                         switch (choice)
                         {
@@ -255,13 +82,11 @@ public static class AccountDataRW
                         }
                     }
                 }
+
                 // double write in Cancelbooking, this fixes this
                 if (!cancelBooking)
                 {
-                    var options = new JsonSerializerOptions { WriteIndented = true };
-                    string updatedJsonString = JsonSerializer.Serialize(accounts, options);
-
-                    ChangeJson(updatedJsonString);
+                    AccountDataRW.WriteToJson(accounts);
                 }
             }
         }
@@ -271,6 +96,7 @@ public static class AccountDataRW
         }
     }
 
+    // This goes to Booking Logic
     public static void CancelBooking(Account account, string flightNumber)
     {
         string filepath = Path.Combine("DataBases", "Accounts.json");
@@ -300,14 +126,13 @@ public static class AccountDataRW
                         }
                     }
                 }
+
                 if (cancelledFlight is not null)
                 {
                     Email.SendCancellationEmail(account, cancelledFlight);
                 }
 
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                string updatedJsonString = JsonSerializer.Serialize(accounts, options);
-                ChangeJson(updatedJsonString);
+                AccountDataRW.WriteToJson(accounts);
             }
         }
         catch (Exception e)
@@ -316,38 +141,21 @@ public static class AccountDataRW
         }
     }
 
-
+    // This goes somewhere xD
     public static void ChangeAccount(Account account) // global method for adding booked flight, credit card and booking codes
     {
-        string filepath = Path.Combine("DataBases", "Accounts.json");
-        try
-        {
-            if (File.Exists(filepath))
+            var accounts = AccountDataRW.ReadFromJson();
+            if (accounts is null) return;
+            foreach (Account x in accounts)
             {
-                string jsonString = File.ReadAllText(filepath);
-                var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
-                if (accounts is null) return;
-
-                foreach (Account x in accounts)
+                if (x.FirstName == account.FirstName && x.LastName == account.LastName
+                                                     && x.Email == account.Email && x.Password == account.Password)
                 {
-                    if (x.FirstName == account.FirstName && x.LastName == account.LastName
-                        && x.Email == account.Email && x.Password == account.Password)
-                    {
-                        x.BookedFlights = account.BookedFlights;
-                        x.BookingCodes = account.BookingCodes;
-                        x.CreditCardInfo = account.CreditCardInfo;
-                    }
+                    x.BookedFlights = account.BookedFlights;
+                    x.BookingCodes = account.BookingCodes;
+                    x.CreditCardInfo = account.CreditCardInfo;
                 }
-
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                string updatedJsonString = JsonSerializer.Serialize(accounts, options);
-
-                ChangeJson(updatedJsonString);
             }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error Changing Data, Info: {e.Message}");
-        }
+            AccountDataRW.WriteToJson(accounts);
     }
 }
