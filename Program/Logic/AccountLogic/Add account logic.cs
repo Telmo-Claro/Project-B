@@ -1,4 +1,4 @@
-﻿public static class Add_account_logic
+﻿public static class AddAccountLogic
 {
     public static void AddAccount(Account account)
     {

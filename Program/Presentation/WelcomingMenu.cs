@@ -17,10 +17,10 @@
             switch (Console.ReadKey().KeyChar.ToString())
             {
                 case "1":
-                    LoginMenu.Login();
+                    LoggingInPresentation.MenuDisplay();
                     break;
                 case "2":
-                    CreateAccountMenu.CreateAccount();
+                    CreateAccountPresentation.DisplayMenu();
                     break;
                 case "3":
                     Environment.Exit(0);

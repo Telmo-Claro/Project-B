@@ -1,4 +1,4 @@
-﻿public static class Logging_In
+﻿public static class LoggingInLogic
 {
     public static Account? LoggingIn(string email, string password)
     {
@@ -13,7 +13,7 @@
         }
         Console.WriteLine("No matches with the given credentials");
         Console.ReadKey();
-        LoginMenu.Login();
+        LoggingInPresentation.MenuDisplay();
         return null;
     }
 }

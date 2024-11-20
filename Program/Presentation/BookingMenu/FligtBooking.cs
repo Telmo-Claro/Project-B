@@ -102,6 +102,6 @@ Press any key to continue.");
 We sent an email with additional information.
 Press any key to continue");
         Console.ReadKey();
-        LoggedInMenu.LoggedIn(account);
+        LoggedInPresentation.DisplayMenu(account);
     }
 }

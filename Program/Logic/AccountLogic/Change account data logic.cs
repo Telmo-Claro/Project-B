@@ -1,10 +1,11 @@
-﻿public static class Change_account_data_logic
+﻿public static class ChangeAccountDataLogic
 {
-    public static void ChangeData(Account account, int choice)
+    public static void ChangeData(Account account, string choice)
     {
         var accounts = AccountDataRW.ReadFromJson();
         if (accounts is null) return;
         
+        // Check if account exists
         foreach (var x in accounts)
         {
             if (
@@ -20,30 +21,38 @@
             {
                 switch (choice)
                 {
-                    case 1:
+                    case "1":
                         Console.Write("Enter new first name: ");
                         x.FirstName = Console.ReadLine();
                         Console.WriteLine();
                         Console.Write("Enter new last name: ");
                         x.LastName = Console.ReadLine();
                         Console.WriteLine("Name changed successfully!");
+                        AccountDataRW.WriteToJson(accounts);
+                        ChangeAccountDataPresentation.DisplayMenu(account);
                         break;
-                    case 2:
+                    case "2":
                         Console.Write("Enter new email: ");
                         x.Email = Console.ReadLine();
                         Console.WriteLine("Email changed successfully!");
+                        AccountDataRW.WriteToJson(accounts);
+                        ChangeAccountDataPresentation.DisplayMenu(account);
                         break;
-                    case 3:
+                    case "3":
                         Console.Write("Enter new phone number: ");
                         x.PhoneNumber = Console.ReadLine();
                         Console.WriteLine("Phone number changed successfully");
+                        AccountDataRW.WriteToJson(accounts);
+                        ChangeAccountDataPresentation.DisplayMenu(account);
                         break;
-                    case 4:
+                    case "4":
                         Console.Write("Enter new password: ");
                         x.Password = Console.ReadLine();
                         Console.WriteLine("Password changed successfully!");
+                        AccountDataRW.WriteToJson(accounts);
+                        ChangeAccountDataPresentation.DisplayMenu(account);
                         break;
-                    case 5:
+                    case "5":
                         DisplayCreditCardInfo.CreditCardInfo(x);
                         Console.Write("Do you wish to change your information? y/n: ");
                         bool boolChoice = Console.ReadKey().KeyChar.ToString().ToUpper() == "Y" ? true : false;
@@ -52,8 +61,12 @@
                             x.CreditCardInfo = InputCreditCardInfo.CreateCreditCard();
                             Console.WriteLine("Payment method changed successfully!");
                         }
+                        AccountDataRW.WriteToJson(accounts);
+                        ChangeAccountDataPresentation.DisplayMenu(account);
                         break;
-                    case 6:
+                    case "6":
+                        AccountDataRW.WriteToJson(accounts);
+                        LoggedInPresentation.DisplayMenu(account);
                         break;
                     default:
                         Console.WriteLine("Please enter a valid choice");

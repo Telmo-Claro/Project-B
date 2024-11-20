@@ -1,4 +1,4 @@
-﻿public class Delete_account_logic
+﻿public class DeleteAccountLogic
 {
     public static void DeleteAccount(string? email)
     {

@@ -1,6 +1,6 @@
-﻿public static class LoginMenu
+﻿public static class LoggingInPresentation
 {
-    public static void Login()
+    public static void MenuDisplay()
     {
         while (true)
         {
@@ -33,10 +33,10 @@
             }
 
             // Call LoggingIn and check for null result
-            var account = Logging_In.LoggingIn(email, password);
+            var account = LoggingInLogic.LoggingIn(email, password);
             if (account != null)
             {
-                LoggedInMenu.LoggedIn(account);
+                LoggedInPresentation.DisplayMenu(account);
             }
             else
             {
