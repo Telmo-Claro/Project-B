@@ -24,7 +24,7 @@
                 Console.Write("Last name: ");
                 lastName = Console.ReadLine();
             }
-            while (email == "")
+            while (email == "" && email.Contains("@") == false)
             {
                 Console.Write("Enter email: ");
                 email = Console.ReadLine();
@@ -41,11 +41,16 @@
             }
             
             Console.Write("Do you want to add a CreditCard? Y/N: ");
-            string input = "";
-            do
+            string input;
+            while (true)
             {
-                input = Console.ReadLine().ToLower();
-            } while (input is not "y" or "n");
+                input = Console.ReadKey().KeyChar.ToString().ToLower();
+                Console.WriteLine();
+                if (input.ToLower() == "y" || input.ToLower() == "n")
+                {
+                    break;
+                }
+            }
 
             if (input == "y")
             {
@@ -65,7 +70,6 @@
                 }
                 AddAccountLogic.AddAccount(account);
                 LoggedInPresentation.DisplayMenu(account);
-
             }
             break;
         }

@@ -14,9 +14,14 @@
             Console.WriteLine("(2) View and manage bookings");
             Console.WriteLine("(3) Manage account");
             Console.WriteLine("(4) Delete account");
-            Console.WriteLine("(5) Exit");
+            Console.WriteLine("(ESC) Exit");
             Console.Write("> ");
-            switch (Console.ReadKey().KeyChar.ToString())
+            string input = Console.ReadKey().KeyChar.ToString();
+            if (input == "\t")
+            {
+                WelcomingMenu.Menu();
+            }
+            switch (input)
             {
                 case "1":
                     Menu.ViewFlightMenu(account);
@@ -35,7 +40,10 @@
                 case "5":
                     WelcomingMenu.Menu();
                     break;
-                case "6":
+                case "ESC":
+                    DisplayMenu(account);
+                    break;
+                case "TAB":
                     DisplayMenu(account);
                     break;
                 default:

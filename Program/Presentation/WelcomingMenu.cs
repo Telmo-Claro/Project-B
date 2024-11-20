@@ -8,13 +8,17 @@
             Console.WriteLine("---------------------");
             Console.WriteLine("WELCOME TO TRENLINES!");
             Console.WriteLine("---------------------");
-
-            Console.WriteLine("What do you wish to do:");
             Console.WriteLine("(1) Log in");
             Console.WriteLine("(2) Create an account");
-            Console.WriteLine("(3) Exit");
+            Console.WriteLine("(ESC) Exit");
             Console.Write("> ");
-            switch (Console.ReadKey().KeyChar.ToString())
+            var input = Console.ReadKey().KeyChar.ToString();
+            Console.WriteLine(input);
+            if (input is "ESC" or "\t")
+            {
+                Environment.Exit(0);
+            }
+            switch (input)
             {
                 case "1":
                     LoggingInPresentation.MenuDisplay();
@@ -22,17 +26,15 @@
                 case "2":
                     CreateAccountPresentation.DisplayMenu();
                     break;
-                case "3":
-                    Environment.Exit(0);
-                    break;
                 case "p":
                     Admin.AdminMenu();
                     break;
                 default:
-                    Console.WriteLine("\nInvalid option. Please try again.");
-                    Thread.Sleep(2000);
+                    Console.Write("\nInvalid option. Please try again.");
+                    Thread.Sleep(1000);
                     break;
             }
+            
         }
     }
 }
