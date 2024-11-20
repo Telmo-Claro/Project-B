@@ -40,10 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Logic\AccountLogic\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="DataBases\Flights.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -4,7 +4,7 @@
     {
         try
         {
-            AccountDataRW.DeleteAccount(account.Email);
+            Delete_account_logic.DeleteAccount(account.Email);
             Console.WriteLine("Account deleted successfully.");
         }
         catch (Exception e)

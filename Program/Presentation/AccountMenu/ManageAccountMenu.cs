@@ -20,7 +20,7 @@
                 Console.Write("Please enter an option: ");
                 if (int.TryParse(Console.ReadLine(), out choice))
                 {
-                    AccountDataRW.ChangeData(account, choice);
+                    Change_account_data_logic.ChangeData(account, choice);
                     valid = true;
                 }
                 else

@@ -58,7 +58,7 @@
                 {
                     account.CreditCardInfo = creditCard;
                 }
-                AccountDataRW.WriteJson(account);
+                Add_account_logic.AddAccount(account);
                 LoggedInMenu.LoggedIn(account);
 
             }
