@@ -43,8 +43,7 @@ public static class AccountDataRW
         }
     }
 
-    // This goes to Logic
-
+    // This goes to Booking Logic
     public static void Booking(Account? account, string? choice)
     {
         string filepath = Path.Combine("DataBases", "Accounts.json");
@@ -97,6 +96,7 @@ public static class AccountDataRW
         }
     }
 
+    // This goes to Booking Logic
     public static void CancelBooking(Account account, string flightNumber)
     {
         string filepath = Path.Combine("DataBases", "Accounts.json");
@@ -141,16 +141,11 @@ public static class AccountDataRW
         }
     }
 
-
+    // This goes somewhere xD
     public static void ChangeAccount(Account account) // global method for adding booked flight, credit card and booking codes
     {
-        string filepath = Path.Combine("DataBases", "Accounts.json");
-        if (File.Exists(filepath))
-        {
-            string jsonString = File.ReadAllText(filepath);
-            var accounts = JsonSerializer.Deserialize<List<Account>>(jsonString);
+            var accounts = AccountDataRW.ReadFromJson();
             if (accounts is null) return;
-
             foreach (Account x in accounts)
             {
                 if (x.FirstName == account.FirstName && x.LastName == account.LastName
@@ -161,8 +156,6 @@ public static class AccountDataRW
                     x.CreditCardInfo = account.CreditCardInfo;
                 }
             }
-
             AccountDataRW.WriteToJson(accounts);
-        }
     }
 }
