@@ -9,13 +9,13 @@
         Console.WriteLine("(3) Change phone number");
         Console.WriteLine("(4) Change password");
         Console.WriteLine("(5) Change CreditCard information");
-        Console.WriteLine("(6) Go back");
+        Console.WriteLine("(ESC) Go back");
         Console.Write("> ");
-
+        
         string choice;
         do
         {
-            choice = Console.ReadLine();
+            choice = Console.ReadKey().KeyChar.ToString();
         } while (choice == "");
         ChangeAccountDataLogic.ChangeData(account, choice);
     }

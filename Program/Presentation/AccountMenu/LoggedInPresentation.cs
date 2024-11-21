@@ -14,17 +14,21 @@
             Console.WriteLine("(2) View and manage bookings");
             Console.WriteLine("(3) Manage account");
             Console.WriteLine("(4) Delete account");
-            Console.WriteLine("(5) Exit");
+            Console.WriteLine("(ESC) Exit");
             Console.Write("> ");
-            switch (Console.ReadKey().KeyChar.ToString())
+            string input = Console.ReadKey().KeyChar.ToString();
+            if (input == "\t")
+            {
+                WelcomingMenu.Menu();
+            }
+            switch (input)
             {
                 case "1":
-                    Menu.ViewFlightMenu(account);
+                    ViewFlightMenu.DisplayMenu(account);
                     break;
                 case "2":
-                    var bookingChoice = Menu.ManageFlightMenu(account);
-                    AccountDataRW.Booking(account, bookingChoice);
-                    //ViewBookedFlights.PrintBookedFlight(account.BookedFlights);
+                    var bookingChoice = MainBookingPresentation.DisplayMain(account);
+                    ManageBookingsLogic.ManageBooking(account, bookingChoice);
                     break;
                 case "3":
                     ChangeAccountDataPresentation.DisplayMenu(account);
@@ -35,7 +39,10 @@
                 case "5":
                     WelcomingMenu.Menu();
                     break;
-                case "6":
+                case "ESC":
+                    DisplayMenu(account);
+                    break;
+                case "TAB":
                     DisplayMenu(account);
                     break;
                 default:

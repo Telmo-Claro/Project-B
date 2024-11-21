@@ -4,7 +4,8 @@ public static class BookFlightMenu
     public static void BookingMenu(Account account)
     {
         Console.Clear();
-        Console.WriteLine("What is the flightnumber from the flight you would like to book?");
+        Console.WriteLine("What is the flight number from the flight you would like to book?");
+        Console.Write("> ");
         string? givenFlightNumber = Console.ReadLine();
 
         foreach (Flight flight in _flights)
@@ -12,16 +13,17 @@ public static class BookFlightMenu
             if (flight.FlightNumber == givenFlightNumber)
             {
                 Console.Clear();
-                Console.WriteLine(@$"Is this the flight you would like to book?
-Flightnumber: {flight.FlightNumber}
-Departure: {flight.Departure}
-Destination: {flight.Destination}
-Date: {flight.Date}
-Departure time: {flight.TimeDeparture}
-Arrival time: {flight.TimeArrival}
-Duration: {flight.Duration}");
-
+                Console.WriteLine("Is this the flight you would like to book?");
+                Console.WriteLine($"Flightnumber: {flight.FlightNumber}");
+                Console.WriteLine($"Departure: {flight.Departure}");
+                Console.WriteLine($"Destination: {flight.Destination}");
+                Console.WriteLine($"Date: {flight.Date}");
+                Console.WriteLine($"Departure time: {flight.TimeDeparture}");
+                Console.WriteLine($"Arrival time: {flight.TimeArrival}");
+                Console.WriteLine($"Duration: {flight.Duration}");
                 Console.WriteLine("Correct flight? (Y/N)");
+                Console.Write("> ");
+                
                 ConsoleKey key = Console.ReadKey().Key;
                 while (true)
                 {
@@ -32,8 +34,9 @@ Duration: {flight.Duration}");
 
                     else if (key == ConsoleKey.N)
                     {
-                        Console.WriteLine(@"Make sure you enter the correct flightnumber.
-Press any key to continue.");
+                        Console.WriteLine();
+                        Console.WriteLine("Make sure you enter the correct flight number.");
+                        Console.WriteLine("Press any key to continue.");
                         Console.ReadKey();
                         BookingMenu(account);
                     }
