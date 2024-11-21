@@ -41,18 +41,18 @@
             }
             
             Console.Write("Do you want to add a CreditCard? Y/N: ");
-            string input;
+            ConsoleKey input;
             while (true)
             {
-                input = Console.ReadKey().KeyChar.ToString().ToLower();
+                input = Console.ReadKey().Key;
                 Console.WriteLine();
-                if (input.ToLower() == "y" || input.ToLower() == "n")
+                if (input == ConsoleKey.Y || input == ConsoleKey.N)
                 {
                     break;
                 }
             }
 
-            if (input == "y")
+            if (input == ConsoleKey.Y)
             {
                 Console.Clear();
                 creditCard = InputCreditCardInfo.CreateCreditCard();
@@ -64,7 +64,7 @@
             {
                 // firstName, lastName, email, phoneNumber, password
                 Account account = ClassFactory.CreateAccount(firstName, lastName, email, phoneNumber, password, creditCard);
-                if (input == "y")
+                if (input == ConsoleKey.Y)
                 {
                     account.CreditCardInfo = creditCard;
                 }

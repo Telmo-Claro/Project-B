@@ -1,13 +1,11 @@
-﻿public static class ChangeAccountDataLogic
+﻿using System.Net.Http.Headers;
+
+public static class ChangeAccountDataLogic
 {
-    public static void ChangeData(Account account, string choice)
+    public static void ChangeData(Account account, ConsoleKey choice)
     {
         var accounts = AccountDataRW.ReadFromJson();
         if (accounts is null) return;
-        if (choice == "\t")
-        {
-            return;
-        }
         // Check if account exists
         foreach (var x in accounts)
         {
@@ -23,7 +21,7 @@
             )
                     switch (choice)
                     {
-                        case "1":
+                        case ConsoleKey.D1:
                             Console.WriteLine();
                             Console.Write("Enter new first name: ");
                             x.FirstName = Console.ReadLine();
@@ -34,7 +32,7 @@
                             AccountDataRW.WriteToJson(accounts);
                             ChangeAccountDataPresentation.DisplayMenu(account);
                             break;
-                        case "2":
+                        case ConsoleKey.D2:
                             Console.WriteLine();
                             Console.Write("Enter new email: ");
                             x.Email = Console.ReadLine();
@@ -42,7 +40,7 @@
                             AccountDataRW.WriteToJson(accounts);
                             ChangeAccountDataPresentation.DisplayMenu(account);
                             break;
-                        case "3":
+                        case ConsoleKey.D3:
                             Console.WriteLine();
                             Console.Write("Enter new phone number: ");
                             x.PhoneNumber = Console.ReadLine();
@@ -50,7 +48,7 @@
                             AccountDataRW.WriteToJson(accounts);
                             ChangeAccountDataPresentation.DisplayMenu(account);
                             break;
-                        case "4":
+                        case ConsoleKey.D4:
                             Console.WriteLine();
                             Console.Write("Enter new password: ");
                             x.Password = Console.ReadLine();
@@ -58,31 +56,41 @@
                             AccountDataRW.WriteToJson(accounts);
                             ChangeAccountDataPresentation.DisplayMenu(account);
                             break;
-                        case "5":
+                        case ConsoleKey.D5:
                             Console.WriteLine();
                             Console.WriteLine("Are you sure you want to change your CreditCard? [Y/N]");
                             Console.Write("> ");
                     
-                            string input;
+                            ConsoleKey input;
                             while (true)
                             {
-                                input = Console.ReadKey().KeyChar.ToString().ToLower();
-                                if (input == "y" || input == "n")
+                                input = Console.ReadKey().Key;
+                                if (input == ConsoleKey.Y || input == ConsoleKey.N)
                                 {
                                     break;
                                 }
                             }
-                    
-                            x.CreditCardInfo = InputCreditCardInfo.CreateCreditCard();
-                            Console.WriteLine("Payment method changed successfully!");
-                            AccountDataRW.WriteToJson(accounts);
-                            ChangeAccountDataPresentation.DisplayMenu(account);
+
+                            switch (input)
+                            {
+                                case ConsoleKey.Y:
+                                    x.CreditCardInfo = InputCreditCardInfo.CreateCreditCard();
+                                    Console.WriteLine("Payment method changed successfully!");
+                                    AccountDataRW.WriteToJson(accounts);
+                                    ChangeAccountDataPresentation.DisplayMenu(x);
+                                    break;
+                                case ConsoleKey.N:
+                                    break;
+                                default:
+                                    Console.WriteLine("Invalid input. Try again.");
+                                    break;
+                            }
                             break;
-                        case "ESC":
+                        case ConsoleKey.Escape:
                             AccountDataRW.WriteToJson(accounts);
                             LoggedInPresentation.DisplayMenu(account);
                             break;
-                        case "TAB":
+                        case ConsoleKey.Tab:
                             AccountDataRW.WriteToJson(accounts);
                             LoggedInPresentation.DisplayMenu(account);
                             break;

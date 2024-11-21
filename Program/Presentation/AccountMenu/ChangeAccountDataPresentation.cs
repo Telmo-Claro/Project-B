@@ -12,11 +12,7 @@
         Console.WriteLine("(ESC) Go back");
         Console.Write("> ");
         
-        string choice;
-        do
-        {
-            choice = Console.ReadKey().KeyChar.ToString();
-        } while (choice == "");
+        ConsoleKey choice = Console.ReadKey().Key;
         ChangeAccountDataLogic.ChangeData(account, choice);
     }
 }
