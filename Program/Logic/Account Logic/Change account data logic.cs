@@ -9,28 +9,17 @@ public static class ChangeAccountDataLogic
         // Check if account exists
         foreach (var x in accounts)
         {
-            if (
-                x.Email.Equals(account.Email,
-                    StringComparison.OrdinalIgnoreCase) &&
-                x.Password.Equals(account.Password,
-                    StringComparison.OrdinalIgnoreCase) &&
-                x.FirstName.Equals(account.FirstName,
-                    StringComparison.OrdinalIgnoreCase) &&
-                x.LastName.Equals(account.LastName,
-                    StringComparison.OrdinalIgnoreCase)
-            )
+            if (x.Email == account.Email && x.Password == account.Password)
                     switch (choice)
                     {
                         case ConsoleKey.D1:
-                            Console.WriteLine();
-                            Console.Write("Enter new first name: ");
+                            Console.Write("\nEnter new first name: ");
                             x.FirstName = Console.ReadLine();
-                            Console.WriteLine();
-                            Console.Write("Enter new last name: ");
+                            Console.Write("\nEnter new last name: ");
                             x.LastName = Console.ReadLine();
-                            Console.WriteLine("Name changed successfully!");
+                            Console.WriteLine("\nName changed successfully!");
                             AccountDataRW.WriteToJson(accounts);
-                            ChangeAccountDataPresentation.DisplayMenu(account);
+                            ChangeAccountDataPresentation.DisplayMenu(x);
                             break;
                         case ConsoleKey.D2:
                             Console.WriteLine();
@@ -38,7 +27,7 @@ public static class ChangeAccountDataLogic
                             x.Email = Console.ReadLine();
                             Console.WriteLine("Email changed successfully!");
                             AccountDataRW.WriteToJson(accounts);
-                            ChangeAccountDataPresentation.DisplayMenu(account);
+                            ChangeAccountDataPresentation.DisplayMenu(x);
                             break;
                         case ConsoleKey.D3:
                             Console.WriteLine();
@@ -46,7 +35,7 @@ public static class ChangeAccountDataLogic
                             x.PhoneNumber = Console.ReadLine();
                             Console.WriteLine("Phone number changed successfully");
                             AccountDataRW.WriteToJson(accounts);
-                            ChangeAccountDataPresentation.DisplayMenu(account);
+                            ChangeAccountDataPresentation.DisplayMenu(x);
                             break;
                         case ConsoleKey.D4:
                             Console.WriteLine();
@@ -54,7 +43,7 @@ public static class ChangeAccountDataLogic
                             x.Password = Console.ReadLine();
                             Console.WriteLine("Password changed successfully!");
                             AccountDataRW.WriteToJson(accounts);
-                            ChangeAccountDataPresentation.DisplayMenu(account);
+                            ChangeAccountDataPresentation.DisplayMenu(x);
                             break;
                         case ConsoleKey.D5:
                             Console.WriteLine();
@@ -88,11 +77,11 @@ public static class ChangeAccountDataLogic
                             break;
                         case ConsoleKey.Escape:
                             AccountDataRW.WriteToJson(accounts);
-                            LoggedInPresentation.DisplayMenu(account);
+                            LoggedInPresentation.DisplayMenu(x);
                             break;
                         case ConsoleKey.Tab:
                             AccountDataRW.WriteToJson(accounts);
-                            LoggedInPresentation.DisplayMenu(account);
+                            LoggedInPresentation.DisplayMenu(x);
                             break;
                         default:
                             Console.WriteLine();

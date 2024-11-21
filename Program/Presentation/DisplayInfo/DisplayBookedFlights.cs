@@ -24,7 +24,7 @@ public static class DisplayBookedFlights
         }
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
-        MainBookingPresentation.DisplayMain(account);
+        MainBookingPresentation.DisplayMenu(account);
     }
     public static void ShowPastFlights(Account account)
     {
@@ -50,6 +50,6 @@ public static class DisplayBookedFlights
         }
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
-        MainBookingPresentation.DisplayMain(account);
+        MainBookingPresentation.DisplayMenu(account);
     }
 }

@@ -11,8 +11,8 @@
         Console.WriteLine("(5) Change CreditCard information");
         Console.WriteLine("(ESC) Go back");
         Console.Write("> ");
-        
-        ConsoleKey choice = Console.ReadKey().Key;
+
+        var choice = Console.ReadKey().Key;
         ChangeAccountDataLogic.ChangeData(account, choice);
     }
 }

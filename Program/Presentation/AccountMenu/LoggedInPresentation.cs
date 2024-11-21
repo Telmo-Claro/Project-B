@@ -17,7 +17,7 @@
             Console.WriteLine("(ESC) Exit");
             Console.Write("> ");
             var input = Console.ReadKey().Key;
-            if (input == ConsoleKey.Escape || input == ConsoleKey.Tab)
+            if (input is ConsoleKey.Escape or ConsoleKey.Tab)
             {
                 WelcomingMenu.Menu();
             }
@@ -27,8 +27,7 @@
                     ViewFlightMenu.DisplayMenu(account);
                     break;
                 case ConsoleKey.D2:
-                    var bookingChoice = MainBookingPresentation.DisplayMain(account);
-                    ManageBookingsLogic.ManageBooking(account, bookingChoice);
+                    MainBookingPresentation.DisplayMenu(account);
                     break;
                 case ConsoleKey.D3:
                     ChangeAccountDataPresentation.DisplayMenu(account);
