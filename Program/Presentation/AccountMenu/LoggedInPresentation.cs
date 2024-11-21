@@ -14,7 +14,7 @@
             Console.WriteLine("(2) View and manage bookings");
             Console.WriteLine("(3) Manage account");
             Console.WriteLine("(4) Delete account");
-            Console.WriteLine("(ESC) Exit");
+            Console.WriteLine("(ESC) Log out");
             Console.Write("> ");
             var input = Console.ReadKey().Key;
             if (input is ConsoleKey.Escape or ConsoleKey.Tab)

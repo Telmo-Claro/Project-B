@@ -23,18 +23,19 @@
         }
 
         bool choicemade = false;
-        string choice = "";
+        var choice = "";
+        
         while (!choicemade)
         {
             Console.WriteLine("Do you want to cancel booking? [Y/N]");
-            string key = Console.ReadKey().Key.ToString();
-            switch (key.ToLower())
+            var key = Console.ReadKey().Key;
+            switch (key)
             {
-                case "y":
+                case ConsoleKey.Y:
                     choice = "y";
                     choicemade = true;
                     break;
-                case "n":
+                case ConsoleKey.N:
                     choice = "n";
                     choicemade = true;
                     break;

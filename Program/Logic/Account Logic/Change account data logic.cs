@@ -2,34 +2,74 @@
 
 public static class ChangeAccountDataLogic
 {
-    public static void ChangeName(Account account, string firstName, string lastName)
+    public static Account? ChangeName(Account account, string firstName, string lastName)
     {
         var accounts = AccountDataRW.ReadFromJson();
-        if(AccountIsValid.IsValid(account, accounts))
-        {
-            account.FirstName = firstName;
-            account.LastName = lastName;
-        }
-        AccountDataRW.WriteToJson(accounts);
+            foreach (var x in accounts)
+            {
+                Console.WriteLine(x);
+                Console.ReadLine();
+                if (x.Email == account.Email && x.Password == account.Password)
+                {
+                    x.FirstName = firstName;
+                    x.LastName = lastName;
+                    AccountDataRW.WriteToJson(accounts);
+                    return x;
+                }
+            }
+        return null;
     }
     
     public static void ChangeEmail(Account account, string email)
     {
         var accounts = AccountDataRW.ReadFromJson();
-        if(AccountIsValid.IsValid(account, accounts))
-        {
-            account.Email = email;
-        }
+            foreach (var x in accounts)
+            {
+                if (x.Email == account.Email && x.Password == account.Password)
+                {
+                    x.Email = email;
+                }
+            }
         AccountDataRW.WriteToJson(accounts);
     }
     
     public static void ChangePhoneNumber(Account account, string phoneNumber)
     {
         var accounts = AccountDataRW.ReadFromJson();
-        if(AccountIsValid.IsValid(account, accounts))
-        {
-            account.PhoneNumber = phoneNumber;
-        }
+            foreach (var x in accounts)
+            {
+                if (x.Email == account.Email && x.Password == account.Password)
+                {
+                    x.PhoneNumber = phoneNumber;
+                }
+            }
+        AccountDataRW.WriteToJson(accounts);
+    }
+    
+    public static void ChangePassword(Account account, string password)
+    {
+        var accounts = AccountDataRW.ReadFromJson();
+            foreach (var x in accounts)
+            {
+                if (x.Email == account.Email && x.Password == account.Password)
+                {
+                    x.Password = password;
+                }
+            }
+
+        AccountDataRW.WriteToJson(accounts);
+    }
+    
+    public static void ChangeCreditCard(Account account, CreditCard creditCard)
+    {
+        var accounts = AccountDataRW.ReadFromJson();
+            foreach (var x in accounts)
+            {
+                if (x.Email == account.Email && x.Password == account.Password)
+                {
+                    x.CreditCardInfo = creditCard;
+                }
+            }
         AccountDataRW.WriteToJson(accounts);
     }
 
