@@ -101,6 +101,7 @@
             Console.WriteLine("(2) No");
             Console.Write("> ");
             ConsoleKey bookingResponse = Console.ReadKey().Key;
+            Console.WriteLine();
             while (true)
             {
                 if (bookingResponse == ConsoleKey.D1)
@@ -120,6 +121,7 @@
                     Console.WriteLine("Invalid input. Please enter 1 or 2.");
                     Console.Write("> ");
                     bookingResponse = Console.ReadKey().Key;
+                    Console.WriteLine();
                 }
             }
         }

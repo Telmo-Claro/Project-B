@@ -1,6 +1,6 @@
 ﻿public static class MainBookingPresentation
 {
-    public static string DisplayMain(Account account)
+    public static void DisplayMenu(Account account)
     {
         Console.Clear();
         Console.WriteLine("---------------- TRENLINES -----------------");
@@ -11,6 +11,8 @@
         Console.WriteLine($"(ESC) Go back");
         Console.WriteLine("---------------- TRENLINES -----------------\n");
         Console.Write("> ");
-        return Console.ReadKey().KeyChar.ToString();
+        var input = Console.ReadKey().Key;
+        ManageBookingsLogic.ManageBooking(account, input);
+
     }
 }

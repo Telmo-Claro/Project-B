@@ -15,14 +15,12 @@ public static class FlightBooking
 
         int totalprice = Price.GetTotalPrice(flight, seats);
         int seatPrices = Price.GetSeatPrices(seats);
-        Console.WriteLine($"The costs will be �{totalprice}");
+        Console.WriteLine($"The costs will be €{totalprice}");
         Console.WriteLine("Tren tax: €50");
         Console.WriteLine($"Total seat price: €{seatPrices}");
         Console.WriteLine($"Flight price: €{flight.Price}");
         Console.WriteLine("Press any key to continue.");
         Console.Write("> ");
-        Console.ReadKey();
-
         while (true)
         {
             ConsoleKey key = Console.ReadKey().Key;

@@ -1,6 +1,6 @@
 ﻿public class ManageBookingsLogic
 {
-    public static void ManageBooking(Account account, string choice)
+    public static void ManageBooking(Account account, ConsoleKey choice)
     {
         var accounts = AccountDataRW.ReadFromJson();
         bool cancelBooking = false;
@@ -12,17 +12,17 @@
             {
                 switch (choice)
                 {
-                    case "1":
+                    case ConsoleKey.D1:
                         DisplayBookedFlights.ShowActiveBookings(x);
                         break;
-                    case "2":
+                    case ConsoleKey.D2:
                         DisplayBookedFlights.ShowPastFlights(x);
                         break;
-                    case "3":
+                    case ConsoleKey.D3:
                         CancelBookingPresentation.CancelBooking(x);
                         cancelBooking = true;
                         break;
-                    case "\t":
+                    case ConsoleKey.Tab or ConsoleKey.Escape:
                         break;
                     default:
                         Console.WriteLine("Please enter a valid choice");

@@ -27,6 +27,6 @@
             Email.SendCancellationEmail(account, cancelledFlight);
         }
         AccountDataRW.WriteToJson(accounts);
-        MainBookingPresentation.DisplayMain(account);
+        MainBookingPresentation.DisplayMenu(account);
     }
 }

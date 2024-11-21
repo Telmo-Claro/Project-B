@@ -57,7 +57,7 @@
                 Console.ReadKey();
                 break;
             case "n":
-                MainBookingPresentation.DisplayMain(account);
+                MainBookingPresentation.DisplayMenu(account);
                 break;
         }
 
