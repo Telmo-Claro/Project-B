@@ -16,34 +16,28 @@
             Console.WriteLine("(4) Delete account");
             Console.WriteLine("(ESC) Exit");
             Console.Write("> ");
-            string input = Console.ReadKey().KeyChar.ToString();
-            if (input == "\t")
+            var input = Console.ReadKey().Key;
+            if (input == ConsoleKey.Escape || input == ConsoleKey.Tab)
             {
                 WelcomingMenu.Menu();
             }
             switch (input)
             {
-                case "1":
+                case ConsoleKey.D1:
                     ViewFlightMenu.DisplayMenu(account);
                     break;
-                case "2":
+                case ConsoleKey.D2:
                     var bookingChoice = MainBookingPresentation.DisplayMain(account);
                     ManageBookingsLogic.ManageBooking(account, bookingChoice);
                     break;
-                case "3":
+                case ConsoleKey.D3:
                     ChangeAccountDataPresentation.DisplayMenu(account);
                     break;
-                case "4":
+                case ConsoleKey.D4:
                     DeleteAccountPresentation.DisplayMenu(account);
                     break;
-                case "5":
+                case ConsoleKey.D5:
                     WelcomingMenu.Menu();
-                    break;
-                case "ESC":
-                    DisplayMenu(account);
-                    break;
-                case "TAB":
-                    DisplayMenu(account);
                     break;
                 default:
                     Console.WriteLine("\nInvalid option. Please try again.");
