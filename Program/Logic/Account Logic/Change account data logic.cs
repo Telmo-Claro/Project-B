@@ -2,6 +2,38 @@
 
 public static class ChangeAccountDataLogic
 {
+    public static void ChangeName(Account account, string firstName, string lastName)
+    {
+        var accounts = AccountDataRW.ReadFromJson();
+        if(AccountIsValid.IsValid(account, accounts))
+        {
+            account.FirstName = firstName;
+            account.LastName = lastName;
+        }
+        AccountDataRW.WriteToJson(accounts);
+    }
+    
+    public static void ChangeEmail(Account account, string email)
+    {
+        var accounts = AccountDataRW.ReadFromJson();
+        if(AccountIsValid.IsValid(account, accounts))
+        {
+            account.Email = email;
+        }
+        AccountDataRW.WriteToJson(accounts);
+    }
+    
+    public static void ChangePhoneNumber(Account account, string phoneNumber)
+    {
+        var accounts = AccountDataRW.ReadFromJson();
+        if(AccountIsValid.IsValid(account, accounts))
+        {
+            account.PhoneNumber = phoneNumber;
+        }
+        AccountDataRW.WriteToJson(accounts);
+    }
+
+    
     public static void ChangeData(Account account, ConsoleKey choice)
     {
         var accounts = AccountDataRW.ReadFromJson();
@@ -14,10 +46,15 @@ public static class ChangeAccountDataLogic
                     {
                         case ConsoleKey.D1:
                             Console.Write("\nEnter new first name: ");
-                            x.FirstName = Console.ReadLine();
+                            var newFirstName = Console.ReadLine();
+                            x.FirstName = newFirstName;
                             Console.Write("\nEnter new last name: ");
-                            x.LastName = Console.ReadLine();
-                            Console.WriteLine("\nName changed successfully!");
+                            var newLastName = Console.ReadLine();
+                            x.LastName = newLastName;
+                            if (x.FirstName == newFirstName)
+                            {
+                                Console.WriteLine("Name changed successfully!");
+                            }
                             AccountDataRW.WriteToJson(accounts);
                             ChangeAccountDataPresentation.DisplayMenu(x);
                             break;
@@ -76,9 +113,6 @@ public static class ChangeAccountDataLogic
                             }
                             break;
                         case ConsoleKey.Escape:
-                            AccountDataRW.WriteToJson(accounts);
-                            LoggedInPresentation.DisplayMenu(x);
-                            break;
                         case ConsoleKey.Tab:
                             AccountDataRW.WriteToJson(accounts);
                             LoggedInPresentation.DisplayMenu(x);
