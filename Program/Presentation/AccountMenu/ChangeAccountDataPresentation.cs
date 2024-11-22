@@ -78,11 +78,8 @@
             }
         }
         var newAccount = ChangeAccountDataLogic.ChangeName(account, firstName, lastName);
-        Console.ReadLine();
         if (newAccount != null)
         {
-            Console.WriteLine(newAccount.ToString());
-            Console.ReadLine();
             DisplayMenu(newAccount);
         }
         DisplayMenu(account);
@@ -105,7 +102,11 @@
                 break;
             }
         }
-        ChangeAccountDataLogic.ChangeEmail(account, email);
+        var newAccount = ChangeAccountDataLogic.ChangeEmail(account, email);
+        if (newAccount != null)
+        {
+            DisplayMenu(newAccount);
+        }
         DisplayMenu(account);
     }
     
@@ -126,7 +127,11 @@
                 break;
             }
         }
-        ChangeAccountDataLogic.ChangePhoneNumber(account, phoneNumber);
+        var newAccount = ChangeAccountDataLogic.ChangePhoneNumber(account, phoneNumber);
+        if (newAccount != null)
+        {
+            DisplayMenu(newAccount);
+        }
         DisplayMenu(account);
 
     }
@@ -148,29 +153,31 @@
                 break;
             }
         }
-        ChangeAccountDataLogic.ChangePassword(account, password);
+        var newAccount = ChangeAccountDataLogic.ChangePassword(account, password);
+        if (newAccount != null)
+        {
+            DisplayMenu(newAccount);
+        }
         DisplayMenu(account);
 
     }
     
     private static void ChangeCreditCardInformation(Account account)
     {
+        Account? newAccount = null;
         while (true)
         {
             ConsoleKey input;
-            do
-            {
-                Console.Clear();
-                Console.WriteLine("Are you sure you want to change your card information? [Y/N] ");
-                Console.Write("> ");
-                input = Console.ReadKey().Key;
-            } while (input != ConsoleKey.Y || input != ConsoleKey.N);
-            
+            Console.Clear();
+            Console.WriteLine("Are you sure you want to change your card information? [Y/N] ");
+            Console.Write("> ");
+            input = Console.ReadKey().Key;
+
             switch (input)
             {
                 case ConsoleKey.Y:
                     var newCreditCard = InputCreditCardInfo.CreateCreditCard();
-                    ChangeAccountDataLogic.ChangeCreditCard(account, newCreditCard);
+                    newAccount = ChangeAccountDataLogic.ChangeCreditCard(account, newCreditCard);
                     break;
                 case ConsoleKey.N:
                     break;
@@ -179,7 +186,16 @@
                     input = Console.ReadKey().Key;
                     break;
             }
-            DisplayMenu(account);
+
+            if (input != null)
+            {
+                if (newAccount != null)
+                {
+                    DisplayMenu(newAccount);
+                }
+                DisplayMenu(account);
+            }
         }
+        // ReSharper disable once FunctionNeverReturns
     }
 }

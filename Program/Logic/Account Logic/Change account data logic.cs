@@ -20,57 +20,65 @@ public static class ChangeAccountDataLogic
         return null;
     }
     
-    public static void ChangeEmail(Account account, string email)
+    public static Account? ChangeEmail(Account account, string email)
     {
         var accounts = AccountDataRW.ReadFromJson();
-            foreach (var x in accounts)
+        foreach (var x in accounts)
+        {
+            if (x.Email == account.Email && x.Password == account.Password)
             {
-                if (x.Email == account.Email && x.Password == account.Password)
-                {
-                    x.Email = email;
-                }
+                x.Email = email;
+                AccountDataRW.WriteToJson(accounts);
+                return x;
             }
-        AccountDataRW.WriteToJson(accounts);
+        }
+        return null;
     }
     
-    public static void ChangePhoneNumber(Account account, string phoneNumber)
+    public static Account? ChangePhoneNumber(Account account, string phoneNumber)
     {
         var accounts = AccountDataRW.ReadFromJson();
-            foreach (var x in accounts)
+        foreach (var x in accounts)
+        {
+            if (x.Email == account.Email && x.Password == account.Password)
             {
-                if (x.Email == account.Email && x.Password == account.Password)
-                {
-                    x.PhoneNumber = phoneNumber;
-                }
+                x.PhoneNumber = phoneNumber;
+                AccountDataRW.WriteToJson(accounts);
+                return x;
             }
-        AccountDataRW.WriteToJson(accounts);
+        }
+        return null;
     }
     
-    public static void ChangePassword(Account account, string password)
+    public static Account? ChangePassword(Account account, string password)
     {
         var accounts = AccountDataRW.ReadFromJson();
-            foreach (var x in accounts)
+        foreach (var x in accounts)
+        {
+            if (x.Email == account.Email && x.Password == account.Password)
             {
-                if (x.Email == account.Email && x.Password == account.Password)
-                {
-                    x.Password = password;
-                }
+                x.Password = password;
+                AccountDataRW.WriteToJson(accounts);
+                return x;
             }
-
-        AccountDataRW.WriteToJson(accounts);
+        }
+        return null;
     }
     
-    public static void ChangeCreditCard(Account account, CreditCard creditCard)
+    public static Account? ChangeCreditCard(Account account, CreditCard creditCard)
     {
         var accounts = AccountDataRW.ReadFromJson();
             foreach (var x in accounts)
             {
                 if (x.Email == account.Email && x.Password == account.Password)
                 {
+                    AccountDataRW.WriteToJson(accounts);
                     x.CreditCardInfo = creditCard;
+                    AccountDataRW.WriteToJson(accounts);
+                    return x;
                 }
             }
-        AccountDataRW.WriteToJson(accounts);
+            return null;
     }
 
     
