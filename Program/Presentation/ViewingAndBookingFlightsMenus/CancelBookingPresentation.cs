@@ -49,11 +49,42 @@
         switch (choice.ToLower())
         {
             case "y":
-                Console.Write("Enter the flight number you want to cancel: ");
+                Console.WriteLine("Enter the flight number you want to cancel [eg. TREN0007]");
+                Console.Write("> ");
                 string flightNumber = Console.ReadLine();
-                // Here telmo!
-                CancelBookingLogic.CancelBooking(account, flightNumber);
-                Console.WriteLine("Booking cancelled successfully!");
+                bool valid = CancelBookingLogic.ValidFlight(account, flightNumber);
+                if (!valid)
+                {
+                    Console.WriteLine("Flight not found!");
+                    CancelBookingPresentation.CancelBooking(account);
+                }
+                else
+                {
+                    bool canGetRefund = CancelBookingLogic.CanGetRefund(account, flightNumber);
+                    if (canGetRefund)
+                    {
+                        foreach (var flight in account.BookedFlights)
+                        {
+                            if (flight.FlightNumber == flightNumber)
+                            {
+                                Console.WriteLine("Booking cancelled successfully!");
+                                Console.WriteLine($"€{flight.Price} will be refunded!");
+                                Thread.Sleep(2000);
+                                Console.WriteLine("Press any key to continue...");
+                                Console.ReadKey();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Booking cancelled successfully!");
+                        Thread.Sleep(2000);
+                        Console.WriteLine($"You cancelled the booking to late");
+                        Thread.Sleep(2000);
+                        Console.WriteLine($"No refund for you!");
+                    }
+                    CancelBookingLogic.CancelBooking(account, flightNumber);
+                }
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
                 break;
