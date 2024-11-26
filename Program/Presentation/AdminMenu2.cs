@@ -375,6 +375,7 @@ public static void AddFlight()
             TimeDeparture = timeDeparture,
             TimeArrival = timeArrival,
             Duration = duration,
+            SelectedTimeslots = [],
             Status = status,
             Country = country,
             Aircraft = new Aircraft(totalSeats, aircraftName),

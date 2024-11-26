@@ -66,6 +66,7 @@ public class AdminLogic
             TimeDeparture = timeDeparture,
             TimeArrival = timeArrival,
             Duration = duration,
+            SelectedTimeslots = [],
             Status = status,
             Country = country,
             Aircraft = aircraft,
