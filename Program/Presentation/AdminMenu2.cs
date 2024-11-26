@@ -379,7 +379,8 @@ public static void AddFlight()
             Status = status,
             Country = country,
             Aircraft = new Aircraft(totalSeats, aircraftName),
-            Price = rnd.Next(50, 200)
+            Price = rnd.Next(50, 200),
+            SelectedTimeslots = new List<TimeSpan>()
         };
         
         AdminLogic.AddFlight(newFlight);

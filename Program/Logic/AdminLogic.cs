@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class AdminLogic
 {
     private static readonly string AdminUsername = "snus";
@@ -70,7 +72,8 @@ public class AdminLogic
             Status = status,
             Country = country,
             Aircraft = aircraft,
-            Price = price
+            Price = price,
+            SelectedTimeslots = new List<TimeSpan>()
         };
     }
 }
