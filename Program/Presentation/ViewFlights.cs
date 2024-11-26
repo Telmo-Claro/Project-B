@@ -1,7 +1,12 @@
 public static class ViewFlights
 {
-    private static readonly List<Flight> _flights = FlightDataRW.ReadJson();
+    public static List<Flight> _flights = FlightDataRW.ReadJson();
 
+    public static void UpdateFlights()
+    {
+        _flights = FlightDataRW.ReadJson(); 
+    }
+    
     private static string SpacesAdd(string str, string header)
     {
         if (str.Length < header.Length)
@@ -16,6 +21,7 @@ public static class ViewFlights
     }
     public static void View(int page)
     {
+        UpdateFlights();
         int indexEnd = _flights.Count;
         int indexStart = (page - 1) * 12;
         if (_flights.Count > 11)
@@ -46,6 +52,7 @@ public static class ViewFlights
     }
     public static void View(int page, string? location, string? date)
     {
+        
         List<Flight> flights = new List<Flight>();
         foreach (var flight in _flights)
         {
