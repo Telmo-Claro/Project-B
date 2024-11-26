@@ -1,8 +1,8 @@
-﻿public class IDeal : Payment
+﻿using System.Diagnostics;
+public class IDeal : Payment
 {
-    public new void Pay()
+    public static new void Pay()
     {
-        Console.WriteLine("Press X to pay with IDeal");
-        System.Diagnostics.Process.Start(_idealUrl);
+        Process.Start(new ProcessStartInfo(_idealUrl) { UseShellExecute = true });
     }
 }

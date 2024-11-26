@@ -5,7 +5,8 @@
     public string Number { get; set; }
     public string ExpirationDate { get; set; }
     public string CvcCode { get; set; }
-    protected string _idealUrl { get; set; } = "https://tikkie.me/pay/99hmk7edsop5tts1lso8";
+
+    protected const string _idealUrl = "https://tikkie.me/pay/sa10d5e0n7sf7sii1rke";
 
 
     public Payment(string firstName, string lastName)

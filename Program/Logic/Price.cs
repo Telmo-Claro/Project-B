@@ -1,6 +1,6 @@
 public static class Price
 {
-    public static int GetPrice(Flight flight, List<Seat> seat)
+    public static int GetTotalPrice(Flight flight, List<Seat> seat)
     {
         int trentax = 50;
         int priceSeats = 0;
@@ -9,5 +9,14 @@ public static class Price
             priceSeats += zetel.GetPrice();
         }
         return priceSeats + flight.Price + trentax;
+    }
+    public static int GetSeatPrices(List<Seat> seat)
+    {
+        int priceSeats = 0;
+        foreach (Seat zetel in seat)
+        {
+            priceSeats += zetel.GetPrice();
+        }
+        return priceSeats;
     }
 }

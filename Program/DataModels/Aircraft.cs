@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 public class Aircraft
 {
     [JsonPropertyName("Name")]
@@ -8,10 +9,16 @@ public class Aircraft
     public int TotalSeats { get; }
 
     [JsonPropertyName("LeftSeats")]
-    public int LeftSeats { get; }
+    public int LeftSeats { get; private set; }
 
     [JsonPropertyName("BookedSeats")]
     public List<Seat> BookedSeats { get; set; }
+
+    [JsonPropertyName("ValidSeats")]
+    public virtual List<string> ValidSeats { get; set; }
+
+    [JsonPropertyName("PlaneOverview")]
+    public virtual string PlaneOverview { get; set; }
 
     public Aircraft(int totalSeats, string? name)
     {
@@ -19,10 +26,23 @@ public class Aircraft
         LeftSeats = totalSeats;
         Name = name;
         BookedSeats = new List<Seat>();
+        ValidSeats = new List<string>();
+        PlaneOverview = string.Empty;
     }
+
 
     public override string? ToString()
     {
         return Name;
+    }
+
+    public void SeatCountMinus()
+    {
+        LeftSeats--;
+    }
+
+     public void SeatCountPlus()
+    {
+        LeftSeats++;
     }
 }
