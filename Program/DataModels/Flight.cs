@@ -34,4 +34,7 @@ public class Flight
     [JsonPropertyName("Price")]
     public required int Price { get; set; }
 
+    [JsonPropertyName("SelectedTimeslots")]
+    public required List<TimeSpan> SelectedTimeslots { get; set; }
+
 }
