@@ -156,67 +156,76 @@ public static class Admin
             Console.ResetColor(); 
         }
     }
-    public static void DeleteFlight()
+    
+public static void DeleteFlight()
+{
+    List<Flight> flightList = FlightDataRW.ReadJson();
+    Console.Clear();
+
+    while (true)
     {
-        
-        List<Flight> flightList = FlightDataRW.ReadJson();
-        Console.Clear();
+        Console.WriteLine("Enter the flight number to delete\nType '/Quit' to return to the menu");
+        string input = Console.ReadLine();
 
-        while (true)
+        if (input == "/Quit") 
         {
-            Console.WriteLine("Enter the flight number to delete\nType '/Quit' to return to the menu");
-            string input = Console.ReadLine();
+            return;
+        }
 
-            if (input == "/Quit") 
-            {
-                return;
-            }
-
-            var flightToRemove = AdminLogic.GetFlightDetails(input);
-            if (flightToRemove == null)
-            {
-                Console.Clear();
-                Console.WriteLine("No flight found with that number. Please try again.");
-                continue;
-            }
-
+        var flightToRemove = AdminLogic.GetFlightDetails(input);
+        if (flightToRemove == null)
+        {
             Console.Clear();
-            Console.WriteLine("Flight Details:");
-            Console.WriteLine("\nPress 1 to continue\nPress 2 to go back");
+            Console.WriteLine("No flight found with that number. Please try again.");
+            continue;
+        }
+        
+        Console.Clear();
+        Console.WriteLine("Flight Details:");
+        Console.WriteLine($"Flight Number: {flightToRemove.FlightNumber}");
+        Console.WriteLine($"Departure: {flightToRemove.Departure} → Destination: {flightToRemove.Destination}");
+        Console.WriteLine($"Date: {flightToRemove.Date:dd/MM/yyyy}");
+        
+        Console.WriteLine("\nPress 1 to continue\nPress 2 to go back");
 
-            string confirmInput = Console.ReadLine();
-            if (confirmInput == "2")
-            {
-                continue;
-            }
+        string confirmInput = Console.ReadLine();
+        if (confirmInput == "2")
+        {
+            continue;
+        }
+
+        if (confirmInput == "1")
+        {
+            Console.WriteLine("\nAre you sure you want to delete this flight?\nPress 1 to delete the flight\nPress 2 to cancel");
+            confirmInput = Console.ReadLine();
 
             if (confirmInput == "1")
             {
-                Console.WriteLine(
-                    "\nAre you sure you want to delete this flight?\n \nPress 1 to delete the flight\nPress 2 to cancel");
-                confirmInput = Console.ReadLine();
+                AdminLogic.DeleteFlight(flightToRemove);
 
-                if (confirmInput == "1")
-                {
-                    AdminLogic.DeleteFlight(flightToRemove);
-                    Console.Clear();
-                    Console.WriteLine("Flight deleted successfully.");
-                    Console.WriteLine("");
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("Operation cancelled\n Returning to flight selection.");
-                    Console.WriteLine("");
-                    continue;
-                }
+                
+                flightList = FlightDataRW.ReadJson(); 
+                
+                AdminLogic.DeleteFlight(flightToRemove); 
+                Console.Clear();
+                Console.WriteLine("Flight deleted successfully.");
+                Console.WriteLine("");
+                //flightList = FlightDataRW.ReadJson();
             }
             else
             {
-                Console.WriteLine("Invalid input\n Please enter 1 to continue or 2 to go back");
+                Console.Clear();
+                Console.WriteLine("Operation cancelled\nReturning to flight selection.");
+                Console.WriteLine("");
+                continue;
             }
         }
+        else
+        {
+            Console.WriteLine("Invalid input\nPlease enter 1 to continue or 2 to go back");
+        }
     }
+}
 
 public static void AddFlight()
 {

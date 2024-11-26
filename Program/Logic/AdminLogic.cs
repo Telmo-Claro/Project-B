@@ -29,14 +29,23 @@ public class AdminLogic
     var flightList = FlightDataRW.ReadJson();
     return flightList.Find(flight => flight.FlightNumber == flightNumber);
     }
-
-    public static void DeleteFlight(Flight flightToDelete)
-    { 
-    var flightList = FlightDataRW.ReadJson();
-    flightList.Remove(flightToDelete);
-    FlightDataRW.WriteJson(flightList);
-    }
     
+     public static void DeleteFlight(Flight flightToDelete)
+     {
+         
+         var flightList = FlightDataRW.ReadJson();
+    
+         
+         var flightToRemove = flightList.FirstOrDefault(f => f.FlightNumber == flightToDelete.FlightNumber);
+    
+         if (flightToRemove != null)
+         {
+             flightList.Remove(flightToRemove);
+             FlightDataRW.WriteJson(flightList);
+         }
+     }
+     
+     
     public static void AddFlight(Flight newFlight) 
     {
     var flightList = FlightDataRW.ReadJson();
@@ -64,12 +73,3 @@ public class AdminLogic
         };
     }
 }
-
-
-
-
-
-
-
-
-
