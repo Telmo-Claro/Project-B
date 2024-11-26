@@ -1,10 +1,11 @@
 public static class ViewFlights
 {
-    public static List<Flight> _flights = FlightDataRW.ReadJson();
-
+    // public static List<Flight> _flights = FlightDataRW.ReadJson();
+    public static List<Flight> _flights = ViewUpdatedFlights.UpdateFlights();
+    
     public static void UpdateFlights()
     {
-        _flights = FlightDataRW.ReadJson(); 
+        _flights = ViewUpdatedFlights.UpdateFlights();
     }
     
     private static string SpacesAdd(string str, string header)
