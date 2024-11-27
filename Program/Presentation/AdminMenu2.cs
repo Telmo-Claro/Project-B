@@ -380,7 +380,6 @@ public static void AddFlight()
             Country = country,
             Aircraft = new Aircraft(totalSeats, aircraftName),
             Price = rnd.Next(50, 200),
-            SelectedTimeslots = new List<TimeSpan>()
         };
         
         AdminLogic.AddFlight(newFlight);

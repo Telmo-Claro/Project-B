@@ -73,7 +73,6 @@ public class AdminLogic
             Country = country,
             Aircraft = aircraft,
             Price = price,
-            SelectedTimeslots = new List<TimeSpan>()
         };
     }
 }

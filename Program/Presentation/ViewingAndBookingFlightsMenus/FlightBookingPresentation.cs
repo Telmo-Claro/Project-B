@@ -1,10 +1,12 @@
+using System.Security.Cryptography.X509Certificates;
+
 public static class FlightBooking
 {
     private static readonly List<Flight> _flights = FlightDataRW.ReadJson();
+    public static bool FlightExperienceBool = false;
 
     public static void BookFlight(Account account, Flight flight)
     {
-        bool FlightExperienceBool = false;
         List<Seat> seats = [];
         seats = General_Seat_Logic.GetSeats(flight);
 
@@ -29,12 +31,13 @@ public static class FlightBooking
 
         int totalprice = Price.GetTotalPrice(flight, seats, FlightExperienceBool);
         int seatPrices = Price.GetSeatPrices(seats);
+        Console.Clear();
         Console.WriteLine($"The costs will be €{totalprice}");
         Console.WriteLine("Tren tax: €50");
         Console.WriteLine($"Total seat price: €{seatPrices}");
         Console.WriteLine($"Flight price: €{flight.Price}");
         if (FlightExperienceBool is true)
-            Console.WriteLine($"Flight experience price: {Price.FlightExperiencePrice(FlightExperienceBool)}");
+            Console.WriteLine($"Flight experience price: €{Price.FlightExperiencePrice(FlightExperienceBool)}");
 
         Console.WriteLine("Press any key to continue.");
         Console.Write("> ");
