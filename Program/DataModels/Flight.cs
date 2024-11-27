@@ -24,7 +24,7 @@ public class Flight
     public required TimeSpan Duration { get; set; }
 
     [JsonPropertyName("SelectedTimeslots")]
-    public required List<TimeSpan> SelectedTimeslots { get; set; } = new List<TimeSpan>();
+    public required List<TimeSpan> SelectedTimeslots { get; set; }
 
     [JsonPropertyName("Country")]
     public required string Country { get; set; }
