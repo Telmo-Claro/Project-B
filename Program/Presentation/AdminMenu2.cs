@@ -375,11 +375,11 @@ public static void AddFlight()
             TimeDeparture = timeDeparture,
             TimeArrival = timeArrival,
             Duration = duration,
+            SelectedTimeslots = [],
             Status = status,
             Country = country,
             Aircraft = new Aircraft(totalSeats, aircraftName),
             Price = rnd.Next(50, 200),
-            SelectedTimeslots = new List<TimeSpan>()
         };
         
         AdminLogic.AddFlight(newFlight);

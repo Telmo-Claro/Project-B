@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+
 public class Flight
 {
     [JsonPropertyName("FlightNumber")]
@@ -22,6 +23,9 @@ public class Flight
     [JsonPropertyName("Duration")]
     public required TimeSpan Duration { get; set; }
 
+    [JsonPropertyName("SelectedTimeslots")]
+    public required List<TimeSpan> SelectedTimeslots { get; set; }
+
     [JsonPropertyName("Country")]
     public required string Country { get; set; }
 
@@ -33,8 +37,4 @@ public class Flight
 
     [JsonPropertyName("Price")]
     public required int Price { get; set; }
-
-    [JsonPropertyName("SelectedTimeslots")]
-    public required List<TimeSpan> SelectedTimeslots { get; set; }
-
 }

@@ -1,24 +1,44 @@
+using System.Security.Cryptography.X509Certificates;
+
 public static class FlightBooking
 {
     private static readonly List<Flight> _flights = FlightDataRW.ReadJson();
+    public static bool FlightExperienceBool = false;
 
     public static void BookFlight(Account account, Flight flight)
     {
-
         List<Seat> seats = [];
         seats = General_Seat_Logic.GetSeats(flight);
 
         if (seats.Count == 0) { return; }
-        Console.WriteLine("If you are interested in the special experience press (1), you will be contacted about further details.");
-        Console.ReadKey();
-        Console.Clear();
+        while (true)
+        {
+            Console.WriteLine("Would you be interested in a special flight experience where you can take charge of the plane?");
+            Console.WriteLine("(1) Yes");
+            Console.WriteLine("(2) No");
+            ConsoleKey key = Console.ReadKey().Key;
+            if (key == ConsoleKey.D1)
+            {
+                FlightExperienceBool = true;
+                FlightExperiencePres.FlightExperience(flight);
+                break;
+            }
+            if (key == ConsoleKey.D2)
+            {
+                break;
+            }
+        }
 
-        int totalprice = Price.GetTotalPrice(flight, seats);
+        int totalprice = Price.GetTotalPrice(flight, seats, FlightExperienceBool);
         int seatPrices = Price.GetSeatPrices(seats);
+        Console.Clear();
         Console.WriteLine($"The costs will be €{totalprice}");
         Console.WriteLine("Tren tax: €50");
         Console.WriteLine($"Total seat price: €{seatPrices}");
         Console.WriteLine($"Flight price: €{flight.Price}");
+        if (FlightExperienceBool is true)
+            Console.WriteLine($"Flight experience price: €{Price.FlightExperiencePrice(FlightExperienceBool)}");
+
         Console.WriteLine("Press any key to continue.");
         Console.Write("> ");
         while (true)
