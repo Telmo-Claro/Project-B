@@ -180,13 +180,25 @@ public static void DeleteFlight()
             continue;
         }
         
+        // Console.Clear();
+        // Console.WriteLine("Flight Details:");
+        // Console.WriteLine("");
+        // Console.WriteLine($"Flight Number: {flightToRemove.FlightNumber}");
+        // Console.WriteLine($"Departure: {flightToRemove.Departure} → Destination: {flightToRemove.Destination}");
+        // Console.WriteLine($"Date: {flightToRemove.Date:dd/MM/yyyy}");
+        //
+        
         Console.Clear();
         Console.WriteLine("Flight Details:");
-        Console.WriteLine($"Flight Number: {flightToRemove.FlightNumber}");
-        Console.WriteLine($"Departure: {flightToRemove.Departure} → Destination: {flightToRemove.Destination}");
-        Console.WriteLine($"Date: {flightToRemove.Date:dd/MM/yyyy}");
-        
-        Console.WriteLine("\nPress 1 to continue\nPress 2 to go back");
+        Console.WriteLine(new string('-', 31));  // Adds a separator line for better readability
+        Console.WriteLine($"{"Flight Number:",-20} {flightToRemove.FlightNumber}");
+        Console.WriteLine($"{"Departure:",-20} {flightToRemove.Departure}");
+        Console.WriteLine($"{"Destination:",-20} {flightToRemove.Destination}");
+        Console.WriteLine($"{"Date:",-20} {flightToRemove.Date:dd/MM/yyyy}");
+        Console.WriteLine(new string('-', 31));  // Adds another separator line
+
+        Console.WriteLine("Is this the correct flight?");
+        Console.WriteLine("\n(1) Yes\n(2) No");
 
         string confirmInput = Console.ReadLine();
         if (confirmInput == "2")

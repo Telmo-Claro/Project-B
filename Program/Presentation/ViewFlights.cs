@@ -1,6 +1,6 @@
 public static class ViewFlights
 {
-    // public static List<Flight> _flights = FlightDataRW.ReadJson();
+     //public static List<Flight> _flights = FlightDataRW.ReadJson();
     public static List<Flight> _flights = ViewUpdatedFlights.UpdateFlights();
     
     public static void UpdateFlights()
@@ -41,7 +41,6 @@ public static class ViewFlights
                     Console.WriteLine(FlightInfo(_flights[i]));
                 }
             }
-            
         }
         else
         {
@@ -53,7 +52,7 @@ public static class ViewFlights
     }
     public static void View(int page, string? location, string? date)
     {
-        
+        UpdateFlights();
         List<Flight> flights = new List<Flight>();
         foreach (var flight in _flights)
         {

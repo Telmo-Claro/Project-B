@@ -6,6 +6,9 @@ public class AdminLogic
     public static bool AdminLogin(string username, string password)
     { return username == AdminUsername && password == AdminPassword; }
     
+    
+    
+    
     public static List<Flight> ViewAllFlights(int page, string location = null, string date = null)
     {
         var flightList = FlightDataRW.ReadJson(); 
@@ -43,7 +46,8 @@ public class AdminLogic
              flightList.Remove(flightToRemove);
              FlightDataRW.WriteJson(flightList);
          }
-     }
+         ViewUpdatedFlights.RefreshCache(); // refresh list -> programma zodat je niet moet refreshen na de delet flight. 
+     } 
      
      
     public static void AddFlight(Flight newFlight) 
