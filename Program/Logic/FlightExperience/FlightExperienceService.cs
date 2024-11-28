@@ -5,9 +5,8 @@ public class FlightExperienceService
         int bufferTimeMinutes = 30;
         int experienceDurationMinutes = 30;
         var availableTimeslots = new List<TimeSpan>();
-
         // make sure flight is long enough for the experience
-        if (flightDuration.TotalMinutes <= 2 * bufferTimeMinutes + experienceDurationMinutes)
+        if (flightDuration.TotalMinutes < 2 * bufferTimeMinutes + experienceDurationMinutes)
             return availableTimeslots;
 
         // calculate start and end time
