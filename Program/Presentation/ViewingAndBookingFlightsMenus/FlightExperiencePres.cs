@@ -1,5 +1,8 @@
+using System.Runtime.CompilerServices;
+
 public static class FlightExperiencePres
 {
+    private static readonly List<Flight> _flights = FlightDataRW.ReadJson();
     public static void FlightExperience(Flight flight)
     {
         Console.Clear();
@@ -7,7 +10,7 @@ public static class FlightExperiencePres
         var availableTimeslots = service.CalculateAvailableTimeslots(flight.Duration);
 
         // Check if there are available timeslots
-        if (availableTimeslots.Count == 0)
+        if (flight.SelectedTimeslots.Count - availableTimeslots.Count == 0)
         {
             FlightBooking.FlightExperienceBool = false;
             Console.WriteLine("No available timeslots");
@@ -49,6 +52,16 @@ public static class FlightExperiencePres
         // Book the selected timeslot for this flight
         flight.SelectedTimeslots.Add(selectedTimeslot);
 
+        int index = _flights.FindIndex(f => f.FlightNumber == flight.FlightNumber);
+        if (index != -1)
+        {
+            _flights[index] = flight;
+        }
+
+        FlightDataRW.WriteJson(_flights);
+
         Console.WriteLine($"Timeslot {selectedTimeslot} successfully booked for the flight.");
+        Console.WriteLine("Press any key to continue.");
+        Console.ReadKey();
     }
 }
