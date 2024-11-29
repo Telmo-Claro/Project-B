@@ -37,7 +37,7 @@
             while (password == "")
             {
                 Console.Write("Enter password: ");
-                password = Console.ReadLine();
+                password = PasswordTyper.PasswordReadLine();
             }
             
             Console.Write("Do you want to add a CreditCard? Y/N: ");

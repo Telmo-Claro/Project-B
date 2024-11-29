@@ -43,10 +43,4 @@
     <Folder Include="Logic\DateTimeLogic\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="DataBases\Flights.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

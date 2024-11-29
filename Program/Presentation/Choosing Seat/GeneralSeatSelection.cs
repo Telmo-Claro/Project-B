@@ -34,7 +34,9 @@
             }
             Console.ResetColor();
         }
+        Console.WriteLine(flight.Aircraft.RestOverview);
     }
+
     public static List<Seat> SeatMenu(Flight flight)
     {
         List<Seat> SelectedSeats = new List<Seat>();

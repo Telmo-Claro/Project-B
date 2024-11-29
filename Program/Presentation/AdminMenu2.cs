@@ -50,7 +50,7 @@ public static class Admin
         Console.Write("Username: ");
         string username = Console.ReadLine();
         Console.Write("Password: ");
-        string password = Console.ReadLine();
+        string password = PasswordTyper.PasswordReadLine();
 
         if (AdminLogic.AdminLogin(username, password))
         {
