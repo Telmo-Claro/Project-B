@@ -45,7 +45,7 @@
             AirplaneOverview(flight, SelectedSeats);
 
             Console.WriteLine("\nEnter seat designation (e.g. A1, B2) or type 'continue' to continue:");
-            Console.WriteLine("\nBooked Seats:");
+            Console.WriteLine("\nSelected seats:");
             foreach (var seat1 in SelectedSeats)
             {
                 Console.WriteLine(seat1);

@@ -94,7 +94,7 @@ public static class FlightBooking
             {
                 Console.Clear();
                 IDeal.Pay();
-                Console.WriteLine("You have payed with IDeal");
+                Console.WriteLine("You have paid with IDeal");
                 Console.WriteLine("Press any key to continue");
                 Console.Write("> ");
                 Console.ReadKey();
