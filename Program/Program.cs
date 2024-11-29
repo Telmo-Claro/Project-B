@@ -3,6 +3,5 @@
     public static void Main()
     {
         WelcomingMenu.Menu();
-
     }
 }

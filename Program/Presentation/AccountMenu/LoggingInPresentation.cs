@@ -26,7 +26,7 @@
             }
 
             Console.WriteLine("Enter password [Q to exit]");
-            string? password = Console.ReadLine();
+            string? password = PasswordTyper.PasswordReadLine();
             if (string.IsNullOrWhiteSpace(password) || password.ToLower() == "q")
             {
                 break;

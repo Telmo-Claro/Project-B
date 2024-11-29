@@ -20,6 +20,9 @@ public class Aircraft
     [JsonPropertyName("PlaneOverview")]
     public virtual string PlaneOverview { get; set; }
 
+    [JsonPropertyName("RestOverview")]
+    public virtual string RestOverview { get; set; }
+
     public Aircraft(int totalSeats, string? name)
     {
         TotalSeats = totalSeats;

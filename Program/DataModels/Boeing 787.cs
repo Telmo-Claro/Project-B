@@ -2,6 +2,7 @@
 {
     public override List<string> ValidSeats { get; set; }
     public override string PlaneOverview { get; set; }
+    public override string RestOverview { get; set; }
     public Boeing787() : base(282, "Boeing 787") 
     {
         ValidSeats = [
@@ -19,9 +20,9 @@
         PlaneOverview =
         "Boeing 787:\n" +
         "First class row 1-3 - €200\n" +
-        "Business class from row 4-6 - €100\n" +
-        "Extra leg room row 16 and 27 - €20\n" +
-        "Economy from row 16-38 - €0\n" +
+        "Business class from row 4-6 - €100                                                                   /                   /\n" +
+        "Extra leg room row 16 and 27 - €20                                                                  /                   /\n" +
+        "Economy from row 16-38 - €0                                                                        /                   /\n" +
         "                ╭──────────────────────────┬───┬─────────────────┬───┬────────┬───────────┬─────────────────────────────────────────────────────────────────────────────────────────────┬───────╮          \n" +
         "          ╭─────╯                          │   │     I1 I2 I3    │   │        ╷ I4 I5 I6  ╷   I16 I17 I18 I19 I20 I21 I22 I23 I24 I25 ╭───╮     I27 I28 I29 I30 I31 I32 I33 I34 I35 I36 │ ╭───╮ ╰───────╮  \n" +
         "      ╭───╯     │   ╭───╮                  ╰───╯     H1 H2 H3    ╰───╯        ╷ H4 H5 H6  ╷   H16 H17 H18 H19 H20 H21 H22 H23 H24 H25 │   │     H27 H28 H29 H30 H31 H32 H33 H34 H35 H36 │ │   │         ╰─┬\n" +
@@ -35,5 +36,9 @@
         "      ╰───╮     │   ╰───╯                   │   │    B1 B2 B3  ╭─────╮        ╷ B4 B5 B6  ╷   B16 B17 B18 B19 B20 B21 B22 B23 B24 B25 │   │     B27 B28 B29 B30 B31 B32 B33 B34 B35 B36 │ │   │          ╭┴\n" +
         "          ╰─────╮                           │   │    A1 A2 A3  │     │        ╷ A4 A5 A6  ╷   A16 A17 A18 A19 A20 A21 A22 A23 A24 A25 ╰───╯     A27 A28 A29 A30 A31 A32 A33 A34 A35 A36 │ ╰───╯   ╭──────╯ \n" +
         "                ╰───────────────────────────┴───┴──────────────┴─────┴────────┴───────────┴─────────────────────────────────────────────────────────────────────────────────────────────┴─────────╯        \n";
+        RestOverview =
+       $"               [ {"\x1b[92m"}Available{"\x1b[39m"} ]                                                                      \\                   \\                                                                                    \n" +
+       $"                [ {"\x1b[93m"}Selected{"\x1b[39m"}  ]                                                                       \\                   \\                                                                                   \n" +
+       $"                [   {"\x1b[91m"}Taken{"\x1b[39m"}   ]                                                                        \\                   \\                                                                                  \n";
     }
 }
