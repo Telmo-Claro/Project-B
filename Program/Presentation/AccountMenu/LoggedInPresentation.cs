@@ -14,6 +14,7 @@
             Console.WriteLine("(2) View and manage bookings");
             Console.WriteLine("(3) Manage account");
             Console.WriteLine("(4) Delete account");
+            Console.WriteLine("(5) About Airport");
             Console.WriteLine("(ESC) Log out");
             Console.Write("> ");
             var input = Console.ReadKey().Key;
@@ -36,7 +37,7 @@
                     DeleteAccountPresentation.DisplayMenu(account);
                     break;
                 case ConsoleKey.D5:
-                    WelcomingMenu.Menu();
+                    DisplayAirportInfo.DisplayMain(account);
                     break;
                 default:
                     Console.WriteLine("\nInvalid option. Please try again.");

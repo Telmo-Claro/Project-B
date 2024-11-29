@@ -79,9 +79,10 @@
                     {
                         Console.WriteLine("Booking cancelled successfully!");
                         Thread.Sleep(2000);
-                        Console.WriteLine($"You cancelled the booking to late");
+                        Console.WriteLine($"You cancelled the booking too late");
                         Thread.Sleep(2000);
                         Console.WriteLine($"No refund for you!");
+                        Thread.Sleep(2000);
                     }
                     CancelBookingLogic.CancelBooking(account, flightNumber);
                 }
