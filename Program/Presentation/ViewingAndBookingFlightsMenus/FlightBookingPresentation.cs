@@ -8,6 +8,7 @@ public static class FlightBooking
     public static void BookFlight(Account account, Flight flight)
     {
         List<Seat> seats = [];
+        TimeSpan? SpecialExperience = null;
         seats = General_Seat_Logic.GetSeats(flight);
 
         if (seats.Count == 0) { return; }
@@ -20,7 +21,7 @@ public static class FlightBooking
             if (key == ConsoleKey.D1)
             {
                 FlightExperienceBool = true;
-                FlightExperiencePres.FlightExperience(flight);
+                SpecialExperience = FlightExperiencePres.FlightExperience(flight.FlightNumber);
                 break;
             }
             if (key == ConsoleKey.D2)
@@ -118,10 +119,11 @@ public static class FlightBooking
         Console.Clear();
 
         string bookingCode = BookingCode.GenerateCode();
-        account.BookedFlights.Add(flight);
-        account.BookingCodes.Add(bookingCode);
 
-        Email.SendBookingEmail(account, flight, seats);
+        Booking booking = MakeBookingLogic.MakeBooking(flight, bookingCode, seats, SpecialExperience, totalprice);
+        account.BookedFlights.Add(booking);
+
+        Email.SendBookingEmail(account, booking, seats);
 
         ChangeAccount.ChangingAccount(account);
 

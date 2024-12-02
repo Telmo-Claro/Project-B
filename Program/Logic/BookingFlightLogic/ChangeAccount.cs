@@ -10,7 +10,6 @@
                                                  && x.Email == account.Email && x.Password == account.Password)
             {
                 x.BookedFlights = account.BookedFlights;
-                x.BookingCodes = account.BookingCodes;
                 x.CreditCardInfo = account.CreditCardInfo;
             }
         }

@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Mail;
 public class Email
 {
-    public static void SendBookingEmail(Account account, Flight flight, List<Seat> seats)
+    public static void SendBookingEmail(Account account, Booking booking, List<Seat> seats)
     {
         string fromMail = "trenlines010@gmail.com";
         string fromPassword = "wcmt inui pwzm ymvh";
@@ -27,15 +27,15 @@ public class Email
                         <table style='width: 100%; border-collapse: collapse; margin-top: 10px;'>
                             <tr>
                                 <th style='text-align: left; padding: 8px; background-color: #004080; color: white;'>Flight</th>
-                                <td style='padding: 8px;'>{flight.FlightNumber}</td>
+                                <td style='padding: 8px;'>{booking.FlightNumber}</td>
                             </tr>
                             <tr>
                                 <th style='text-align: left; padding: 8px; background-color: #f1f1f1;'>Departure</th>
-                                <td style='padding: 8px;'>{flight.Departure} - {flight.TimeDeparture}</td>
+                                <td style='padding: 8px;'>{booking.Departure} - {booking.TimeDeparture}</td>
                             </tr>
                             <tr>
                                 <th style='text-align: left; padding: 8px; background-color: #f1f1f1;'>Arrival</th>
-                                <td style='padding: 8px;'>{flight.Destination} - {flight.TimeArrival}</td>
+                                <td style='padding: 8px;'>{booking.Destination} - {booking.TimeArrival}</td>
                             </tr>
                             <tr>
                                 <th style='text-align: left; padding: 8px; background-color: #004080; color: white;'>Seat</th>
@@ -64,7 +64,7 @@ public class Email
         smtpClient.Send(message);
     }
 
-    public static void SendCancellationEmail(Account account, Flight flight)
+    public static void SendCancellationEmail(Account account, Booking booking)
     {
         string fromMail = "trenlines010@gmail.com";
         string fromPassword = "wcmt inui pwzm ymvh";
@@ -88,15 +88,15 @@ public class Email
                     <table style='width: 100%; border-collapse: collapse; margin-top: 10px;'>
                         <tr>
                             <th style='text-align: left; padding: 8px; background-color: #004080; color: white;'>Flight</th>
-                            <td style='padding: 8px;'>{flight.FlightNumber}</td>
+                            <td style='padding: 8px;'>{booking.FlightNumber}</td>
                         </tr>
                         <tr>
                             <th style='text-align: left; padding: 8px; background-color: #f1f1f1;'>Departure</th>
-                            <td style='padding: 8px;'>{flight.Departure} - {flight.TimeDeparture}</td>
+                            <td style='padding: 8px;'>{booking.Departure} - {booking.TimeDeparture}</td>
                         </tr>
                         <tr>
                             <th style='text-align: left; padding: 8px; background-color: #f1f1f1;'>Arrival</th>
-                            <td style='padding: 8px;'>{flight.Destination} - {flight.TimeArrival}</td>
+                            <td style='padding: 8px;'>{booking.Destination} - {booking.TimeArrival}</td>
                         </tr>
                     </table>
                     <p style='margin-top: 20px;'>If you have any questions regarding this cancellation or need further assistance, please feel free to reach out to our support team.</p>

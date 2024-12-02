@@ -2,22 +2,16 @@ public static class DisplayBookedFlights
 {
     public static void ShowActiveBookings(Account account)
     {
+        List<Flight> flights = FlightDataRW.ReadJson();
         Console.Clear();
         Console.WriteLine($"----------------------");
         Console.WriteLine($"Current booked flights");
         Console.WriteLine($"----------------------");
-        foreach (var flight in account.BookedFlights)
+        foreach (var booking in account.BookedFlights)
         {
-            int index = account.BookedFlights.IndexOf(flight);
-            if (flight.Status == "Planned")
+            if (null != flights.FirstOrDefault(flight => flight.FlightNumber == booking.FlightNumber && flight.Status == "Planned"))
             {
-                Console.WriteLine($"Booking code {account.BookingCodes[index]}");
-                Console.WriteLine($"Flight number: {flight.FlightNumber}");
-                Console.WriteLine($"Flight Departure: {flight.Departure}");
-                Console.WriteLine($"Flight Destination: {flight.Destination}");
-                Console.WriteLine($"Flight Date: {flight.Date}");
-                Console.WriteLine($"Flight TimeDeparture: {flight.TimeDeparture}");
-                Console.WriteLine($"Flight TimeArrival: {flight.TimeArrival}");
+                Console.WriteLine(booking);
                 Console.WriteLine();
                 Console.WriteLine("--------------------------------------------");
             }
@@ -35,11 +29,11 @@ public static class DisplayBookedFlights
             {
                 string? chosenNumber = Console.ReadLine();
 
-                foreach (Flight vlucht in account.BookedFlights)
+                foreach (Booking booking in account.BookedFlights)
                 {
-                    if (vlucht.FlightNumber == chosenNumber)
+                    if (booking.FlightNumber == chosenNumber)
                     {
-                        FlightExperiencePres.FlightExperience(vlucht);
+                        FlightExperiencePres.FlightExperience(chosenNumber);
                         return;
                     }
                 }
@@ -53,22 +47,16 @@ public static class DisplayBookedFlights
     }
     public static void ShowPastFlights(Account account)
     {
+        List<Flight> flights = FlightDataRW.ReadJson();
         Console.Clear();
         Console.WriteLine($"----------------------");
         Console.WriteLine($"Past flights");
         Console.WriteLine($"----------------------");
-        foreach (var flight in account.BookedFlights)
+        foreach (var booking in account.BookedFlights)
         {
-            int index = account.BookedFlights.IndexOf(flight);
-            if (flight.Status == "Departed")
+            if (null != flights.FirstOrDefault(flight => flight.FlightNumber == booking.FlightNumber && flight.Status == "Departed"))
             {
-                Console.WriteLine($"Booking code {account.BookingCodes[index]}");
-                Console.WriteLine($"Flight number: {flight.FlightNumber}");
-                Console.WriteLine($"Flight Departure: {flight.Departure}");
-                Console.WriteLine($"Flight Destination: {flight.Destination}");
-                Console.WriteLine($"Flight Date: {flight.Date}");
-                Console.WriteLine($"Flight TimeDeparture: {flight.TimeDeparture}");
-                Console.WriteLine($"Flight TimeArrival: {flight.TimeArrival}");
+                Console.WriteLine(booking);
                 Console.WriteLine();
                 Console.WriteLine("--------------------------------------------");
             }

@@ -3,8 +3,10 @@ using System.Runtime.CompilerServices;
 public static class FlightExperiencePres
 {
     private static readonly List<Flight> _flights = FlightDataRW.ReadJson();
-    public static void FlightExperience(Flight flight)
+    public static TimeSpan? FlightExperience(string flightNumber)
     {
+        Flight flight = _flights.FirstOrDefault(flight => flight.FlightNumber == flightNumber);
+
         Console.Clear();
         var service = new FlightExperienceService();
         var availableTimeslots = service.CalculateAvailableTimeslots(flight.Duration);
@@ -16,7 +18,7 @@ public static class FlightExperiencePres
             Console.WriteLine("No available timeslots");
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
-            return;
+            return null;
         }
         Console.WriteLine("The timeslots are shown in post departure time.\n");
         Console.WriteLine("Available Timeslots:");
@@ -63,5 +65,6 @@ public static class FlightExperiencePres
         Console.WriteLine($"Timeslot {selectedTimeslot} successfully booked for the flight.");
         Console.WriteLine("Press any key to continue.");
         Console.ReadKey();
+        return selectedTimeslot;
     }
 }
