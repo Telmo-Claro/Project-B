@@ -1,6 +1,6 @@
 ﻿public static class CancelBookingPresentation
 {
-        public static void CancelBooking(Account account)
+    public static void CancelBooking(Account account)
     {
         List<Flight> flights = FlightDataRW.ReadJson();
         Console.Clear();
