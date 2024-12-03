@@ -1,7 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Text.Json.Serialization;
 
-public class Seat
+public class Seat : IEquatable<Seat>
 {
     [JsonPropertyName("SeatId")]
     public string SeatId { get; set; }
@@ -33,6 +34,21 @@ public class Seat
             default:
                 return 8;
         }
+    }
+    public bool Equals(Seat? seat)
+    {
+        if (seat is null) { return false; }
+        if (seat.SeatId == this.SeatId) { return true; }
+        return false;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is Seat seat)
+        {
+            return Equals(seat);
+        }
+        return false;
     }
     public override string ToString()
     {
