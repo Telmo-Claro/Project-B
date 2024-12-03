@@ -21,7 +21,7 @@
         {
             Console.WriteLine("Your review will be validated and processed!");
             Console.WriteLine("Press any key to continue...");
-            FeedbackLogic.AddFeedback(account, message);
+            FeedbackLogic.AddFeedback(message);
             Console.ReadKey();
         }
     }
