@@ -2,11 +2,11 @@
 
 public static class CancelBookingLogic
 {
-    public static bool ValidFlight(Account account, string flightnumber)
+    public static bool ValidFlight(Account account, string bookingnumber)
     {
         foreach (var flight in account.BookedFlights)
         {
-            if (flight.FlightNumber == flightnumber)
+            if (flight.BookingCode == bookingnumber)
             {
                 return true;
             }
@@ -14,12 +14,12 @@ public static class CancelBookingLogic
         return false;
     }
 
-    public static bool CanGetRefund(Account account, string flightnumber)
+    public static bool CanGetRefund(Account account, string bookingnumber)
     {
         DateTime flightDate = default;
         foreach (var flight in account.BookedFlights)
         {
-            if (flight.FlightNumber == flightnumber)
+            if (flight.BookingCode == bookingnumber)
             {
                 flightDate = Convert.ToDateTime(flight.Date);
             }
@@ -28,9 +28,9 @@ public static class CancelBookingLogic
         return (flightDate - now).TotalHours >= 24;
     }
     
-    public static void CancelBooking(Account account, string flightNumber)
+    public static void CancelBooking(Account account, string bookingnumber)
     {
-        Flight cancelledFlight = null;
+        Booking cancelledFlight = null;
         var accounts = AccountDataRW.ReadFromJson();
         if (accounts is null) return;
         foreach (Account x in accounts)
@@ -41,11 +41,10 @@ public static class CancelBookingLogic
             {
                 for (int i = x.BookedFlights.Count - 1; i >= 0; i--)
                 {
-                    if (x.BookedFlights[i].FlightNumber == flightNumber)
+                    if (x.BookedFlights[i].BookingCode == bookingnumber)
                     {
                         cancelledFlight = x.BookedFlights[i];
                         x.BookedFlights.RemoveAt(i);
-                        x.BookingCodes.RemoveAt(i);
                     }
                 }
             }

@@ -2,21 +2,15 @@
 {
         public static void CancelBooking(Account account)
     {
+        List<Flight> flights = FlightDataRW.ReadJson();
         Console.WriteLine($"----------------------");
         Console.WriteLine($"Current booked flights");
         Console.WriteLine($"----------------------");
-        foreach (var flight in account.BookedFlights)
+        foreach (var booking in account.BookedFlights)
         {
-            int index = account.BookedFlights.IndexOf(flight);
-            if (flight.Status == "Planned")
+            if (null != flights.FirstOrDefault(flight => flight.FlightNumber == booking.FlightNumber && flight.Status == "Planned"))
             {
-                Console.WriteLine($"Booking code {account.BookingCodes[index]}");
-                Console.WriteLine($"Flight number: {flight.FlightNumber}");
-                Console.WriteLine($"Flight Departure: {flight.Departure}");
-                Console.WriteLine($"Flight Destination: {flight.Destination}");
-                Console.WriteLine($"Flight Date: {flight.Date}");
-                Console.WriteLine($"Flight TimeDeparture: {flight.TimeDeparture}");
-                Console.WriteLine($"Flight TimeArrival: {flight.TimeArrival}");
+                Console.WriteLine(booking);
                 Console.WriteLine();
                 Console.WriteLine("--------------------------------------------");
             }
@@ -49,10 +43,10 @@
         switch (choice.ToLower())
         {
             case "y":
-                Console.WriteLine("Enter the flight number you want to cancel [eg. TREN0007]");
+                Console.WriteLine("Enter the booking number you want to cancel");
                 Console.Write("> ");
-                string flightNumber = Console.ReadLine();
-                bool valid = CancelBookingLogic.ValidFlight(account, flightNumber);
+                string bookingnumber = Console.ReadLine();
+                bool valid = CancelBookingLogic.ValidFlight(account, bookingnumber);
                 if (!valid)
                 {
                     Console.WriteLine("Flight not found!");
@@ -60,12 +54,12 @@
                 }
                 else
                 {
-                    bool canGetRefund = CancelBookingLogic.CanGetRefund(account, flightNumber);
+                    bool canGetRefund = CancelBookingLogic.CanGetRefund(account, bookingnumber);
                     if (canGetRefund)
                     {
                         foreach (var flight in account.BookedFlights)
                         {
-                            if (flight.FlightNumber == flightNumber)
+                            if (flight.FlightNumber == bookingnumber)
                             {
                                 Console.WriteLine("Booking cancelled successfully!");
                                 Console.WriteLine($"€{flight.Price} will be refunded!");
@@ -84,7 +78,7 @@
                         Console.WriteLine($"No refund for you!");
                         Thread.Sleep(2000);
                     }
-                    CancelBookingLogic.CancelBooking(account, flightNumber);
+                    CancelBookingLogic.CancelBooking(account, bookingnumber);
                 }
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();

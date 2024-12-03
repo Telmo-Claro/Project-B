@@ -36,6 +36,6 @@ public class Seat
     }
     public override string ToString()
     {
-        return $"{SeatId} - {Type} - ${GetPrice()}";
+        return $"{SeatId}";
     }
 }
