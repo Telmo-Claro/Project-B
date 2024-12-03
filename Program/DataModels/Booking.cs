@@ -43,7 +43,7 @@ public class Booking
                 $"TimeArrival: {TimeArrival}\n" +
                 $"Seats: {string.Join(", ", Seats)}\n" +
                 $"Special Experience: {(SpecialExperience is null ? "Not Booked" : $"{SpecialExperience}")}\n" +
-                $"Price: {Price}";
+                $"Price: €{Price}";
     }
 }
 
