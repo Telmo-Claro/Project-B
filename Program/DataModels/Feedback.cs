@@ -2,14 +2,11 @@
 
 public class Feedback
 {
-    [JsonPropertyName("User")]
-    public Account FromAccount { get; set; }
     [JsonPropertyName("Feedback")]
     public string? FeedbackMessage { get; set; }
 
-    public Feedback(Account fromAccount, string? feedbackMessage)
+    public Feedback(string? feedbackMessage)
     {
-        FromAccount = fromAccount;
         FeedbackMessage = feedbackMessage;
     }
 }
