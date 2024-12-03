@@ -68,17 +68,17 @@ public static class ChangeAccountDataLogic
     public static Account? ChangeCreditCard(Account account, CreditCard creditCard)
     {
         var accounts = AccountDataRW.ReadFromJson();
-            foreach (var x in accounts)
+        foreach (var x in accounts)
+        {
+            if (x.Email == account.Email && x.Password == account.Password)
             {
-                if (x.Email == account.Email && x.Password == account.Password)
-                {
-                    AccountDataRW.WriteToJson(accounts);
-                    x.CreditCardInfo = creditCard;
-                    AccountDataRW.WriteToJson(accounts);
-                    return x;
-                }
+                AccountDataRW.WriteToJson(accounts);
+                x.CreditCardInfo = creditCard;
+                AccountDataRW.WriteToJson(accounts);
+                return x;
             }
-            return null;
+        }
+        return null;
     }
 
     

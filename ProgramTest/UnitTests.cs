@@ -1,5 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 namespace ProgramTest
@@ -13,8 +11,33 @@ namespace ProgramTest
             // Arrange
             List<Flight> FlightData = new List<Flight>
             {
-                new Flight { FlightNumber = "TREN0001", Departure = "Rotterdam", Destination = "Wronie", Date = DateTime.Now, TimeDeparture = new TimeSpan(6,0,0), TimeArrival = new TimeSpan(7,0,0), Duration = new TimeSpan(1,0,0), Country = "Poland", Aircraft = new Boeing787(), Status = "Planned", Price = 50 },
-                new Flight { FlightNumber = "TREN0002", Departure = "Rotterdam", Destination = "Lisbon", Date = DateTime.Now, TimeDeparture = new TimeSpan(6,0,0), TimeArrival = new TimeSpan(7,0,0), Duration = new TimeSpan(1,0,0), Country = "Portugal",Aircraft = new Boeing787(), Status = "Planned", Price = 50 }
+                new Flight
+                {
+                    FlightNumber = "TREN0001",
+                    Departure = "Rotterdam",
+                    Destination = "Wronie",
+                    Date = DateTime.Now,
+                    TimeDeparture = new TimeSpan(6,0,0),
+                    TimeArrival = new TimeSpan(7,0,0),
+                    Duration = new TimeSpan(1,0,0),
+                    SelectedTimeslots = [],
+                    Country = "Poland",
+                    Aircraft = new Boeing787(),
+                    Status = "Planned", Price = 50
+                },
+                new Flight
+                {
+                    FlightNumber = "TREN0002", 
+                    Departure = "Rotterdam", 
+                    Destination = "Lisbon", 
+                    Date = DateTime.Now, 
+                    TimeDeparture = new TimeSpan(6,0,0), 
+                    TimeArrival = new TimeSpan(7,0,0),
+                    Duration = new TimeSpan(1,0,0),
+                    SelectedTimeslots = [],
+                    Country = "Portugal",Aircraft = new Boeing787(), 
+                    Status = "Planned", Price = 50
+                }
             };
             Directory.CreateDirectory("DataBases");
             string jsonString = JsonSerializer.Serialize(FlightData);
@@ -36,8 +59,33 @@ namespace ProgramTest
             // Arrange
             List<Flight> FlightData = new List<Flight>
             {
-                new Flight { FlightNumber = "TREN0001", Departure = "Rotterdam", Destination = "Wronie", Date = DateTime.Now, TimeDeparture = new TimeSpan(6,0,0), TimeArrival = new TimeSpan(7,0,0), Duration = new TimeSpan(1,0,0), Country = "Poland", Aircraft = new Boeing787(), Status = "Planned", Price = 50 },
-                new Flight { FlightNumber = "TREN0002", Departure = "Rotterdam", Destination = "Lisbon", Date = DateTime.Now, TimeDeparture = new TimeSpan(6,0,0), TimeArrival = new TimeSpan(7,0,0), Duration = new TimeSpan(1,0,0), Country = "Portugal", Aircraft = new Boeing787(), Status = "Planned", Price = 50 }
+                new Flight
+                {
+                    FlightNumber = "TREN0001",
+                    Departure = "Rotterdam",
+                    Destination = "Wronie",
+                    Date = DateTime.Now,
+                    TimeDeparture = new TimeSpan(6,0,0),
+                    TimeArrival = new TimeSpan(7,0,0),
+                    Duration = new TimeSpan(1,0,0),
+                    SelectedTimeslots = [],
+                    Country = "Poland",
+                    Aircraft = new Boeing787(),
+                    Status = "Planned", Price = 50
+                },
+                new Flight
+                {
+                    FlightNumber = "TREN0002", 
+                    Departure = "Rotterdam", 
+                    Destination = "Lisbon", 
+                    Date = DateTime.Now, 
+                    TimeDeparture = new TimeSpan(6,0,0), 
+                    TimeArrival = new TimeSpan(7,0,0),
+                    Duration = new TimeSpan(1,0,0),
+                    SelectedTimeslots = [],
+                    Country = "Portugal",Aircraft = new Boeing787(), 
+                    Status = "Planned", Price = 50
+                }
             };
 
             // Act
