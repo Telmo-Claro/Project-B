@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 
 namespace ProgramTest
@@ -117,6 +118,138 @@ namespace ProgramTest
 
             // Assert
             Assert.AreEqual(expected, actual);
+        }
+    }
+    
+    [TestClass]
+    public class AccountCreation
+    {
+        [TestMethod]
+        public void FirstNameTest_Correct()
+        {
+            //Arrange
+            string firstName = "John";
+            //Act
+            bool isValid = ValidateAccountInformation.ValidateFirstName(firstName);
+
+            // Assert
+            Assert.AreEqual(true, isValid);
+        }
+        
+        [TestMethod]
+        public void FirstNameTest_Incorrect()
+        {
+            //Arrange
+            string firstName = "John0";
+            //Act
+            bool isValid = ValidateAccountInformation.ValidateFirstName(firstName);
+
+            // Assert
+            Assert.AreEqual(false, isValid);
+        }
+        
+        [TestMethod]
+        public void LastNameTest_Correct()
+        {
+            //Arrange
+            string lastName = "Doe";
+            
+            //Act
+            bool isValid = ValidateAccountInformation.ValidateLastName(lastName);
+
+            // Assert
+            Assert.AreEqual(true, isValid);
+        }
+        
+        [TestMethod]
+        public void LastNameTest_Incorrect()
+        {
+            //Arrange
+            string lastName = "Doe0";
+            
+            //Act
+            bool isValid = ValidateAccountInformation.ValidateLastName(lastName);
+
+            // Assert
+            Assert.AreEqual(false, isValid);
+        }
+        
+        [TestMethod]
+        public void EmailTest_Correct()
+        {
+            //Arrange
+            string email = "johndoe@gmail.com";
+            
+            //Act
+            bool isValid = ValidateAccountInformation.ValidateEmail(email);
+
+            // Assert
+            Assert.AreEqual(true, isValid);
+        }
+        
+        [TestMethod]
+        public void EmailTest_Incorrect()
+        {
+            //Arrange
+            string email = "johndoegmail.com";
+            
+            //Act
+            bool isValid = ValidateAccountInformation.ValidateEmail(email);
+
+            // Assert
+            Assert.AreEqual(false, isValid);
+        }
+        
+        [TestMethod]
+        public void PasswordTest_Correct()
+        {
+            //Arrange
+            string password = "123456789";
+            
+            //Act
+            bool isValid = ValidateAccountInformation.ValidatePassword(password);
+
+            // Assert
+            Assert.AreEqual(true, isValid);
+        }
+        
+        [TestMethod]
+        public void PasswordTest_Incorrect()
+        {
+            //Arrange
+            string password = "123";
+            
+            //Act
+            bool isValid = ValidateAccountInformation.ValidatePassword(password);
+
+            // Assert
+            Assert.AreEqual(false, isValid);
+        }
+        
+        [TestMethod]
+        public void PhoneNumberTest_Correct()
+        {
+            //Arrange
+            string phonenumber = "0612345678";
+            
+            //Act
+            bool isValid = ValidateAccountInformation.ValidatePhoneNumber(phonenumber);
+
+            // Assert
+            Assert.AreEqual(true, isValid);
+        }
+        
+        [TestMethod]
+        public void PhoneNumberTest_Incorrect()
+        {
+            //Arrange
+            string phonenumber = "061";
+            
+            //Act
+            bool isValid = ValidateAccountInformation.ValidatePhoneNumber(phonenumber);
+
+            // Assert
+            Assert.AreEqual(false, isValid);
         }
 
     }
