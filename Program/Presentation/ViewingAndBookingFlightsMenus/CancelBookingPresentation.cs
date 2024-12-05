@@ -19,7 +19,7 @@
 
         bool choicemade = false;
         var choice = "";
-        
+
         if (account.BookedFlights is not [])
         {
             while (!choicemade)
@@ -47,8 +47,14 @@
             {
                 case "y":
                     Console.WriteLine("Enter the booking number you want to cancel");
+                    Console.WriteLine("Or type 'return' to return.");
                     Console.Write("> ");
                     string bookingnumber = Console.ReadLine();
+                    if (bookingnumber == "return")
+                    {
+                        choice = "n";
+                        break;
+                    }
                     bool valid = CancelBookingLogic.ValidFlight(account, bookingnumber);
                     if (!valid)
                     {
