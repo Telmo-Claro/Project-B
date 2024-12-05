@@ -9,8 +9,9 @@ public static class FlightBooking
     {
         List<Seat> seats = [];
         TimeSpan? SpecialExperience = null;
-        seats = General_Seat_Logic.GetSeats(flight);
+        seats = General_Seat_Logic.GetSeats(flight, account);
 
+        if (seats is null) { return; }
         if (seats.Count == 0) { return; }
         while (true)
         {
@@ -41,6 +42,9 @@ public static class FlightBooking
             Console.WriteLine($"Flight experience price: €{Price.FlightExperiencePrice(FlightExperienceBool)}");
 
         Console.WriteLine("Press any key to continue.");
+        Console.WriteLine("Or press 'ESC' to cancel the booking.");
+        ConsoleKey keyy = Console.ReadKey().Key;
+        if (keyy == ConsoleKey.Escape) { LoggedInPresentation.DisplayMenu(account); }
         Console.Write("> ");
         while (true)
         {
