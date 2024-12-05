@@ -2,23 +2,23 @@ public static class ViewFlights
 {
     // public static List<Flight> _flights = FlightDataRW.ReadJson();
     public static List<Flight> _flights = ViewUpdatedFlights.UpdateFlights();
-    
+
     public static void UpdateFlights()
     {
         _flights = ViewUpdatedFlights.UpdateFlights();
     }
-    
+
     private static string SpacesAdd(string str, string header)
     {
         if (str.Length < header.Length)
         {
             return $"{str}{new string(' ', header.Length - str.Length)}";
         }
-        else { return str ; }
+        else { return str; }
     }
     private static string FlightInfo(Flight flight)
     {
-        return $"{SpacesAdd(flight.FlightNumber, "FlightNumber")}|{SpacesAdd(flight.Departure, "Departure")}|{SpacesAdd(flight.Destination, "Destination")}|{flight.Date.ToShortDateString()}|{flight.TimeDeparture}     |{flight.TimeArrival}   |{flight.Duration}|{SpacesAdd(flight.Country, "    Country    ")}|{SpacesAdd(flight.Aircraft.ToString(), "   Aircraft ")} | {SpacesAdd("€"+flight.Price.ToString(), "Price")} |{SpacesAdd(flight.Status, "Status")}";
+        return $"{SpacesAdd(flight.FlightNumber, "FlightNumber")}|{SpacesAdd(flight.Departure, "Departure")}|{SpacesAdd(flight.Destination, "Destination")}|{flight.Date.ToShortDateString()}|{flight.TimeDeparture}     |{flight.TimeArrival}   |{flight.Duration}|{SpacesAdd(flight.Country, "    Country    ")}|{SpacesAdd(flight.Aircraft.ToString(), "   Aircraft ")} | {SpacesAdd("€" + flight.Price.ToString(), "Price")} |{SpacesAdd(flight.Status, "Status")}";
     }
     public static void View(int page)
     {
@@ -41,7 +41,7 @@ public static class ViewFlights
                     Console.WriteLine(FlightInfo(_flights[i]));
                 }
             }
-            
+
         }
         else
         {
@@ -53,7 +53,7 @@ public static class ViewFlights
     }
     public static void View(int page, string? location, string? date)
     {
-        
+
         List<Flight> flights = new List<Flight>();
         foreach (var flight in _flights)
         {
@@ -66,6 +66,10 @@ public static class ViewFlights
                 flights.Add(flight);
             }
             else if (flight.Date.ToShortDateString() == date && location == flight.Destination)
+            {
+                flights.Add(flight);
+            }
+            else if (date == "" && location == "")
             {
                 flights.Add(flight);
             }

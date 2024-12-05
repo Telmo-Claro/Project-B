@@ -37,7 +37,7 @@
         Console.WriteLine(flight.Aircraft.RestOverview);
     }
 
-    public static List<Seat> SeatMenu(Flight flight)
+    public static List<Seat> SeatMenu(Flight flight, Account account)
     {
         List<Seat> SelectedSeats = new List<Seat>();
         while (true)
@@ -47,6 +47,7 @@
             AirplaneOverview(flight, SelectedSeats);
 
             Console.WriteLine("\nEnter seat designation (e.g. A1, B2) or type 'continue' to continue:");
+            Console.WriteLine("If you type 'continue' without selecting a seat you will return.");
             Console.WriteLine("\nSelected seats:");
             foreach (var seat1 in SelectedSeats)
             {
@@ -54,34 +55,33 @@
             }
             Console.Write("> ");
             string input = Console.ReadLine();
-
             if (input.ToLower() == "continue")
             {
                 break;
             }
 
-            if (!(General_Seat_Logic.IsValidSeat(input, flight)))
+            if (!General_Seat_Logic.IsValidSeat(input, flight))
             {
                 Console.WriteLine("Invalid seat");
                 Thread.Sleep(1000);
                 continue;
             }
 
-            if ((General_Seat_Logic.IsBooked(input, flight)))
+            if (General_Seat_Logic.IsBooked(input, flight))
             {
                 Console.WriteLine("This Seat is already booked");
                 Thread.Sleep(1000);
                 continue;
             }
 
-            if ((General_Seat_Logic.IsSelected(input, SelectedSeats)))
+            if (General_Seat_Logic.IsSelected(input, SelectedSeats))
             {
                 SelectedSeats.Remove(SelectedSeats.FirstOrDefault(seat => seat.SeatId == input));
                 Console.WriteLine("Seat has been deselected");
                 Thread.Sleep(1000);
                 continue;
             }
-            
+
             Seat seat;
             switch (flight.Aircraft.Name)
             {
@@ -113,7 +113,7 @@
                     Thread.Sleep(1000);
                     break;
                 }
-                else if (bookingResponse == ConsoleKey.D2) 
+                else if (bookingResponse == ConsoleKey.D2)
                 {
                     break;
                 }
@@ -127,10 +127,18 @@
                 }
             }
         }
-        Console.WriteLine("Done reserving.");
-        Thread.Sleep(1000);
-        Console.Write("> ");
-        return SelectedSeats;
+        if (SelectedSeats.Count == 0)
+        {
+            ViewFlightMenu.DisplayMenu(account);
+            return null;
+        }
+        else
+        {
+            Console.WriteLine("Done reserving.");
+            Thread.Sleep(1000);
+            Console.Write("> ");
+            return SelectedSeats;
+        }
     }
 }
 
