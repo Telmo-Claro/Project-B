@@ -1,4 +1,6 @@
-﻿public class InputCreditCardInfo
+﻿using System.Globalization;
+
+public class InputCreditCardInfo
 {
     public static CreditCard CreateCreditCard()
     {
@@ -33,6 +35,36 @@
         {
             Console.Write("Enter card Expiration Date (mm/yy): ");
             date = Console.ReadLine() ?? string.Empty; // Default to empty string if null
+            bool isParsingSuccessful = false;
+
+            while (!isParsingSuccessful)
+            {
+                try
+                {
+                    CultureInfo ci = new CultureInfo(CultureInfo.CurrentCulture.LCID);
+                    ci.Calendar.TwoDigitYearMax = 2099; // Setting end year to 2099
+                    DateTime result = DateTime.ParseExact(date, "MM/yy", ci);
+                    if (result <= DateTime.Now)
+                    {
+                        Console.WriteLine("Your credit card is expired and therefore can not be used.");
+                        Console.WriteLine("Press any key to continue.");
+                        Console.ReadKey();
+
+                        isParsingSuccessful = false;
+                        return null;
+                    }
+                    isParsingSuccessful = true;
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                    Console.WriteLine("Please enter a valid date in the format MM/yy.");
+
+                    // Prompt for new input if necessary (this requires `date` to be re-assigned)
+                    date = Console.ReadLine();
+                }
+            }
+
         } while (string.IsNullOrEmpty(date));
 
         string cvc;

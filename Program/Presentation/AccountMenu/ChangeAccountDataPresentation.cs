@@ -84,7 +84,7 @@
         }
         DisplayMenu(account);
     }
-    
+
     private static void ChangeEmail(Account account)
     {
         string email = string.Empty;
@@ -109,7 +109,7 @@
         }
         DisplayMenu(account);
     }
-    
+
     private static void ChangePhoneNumber(Account account)
     {
         string phoneNumber = string.Empty;
@@ -135,7 +135,7 @@
         DisplayMenu(account);
 
     }
-    
+
     private static void ChangePassword(Account account)
     {
         string password = string.Empty;
@@ -161,7 +161,7 @@
         DisplayMenu(account);
 
     }
-    
+
     private static void ChangeCreditCardInformation(Account account)
     {
         Account? newAccount = null;
@@ -177,6 +177,10 @@
             {
                 case ConsoleKey.Y:
                     var newCreditCard = InputCreditCardInfo.CreateCreditCard();
+                    if (newCreditCard is null)
+                    {
+                        continue;
+                    }
                     newAccount = ChangeAccountDataLogic.ChangeCreditCard(account, newCreditCard);
                     break;
                 case ConsoleKey.N:

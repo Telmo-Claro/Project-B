@@ -61,6 +61,10 @@ public static class FlightBooking
                     Console.ReadKey();
                     Console.Clear();
                     account.CreditCardInfo = InputCreditCardInfo.CreateCreditCard();
+                    if (account.CreditCardInfo is null)
+                    {
+                        continue;
+                    }
                     ChangeAccount.ChangingAccount(account);
                 }
                 Console.Clear();
