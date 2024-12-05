@@ -4,7 +4,7 @@
 A Reservation system for TrenLines010 airport.
 
 
-![Logo](https://media.discordapp.net/attachments/1306367941020880956/1306367971639427163/output.jpg?ex=673da9bb&is=673c583b&hm=16046e1d16a693096f8d091d0ddb09d5bcfb84c94399b6e3b4e2a50e0767d25c&=&format=webp)
+![Logo](https://drive.google.com/file/d/1d3IdsWsO7-uhCdlblDNI8a4E0xWLO-ZX/view?usp=drive_link)
 
 
 ## Authors
