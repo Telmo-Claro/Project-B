@@ -31,6 +31,7 @@ public static class CancelBookingLogic
     public static void CancelBooking(Account account, string bookingnumber)
     {
         Booking cancelledFlight = null;
+        var flights = FlightDataRW.ReadJson();
         var accounts = AccountDataRW.ReadFromJson();
         if (accounts is null) return;
         foreach (Account x in accounts)
@@ -44,16 +45,27 @@ public static class CancelBookingLogic
                     if (x.BookedFlights[i].BookingCode == bookingnumber)
                     {
                         cancelledFlight = x.BookedFlights[i];
+                        foreach (var flight in flights)
+                        {
+                            if (flight.FlightNumber == x.BookedFlights[i].FlightNumber)
+                            {
+                                flight.Aircraft.BookedSeats = flight.Aircraft.BookedSeats
+                                    .Where(seat => !x.BookedFlights[i].Seats.Any(s => s.SeatId == seat.SeatId))
+                                    .ToList();
+                                break;
+                            }
+                        }
                         x.BookedFlights.RemoveAt(i);
                     }
                 }
             }
         }
+        AccountDataRW.WriteToJson(accounts);
+        FlightDataRW.WriteJson(flights);
         if (cancelledFlight is not null)
         {
             Email.SendCancellationEmail(account, cancelledFlight);
         }
-        AccountDataRW.WriteToJson(accounts);
         MainBookingPresentation.DisplayMenu(account);
     }
 }
