@@ -4,20 +4,30 @@ using System.Text.RegularExpressions;
 
 public static class ValidateAccountInformation
 {
-    public static bool ValidateFirstName(string firstName)
+    public static bool ValidateFirstName(string? firstName)
     {
+        if (string.IsNullOrWhiteSpace(firstName))
+        {
+            return false;
+        }
         Regex regex = new Regex(@"^[a-zA-Z]+$");
-        return regex.IsMatch(firstName); 
+        return regex.IsMatch(firstName);
     }
 
-    public static bool ValidateLastName(string lastName)
+    public static bool ValidateLastName(string? lastName)
     {
+        if (string.IsNullOrWhiteSpace(lastName))
+        {
+            return false;
+        }
         Regex regex = new Regex(@"^[a-zA-Z]+$");
-        return regex.IsMatch(lastName); 
+        return regex.IsMatch(lastName);
     }
 
-    public static bool ValidateEmail(string email)
+    public static bool ValidateEmail(string? email)
     {
+        if (string.IsNullOrWhiteSpace(email))
+            return false;
         try
         {
             MailAddress m = new MailAddress(email);
@@ -29,27 +39,33 @@ public static class ValidateAccountInformation
         }
     }
 
-    public static bool ValidatePassword(string password)
+    public static bool ValidatePassword(string? password)
     {
+        if (string.IsNullOrWhiteSpace(password))
+            return false;
+        
         switch (password.Length)
         {
             case < 6:
                 return false;
-                break;
             default:
                 return true;
         }
     }
 
-    public static bool ValidatePhoneNumber(string phoneNumber)
+    public static bool ValidatePhoneNumber(string? phoneNumber)
     {
-        switch (phoneNumber.Length)
+        if (string.IsNullOrWhiteSpace(phoneNumber))
+            return false;
+        if (!phoneNumber.All(char.IsDigit))
         {
-            case < 9:
-            case > 12:
-                return false;
-            default:
-                return true;
+            return false;
         }
+
+        return phoneNumber.Length switch
+        {
+            < 9 or > 12 => false,
+            _ => true
+        };
     }
 }
