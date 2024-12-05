@@ -18,10 +18,11 @@
             Console.WriteLine("--------------");
             Console.WriteLine("Press [S] to search");
             Console.WriteLine("To book a flight, please press [B]");
+            Console.WriteLine("Or press 'ESC' to return");
             Console.Write("> ");
             ConsoleKey key = Console.ReadKey().Key;
             page = PageScroller.NextPage(key, page);
-            if (key == ConsoleKey.Escape || key == ConsoleKey.Tab) { break; }
+            if (key == ConsoleKey.Escape || key == ConsoleKey.Tab) { LoggedInPresentation.DisplayMenu(account); }
             if (key == ConsoleKey.S)
             {
                 Console.Clear();
@@ -37,6 +38,6 @@
             {
                 BookFlightMenu.BookingMenu(account);
             }
-        }        
+        }
     }
 }
