@@ -92,7 +92,7 @@
                     Thread.Sleep(2000);
                 }
             }
-            
+
             Console.Write("Do you want to add a CreditCard? Y/N: ");
             ConsoleKey input;
             while (true)
@@ -109,6 +109,10 @@
             {
                 Console.Clear();
                 creditCard = InputCreditCardInfo.CreateCreditCard();
+                if (creditCard is null)
+                {
+                    continue;
+                }
             }
 
             if (firstName != null && lastName != null
