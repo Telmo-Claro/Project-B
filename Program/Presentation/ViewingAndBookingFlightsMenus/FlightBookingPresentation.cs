@@ -9,12 +9,15 @@ public static class FlightBooking
     {
         List<Seat> seats = [];
         TimeSpan? SpecialExperience = null;
+        bool FlightExperienceBool = false;
+        string? catering = null;
         seats = General_Seat_Logic.GetSeats(flight, account);
 
         if (seats is null) { return; }
         if (seats.Count == 0) { return; }
         while (true)
         {
+            Console.Clear();
             Console.WriteLine("Would you be interested in a special flight experience where you can take charge of the plane?");
             Console.WriteLine("(1) Yes");
             Console.WriteLine("(2) No");
@@ -30,17 +33,41 @@ public static class FlightBooking
                 break;
             }
         }
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("Basic: Water + Sandwich");
+            Console.WriteLine("Standard: Drink of choice + Meal of choice");
+            Console.WriteLine("Premium: All-Inclusive");
+            Console.WriteLine("");
+            Console.WriteLine("Choose your catering option");
+            Console.WriteLine("(1) €  8 Basic");
+            Console.WriteLine("(2) € 20 Standard");
+            Console.WriteLine("(3) € 60 Premium");
+            Console.WriteLine("(4) No Catering");
+            ConsoleKey key = Console.ReadKey().Key;
+            var cateringTuple = Catering.GetCatering(key);
+            if (cateringTuple.Valid)
+            {
+                catering = cateringTuple.Catering;
+                break;
+            }
+            
+        }
 
-        int totalprice = Price.GetTotalPrice(flight, seats, FlightExperienceBool);
+        int totalprice = Price.GetTotalPrice(flight, seats, FlightExperienceBool, catering);
         int seatPrices = Price.GetSeatPrices(seats);
         Console.Clear();
         Console.WriteLine($"The costs will be €{totalprice}");
-        Console.WriteLine("Tren tax: €50");
-        Console.WriteLine($"Total seat price: €{seatPrices}");
-        Console.WriteLine($"Flight price: €{flight.Price}");
+        Console.WriteLine("Tren Tax: €50");
+        Console.WriteLine($"Seats: €{seatPrices}");
+        Console.WriteLine($"Flight: €{flight.Price}");
         if (FlightExperienceBool is true)
-            Console.WriteLine($"Flight experience price: €{Price.FlightExperiencePrice(FlightExperienceBool)}");
+            Console.WriteLine($"Special Experience: €{Price.FlightExperiencePrice(FlightExperienceBool)}");
+        if (catering is not null)
+            Console.WriteLine($"Catering: €{Price.CateringPrice(catering)}");
 
+        Console.WriteLine("");
         Console.WriteLine("Press any key to continue.");
         Console.WriteLine("Or press 'ESC' to cancel the booking.");
         ConsoleKey keyy = Console.ReadKey().Key;
@@ -128,7 +155,7 @@ public static class FlightBooking
 
         string bookingCode = BookingCode.GenerateCode();
 
-        Booking booking = MakeBookingLogic.MakeBooking(flight, bookingCode, seats, SpecialExperience, totalprice);
+        Booking booking = MakeBookingLogic.MakeBooking(flight, bookingCode, seats, SpecialExperience, totalprice, catering);
         account.BookedFlights.Add(booking);
 
         Email.SendBookingEmail(account, booking, seats);

@@ -1,7 +1,7 @@
 ﻿
 static class MakeBookingLogic
 {
-    public static Booking MakeBooking(Flight flight, string bookingcode, List<Seat> seats, TimeSpan? specialExperience, int totalprice)
+    public static Booking MakeBooking(Flight flight, string bookingcode, List<Seat> seats, TimeSpan? specialExperience, int totalprice, string catering)
     {
         Booking booking = new Booking();
         booking.BookingCode = bookingcode;
@@ -13,6 +13,7 @@ static class MakeBookingLogic
         booking.TimeArrival = flight.TimeArrival;
         booking.Seats = seats;
         booking.SpecialExperience = specialExperience;
+        booking.Catering = catering;
         booking.Price = totalprice;
         return booking;
     }
