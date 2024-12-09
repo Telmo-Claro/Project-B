@@ -57,7 +57,7 @@ public static class ViewFlights
         List<Flight> flights = new List<Flight>();
         foreach (var flight in _flights)
         {
-            if (flight.Destination == location && date == "")
+            if (flight.Destination.ToLower() == location.ToLower() && date == "")
             {
                 flights.Add(flight);
             }
@@ -65,7 +65,7 @@ public static class ViewFlights
             {
                 flights.Add(flight);
             }
-            else if (flight.Date.ToShortDateString() == date && location == flight.Destination)
+            else if (flight.Date.ToShortDateString() == date && location.ToLower() == flight.Destination.ToLower())
             {
                 flights.Add(flight);
             }
