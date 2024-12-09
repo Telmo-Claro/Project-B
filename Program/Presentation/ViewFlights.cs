@@ -95,6 +95,10 @@ public static class ViewFlights
             }
 
         }
+        else if (flights.Count < 1)
+        {
+            Console.WriteLine("There are no flights with the given data.");
+        }
         else
         {
             for (int i = 0; i < flights.Count; i++)
