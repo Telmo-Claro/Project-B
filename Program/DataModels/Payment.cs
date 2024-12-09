@@ -6,7 +6,7 @@
     public string ExpirationDate { get; set; }
     public string CvcCode { get; set; }
 
-    protected const string _idealUrl = "https://tikkie.me/pay/sa10d5e0n7sf7sii1rke";
+    protected const string _idealUrl = "https://tikkie.me/pay/f8a7dddftjjat8o40vun";
 
 
     public Payment(string firstName, string lastName)

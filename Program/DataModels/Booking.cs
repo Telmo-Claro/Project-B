@@ -29,6 +29,9 @@ public class Booking
     [JsonPropertyName("SpecialExperience")]
     public TimeSpan? SpecialExperience { get; set; }
 
+    [JsonPropertyName("Catering")]
+    public string? Catering { get; set; }
+
     [JsonPropertyName("Price")]
     public int? Price { get; set; }
 
@@ -43,6 +46,7 @@ public class Booking
                 $"TimeArrival: {TimeArrival}\n" +
                 $"Seats: {string.Join(", ", Seats)}\n" +
                 $"Special Experience: {(SpecialExperience is null ? "Not Booked" : $"{SpecialExperience}")}\n" +
+                $"Catering: {(Catering is null ? "No Catering" : $"{Catering}")}\n" +
                 $"Price: €{Price}";
     }
 }
