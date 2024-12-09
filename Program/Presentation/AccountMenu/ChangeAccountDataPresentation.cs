@@ -49,34 +49,37 @@
     {
         string firstName = string.Empty;
         string lastName = string.Empty;
-        while (true)
+        while(!ValidateAccountInformation.ValidateFirstName(firstName))
         {
-            Console.Write("\nEnter new first name: ");
+            Console.WriteLine("\nNew first name: ");
+            Console.Write("> ");
             firstName = Console.ReadLine();
-            if (string.IsNullOrEmpty(firstName))
+            if (!ValidateAccountInformation.ValidateFirstName(firstName))
             {
-                Console.Write("Please enter a valid first name. Try again: ");
-                firstName = Console.ReadLine();
-            }
-            else
-            {
-                break;
+                Thread.Sleep(800);
+                Console.WriteLine("Please enter a valid first name.");
+                Thread.Sleep(800);
+                Console.WriteLine("No special characters or numbers.");
+                Thread.Sleep(2000);
+                Console.Clear();
             }
         }
-        while (true)
+        while (!ValidateAccountInformation.ValidateLastName(lastName))
         {
-            Console.Write("\nEnter new last name: ");
+            Console.WriteLine("\nNew last name: ");
+            Console.Write("> ");
             lastName = Console.ReadLine();
-            if (string.IsNullOrEmpty(firstName))
+            if (!ValidateAccountInformation.ValidateLastName(lastName))
             {
-                Console.Write("Please enter a valid last name. Try again: ");
-                lastName = Console.ReadLine();
-            }
-            else
-            {
-                break;
+                Thread.Sleep(800);
+                Console.WriteLine("Please enter a valid last name.");
+                Thread.Sleep(800);
+                Console.WriteLine("No special characters or numbers.");
+                Thread.Sleep(2000);
+                Console.Clear();
             }
         }
+        
         var newAccount = ChangeAccountDataLogic.ChangeName(account, firstName, lastName);
         if (newAccount != null)
         {
@@ -88,18 +91,19 @@
     private static void ChangeEmail(Account account)
     {
         string email = string.Empty;
-        while (true)
+        while (!ValidateAccountInformation.ValidateEmail(email))
         {
-            Console.Write("\nEnter new email: ");
+            Console.WriteLine("\nEnter new email: ");
+            Console.Write("> ");
             email = Console.ReadLine();
-            if (string.IsNullOrEmpty(email) || !email.Contains("@"))
+            if (!ValidateAccountInformation.ValidateEmail(email))
             {
-                Console.Write("Please enter a valid email. Try again: ");
-                email = Console.ReadLine();
-            }
-            else
-            {
-                break;
+                Thread.Sleep(800);
+                Console.WriteLine("Please enter a valid email.");
+                Thread.Sleep(800);
+                Console.WriteLine("A valid email includes one '@' character.");
+                Thread.Sleep(2000);
+                Console.Clear();
             }
         }
         var newAccount = ChangeAccountDataLogic.ChangeEmail(account, email);
@@ -113,18 +117,21 @@
     private static void ChangePhoneNumber(Account account)
     {
         string phoneNumber = string.Empty;
-        while (true)
+        while (!ValidateAccountInformation.ValidatePhoneNumber(phoneNumber))
         {
-            Console.Write("\nEnter phone number: ");
+            Console.WriteLine("\nNew phone number: ");
+            Console.Write("> ");
             phoneNumber = Console.ReadLine();
-            if (string.IsNullOrEmpty(phoneNumber))
+            if(!ValidateAccountInformation.ValidatePhoneNumber(phoneNumber))
             {
-                Console.Write("Please enter a valid email. Try again: ");
-                phoneNumber = Console.ReadLine();
-            }
-            else
-            {
-                break;
+                Thread.Sleep(800);
+                Console.WriteLine("Please enter a valid phone number.");
+                Thread.Sleep(800);
+                Console.WriteLine("A valid phone number includes only numbers.");
+                Thread.Sleep(800);
+                Console.WriteLine("It also has to be between 9 and 12 digits.");
+                Thread.Sleep(2000);
+                Console.Clear();
             }
         }
         var newAccount = ChangeAccountDataLogic.ChangePhoneNumber(account, phoneNumber);
@@ -139,20 +146,22 @@
     private static void ChangePassword(Account account)
     {
         string password = string.Empty;
-        while (true)
+        while (!ValidateAccountInformation.ValidatePassword(password))
         {
-            Console.Write("\nEnter phone number: ");
-            password = Console.ReadLine();
-            if (string.IsNullOrEmpty(password))
+            Console.WriteLine("\nEnter new password: ");
+            Console.Write("> ");
+            password = PasswordTyper.PasswordReadLine();
+            if (!ValidateAccountInformation.ValidatePassword(password))
             {
-                Console.Write("Please enter a valid email. Try again: ");
-                password = Console.ReadLine();
-            }
-            else
-            {
-                break;
+                Thread.Sleep(800);
+                Console.WriteLine("Please enter a valid password.");
+                Thread.Sleep(800);
+                Console.WriteLine("A password has to have more than 6 characters.");
+                Thread.Sleep(2000);
+                Console.Clear();
             }
         }
+        
         var newAccount = ChangeAccountDataLogic.ChangePassword(account, password);
         if (newAccount != null)
         {

@@ -6,7 +6,7 @@ public static class BookFlightMenu
         Console.Clear();
         Console.WriteLine("What is the flight number from the flight you would like to book?");
         Console.Write("> ");
-        string? givenFlightNumber = Console.ReadLine();
+        string? givenFlightNumber = Console.ReadLine().ToUpper();
 
         foreach (Flight flight in _flights)
         {
