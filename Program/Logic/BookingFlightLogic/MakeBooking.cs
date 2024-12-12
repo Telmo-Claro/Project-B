@@ -17,5 +17,6 @@ static class MakeBookingLogic
         booking.Price = totalprice;
         return booking;
     }
+    
 }
 

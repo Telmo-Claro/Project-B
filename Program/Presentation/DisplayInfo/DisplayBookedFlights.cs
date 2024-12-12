@@ -3,10 +3,24 @@ public static class DisplayBookedFlights
     public static void ShowActiveBookings(Account account)
     {
         List<Flight> flights = FlightDataRW.ReadJson();
+    
+        // changes flight details to the ones admin puts (acc from the json not admin but iykyk :d)
+        foreach (var booking in account.BookedFlights)
+        {
+            var correspondingFlight = flights.FirstOrDefault(f => f.FlightNumber == booking.FlightNumber);
+            if (correspondingFlight != null)
+            { booking.Date = correspondingFlight.Date;
+              booking.TimeDeparture = correspondingFlight.TimeDeparture;
+              booking.TimeArrival = correspondingFlight.TimeArrival;
+            }
+        }
+        AdminLogic.SaveBookings(account); // just dont touch this - makes admin edit works:0.
+
         Console.Clear();
         Console.WriteLine($"----------------------");
         Console.WriteLine($"Current booked flights");
         Console.WriteLine($"----------------------");
+    
         foreach (var booking in account.BookedFlights)
         {
             if (null != flights.FirstOrDefault(flight => flight.FlightNumber == booking.FlightNumber && flight.Status == "Planned"))
