@@ -5,13 +5,31 @@ public static class BookFlightMenu
     {
         Console.Clear();
         Console.WriteLine("What is the flight number from the flight you would like to book?");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("Type 'Exit' to go back");
+        Console.ResetColor();
         Console.Write("> ");
         string? givenFlightNumber = Console.ReadLine().ToUpper();
-
+        if (givenFlightNumber.Equals("Exit"))
+        {
+            return;
+        }
         foreach (Flight flight in _flights)
         {
-            if (flight.FlightNumber == givenFlightNumber)
+            if (flight.FlightNumber == givenFlightNumber) //legit 3 lines of code and u couldnt do it earlier fellas...
             {
+                if (flight.Status != "Planned")
+                {
+                    Console.Clear();
+                    Console.WriteLine("This flight cannot be booked.");
+                    Console.WriteLine($"Current flight status: {flight.Status}");
+                    Console.WriteLine("Only flights with 'Planned' status can be booked.");
+                    Console.WriteLine("Press any key to continue.");
+                    Console.ReadKey();
+                    BookingMenu(account);
+                    return;
+                }
+
                 Console.Clear();
                 Console.WriteLine("Is this the flight you would like to book?");
                 Console.WriteLine($"Flightnumber: {flight.FlightNumber}");
