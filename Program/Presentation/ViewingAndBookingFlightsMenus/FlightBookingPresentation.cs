@@ -11,7 +11,8 @@ public static class FlightBooking
         TimeSpan? SpecialExperience = null;
         bool FlightExperienceBool = false;
         string? catering = null;
-        seats = General_Seat_Logic.GetSeats(flight, account);
+        List<Seat> SelectedSeats = [];
+        seats = General_Seat_Logic.GetSeats(flight, account, SelectedSeats);
 
         if (seats is null) { return; }
         if (seats.Count == 0) { return; }
