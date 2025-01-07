@@ -8,8 +8,15 @@
         {
             // Telmo didnt add logic to increase the id... this is a fix
             // The ID's were added after this so I didnt know - Telmo 
-            int Id = accounts[^1].Id + 1;
-            account.Id = Id;
+            if (accounts.Count <= 0)
+            {
+                account.Id = 1;
+            }
+            else
+            {
+                int Id = accounts[^1].Id + 1;
+                account.Id = Id;
+            }
             // Telmo Brazilian 
             var existingAccount = accounts.FirstOrDefault(x => x.Id == account.Id);
             if (existingAccount != null)
