@@ -19,9 +19,10 @@
         } while (string.IsNullOrEmpty(message));
         if (!string.IsNullOrEmpty(message))
         {
+            DateTime date = DateTime.Now;
             Console.WriteLine("Your review will be validated and processed!");
             Console.WriteLine("Press any key to continue...");
-            FeedbackLogic.AddFeedback(message);
+            FeedbackLogic.AddFeedback(message, date);
             Console.ReadKey();
         }
     }
