@@ -1,9 +1,9 @@
 ﻿class General_Seat_Logic
 {
-    public static List<Seat> GetSeats(Flight flight, Account account)
+    public static List<Seat> GetSeats(Flight flight, Account account, List<Seat> seats)
     {
-
-        return GeneralSeatSelection.SeatMenu(flight, account);
+        
+        return GeneralSeatSelection.SeatMenu(flight, account, seats);
     }
 
     public static bool IsValidSeat(string seatNumber, Flight flight)

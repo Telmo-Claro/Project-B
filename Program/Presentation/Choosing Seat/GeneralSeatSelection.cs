@@ -37,9 +37,8 @@
         Console.WriteLine(flight.Aircraft.RestOverview);
     }
 
-    public static List<Seat> SeatMenu(Flight flight, Account account)
+    public static List<Seat> SeatMenu(Flight flight, Account account, List<Seat> SelectedSeats)
     {
-        List<Seat> SelectedSeats = new List<Seat>();
         while (true)
         {
             Console.Clear();
@@ -99,6 +98,109 @@
                     break;
             }
             Console.WriteLine($"\nThis is a {seat.Type}. \nPrice: ${seat.Price}. \nWould you like to reserve this seat?");
+            Console.WriteLine("(1) Yes");
+            Console.WriteLine("(2) No");
+            Console.Write("> ");
+            ConsoleKey bookingResponse = Console.ReadKey().Key;
+            Console.WriteLine();
+            while (true)
+            {
+                if (bookingResponse == ConsoleKey.D1)
+                {
+                    SelectedSeats.Add(seat);
+                    Console.WriteLine("\nSeat reserved successfully!");
+                    Thread.Sleep(1000);
+                    break;
+                }
+                else if (bookingResponse == ConsoleKey.D2)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Invalid input. Please enter 1 or 2.");
+                    Console.Write("> ");
+                    bookingResponse = Console.ReadKey().Key;
+                    Console.WriteLine();
+                }
+            }
+        }
+        if (SelectedSeats.Count == 0)
+        {
+            ViewFlightMenu.DisplayMenu(account);
+            return null;
+        }
+        else
+        {
+            Console.WriteLine("Done reserving.");
+            Thread.Sleep(1000);
+            Console.Write("> ");
+            return SelectedSeats;
+        }
+    }
+
+    public static List<Seat> SeatMenuAdmin(Flight flight, Account account, List<Seat> SelectedSeats)
+    {
+        while (true)
+        {
+            Console.Clear();
+
+            AirplaneOverview(flight, SelectedSeats);
+
+            Console.WriteLine("\nEnter seat designation (e.g. A1, B2) or type 'continue' to continue:");
+            Console.WriteLine("If you type 'continue' without selecting a seat you will return.");
+            Console.WriteLine("\nSelected seats:");
+            foreach (var seat1 in SelectedSeats)
+            {
+                Console.WriteLine(seat1);
+            }
+            Console.Write("> ");
+            string input = Console.ReadLine();
+            if (input.ToLower() == "continue")
+            {
+                break;
+            }
+
+            if (!General_Seat_Logic.IsValidSeat(input, flight))
+            {
+                Console.WriteLine("Invalid seat");
+                Thread.Sleep(1000);
+                continue;
+            }
+
+            if (General_Seat_Logic.IsBooked(input, flight))
+            {
+                Console.WriteLine("This Seat is already booked");
+                Thread.Sleep(1000);
+                continue;
+            }
+
+            if (General_Seat_Logic.IsSelected(input, SelectedSeats))
+            {
+                SelectedSeats.Remove(SelectedSeats.FirstOrDefault(seat => seat.SeatId == input));
+                Console.WriteLine("Seat has been deselected");
+                Thread.Sleep(1000);
+                continue;
+            }
+
+            Seat seat;
+            switch (flight.Aircraft.Name)
+            {
+                case "Airbus 330":
+                    seat = Airbus330_Seat_Logic.MakeSeat(input);
+                    break;
+                case "Boeing 737":
+                    seat = Boeing737_Seat_Logic.MakeSeat(input);
+                    break;
+                case "Boeing 787":
+                    seat = Boeing787_Seat_Logic.MakeSeat(input);
+                    break;
+                default:
+                    seat = General_Seat_Logic.MakeSeat(input);
+                    break;
+            }
+            Console.WriteLine($"\nWould you like to reserve this seat?");
             Console.WriteLine("(1) Yes");
             Console.WriteLine("(2) No");
             Console.Write("> ");

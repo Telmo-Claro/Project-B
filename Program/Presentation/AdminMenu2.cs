@@ -466,367 +466,407 @@ public static class Admin
         Console.ReadKey();
     }
 
-public static void ViewBookings()
-{
-    Console.Clear();
-
-    Console.ForegroundColor = ConsoleColor.Black;
-    Console.WriteLine(new string('=', 26));
-    Console.WriteLine("  View All Bookings Menu  ".PadLeft(20).PadRight(20));
-    Console.WriteLine(new string('=', 26));
-    Console.ResetColor();
-
-    Console.WriteLine();
-
-    Console.ForegroundColor = ConsoleColor.DarkBlue;
-    Console.WriteLine("  Press 'Enter' to view the full list of bookings.");
-    Console.WriteLine("  Use the following categories to search for specific values:");
-    Console.ResetColor();
-
-    Console.WriteLine();
-
-    Console.ForegroundColor = ConsoleColor.DarkBlue;
-    Console.WriteLine("  Name-based search:");
-    Console.ForegroundColor = ConsoleColor.White;
-    Console.WriteLine("    - Full Name");
-    Console.WriteLine("    - First Name");
-    Console.WriteLine("    - Last Name");
-    Console.ResetColor();
-
-    Console.WriteLine();
-
-    Console.ForegroundColor = ConsoleColor.DarkBlue;
-    Console.WriteLine("  Flight-related search:");
-    Console.ForegroundColor = ConsoleColor.White;
-    Console.WriteLine("    - Flight Number");
-    Console.WriteLine("    - Departure Date (dd/mm/yyyy)");
-    Console.ResetColor();
-
-    Console.WriteLine();
-
-    Console.ForegroundColor = ConsoleColor.DarkBlue;
-    Console.WriteLine("  Location-based search:");
-    Console.ForegroundColor = ConsoleColor.White;
-    Console.WriteLine("    - Destination");
-    Console.ResetColor();
-
-    Console.WriteLine();
-
-    Console.ForegroundColor = ConsoleColor.DarkRed;
-    Console.WriteLine("");
-    Console.WriteLine("'/Quit' to return to the menu.");
-    Console.ResetColor();
-    Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine("'/Edit' to edit bookings");
-    Console.ResetColor();
-    Console.ForegroundColor = ConsoleColor.DarkGray;
-    Console.WriteLine(new string('-', 50));
-    Console.ResetColor();
-
-    Console.WriteLine();
-
-    Console.ForegroundColor = ConsoleColor.Green;
-    Console.Write("> ");
-    Console.ResetColor();
-
-    string searchText = Console.ReadLine()?.Trim();
-    if (searchText.Equals("/Quit", StringComparison.OrdinalIgnoreCase))
+    public static void ViewBookings()
     {
-        return;
-    }
-    
-    if (searchText.Equals("/Edit"))
-    {
-        EditBooking();
-    }
-    
-    List<Account> matchingResults = AdminLogic.ViewBookings(searchText);
-
-    if (matchingResults.Any())
-    {
-        Console.Clear();
-        Console.WriteLine("");
-        Console.WriteLine(new string('=', 26));
-        Console.WriteLine("Search Results:".PadLeft(20).PadRight(20));
-        Console.WriteLine(new string('=', 26));
-
-        if (string.IsNullOrEmpty(searchText))
-        {
-            // Empty search -> group destination
-            var flightsByDestination = matchingResults
-                .Where(a => a.BookedFlights != null && a.BookedFlights.Any())
-                .GroupBy(a => a.BookedFlights.First().Destination)
-                .ToList();
-
-            Console.WriteLine("Flights by Destination:");
-            Console.WriteLine(new string('=', 50));
-
-            foreach (var destinationGroup in flightsByDestination)
-            {
-                string destination = destinationGroup.Key;
-                Console.WriteLine($"\nDestination: {destination}");
-                Console.WriteLine(new string('-', 30));
-
-                foreach (var account in destinationGroup)
-                {
-                    var flight = account.BookedFlights.First();
-                    Console.WriteLine($"  Passenger: {account.FirstName} {account.LastName}");
-                    Console.WriteLine($"  Booking Code:{flight.BookingCode}");
-                    Console.WriteLine($"  Flight Number: {flight.FlightNumber}");
-                    
-                    Console.WriteLine($"  Departure: {flight.Departure}");
-                    Console.WriteLine($"  Date: {flight.Date:dd/MM/yyyy}");
-                    Console.WriteLine($"  Departure Time: {flight.TimeDeparture}");
-                    
-                    
-                    // Print seat details
-                    Console.WriteLine("  Seats:");
-                    foreach (var seat in flight.Seats)
-                    {
-                        Console.WriteLine($"  Seat ID: {seat.SeatId}");
-                        Console.WriteLine($"  Type: {seat.Type}");
-                        Console.WriteLine($"  Price: {seat.Price}");
-                        Console.WriteLine();
-                    }
-
-                    Console.WriteLine();
-                }
-            }
-        }
-        else
-        {
-            foreach (var account in matchingResults)
-            {
-                HighlightIfMatch(
-                    $"Full Name: {account.FirstName} {account.LastName}",
-                    searchText
-                );
-
-                foreach (var flight in account.BookedFlights)
-                {
-                    HighlightIfMatch($"  Flight Number: {flight.FlightNumber}", searchText);
-                    HighlightIfMatch($"  Destination: {flight.Destination}", searchText);
-                    HighlightIfMatch($"  Date: {flight.Date:dd/MM/yyyy}", searchText);
-                    HighlightIfMatch($"  Departure: {flight.Departure}", searchText);
-                    HighlightIfMatch($"  Departure Time: {flight.TimeDeparture}", searchText);
-
-                    // Print seat details with highlights
-                    HighlightIfMatch("  Seats:", searchText);
-                    foreach (var seat in flight.Seats)
-                    {
-                        HighlightIfMatch($"  Seat ID: {seat.SeatId}", searchText);
-                        HighlightIfMatch($"  Type: {seat.Type}", searchText);
-                        HighlightIfMatch($"  Price: {seat.Price}", searchText);
-                    }
-
-                    Console.WriteLine(new string('-', 40));
-                }
-            }
-        }
-    }
-    else
-    {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("No results match the search criteria.");
-        Console.ResetColor();
-    }
-
-    Pause();
-}
-
-private static void HighlightIfMatch(string fullText, string searchText)
-{
-    if (fullText.Contains(searchText, StringComparison.OrdinalIgnoreCase))
-    {
-        int index = fullText.IndexOf(searchText, StringComparison.OrdinalIgnoreCase);
-        Console.Write(fullText.Substring(0, index));
-
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write(fullText.Substring(index, searchText.Length));
-        Console.ResetColor();
-
-        Console.WriteLine(fullText.Substring(index + searchText.Length));
-    }
-    else
-    {
-        Console.WriteLine(fullText);
-    }
-}
-
-    private static void Pause()
-    {
-        Console.WriteLine("\nPress any key to return to the menu.");
-        Console.ReadKey();
-    }
-
-public static void EditBooking()
-{
-    Console.Clear();
-    while (true)
-    {
-        Console.WriteLine(
-            "Enter the booking code to edit the booking\nType '/Quit' to return to the menu");
-        string bookingCode = Console.ReadLine();
-
-        if (bookingCode.Equals("/Quit", StringComparison.OrdinalIgnoreCase))
-        {
-            return;
-        }
-
-        // Get all accounts with their bookings
-        List<Account> accounts = AdminLogic.ViewBookings();
-
-        // Find the account and booking associated with the given booking code
-        var result = accounts
-            .Select(a => new
-            {
-                Account = a,
-                Booking = a.BookedFlights.FirstOrDefault(f => f.BookingCode.Equals(bookingCode, StringComparison.OrdinalIgnoreCase))
-            })
-            .FirstOrDefault(r => r.Booking != null);
-
-        if (result == null)
-        {
-            Console.Clear();
-            Console.WriteLine("No booking found with that booking code. Please try again.");
-            continue;
-        }
-
-        Account accountToEdit = result.Account;
-        Booking bookingToEdit = result.Booking;
-
-        Console.Clear();
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("'/Quit' to return");
-        Console.ResetColor();
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("Current Booking Details:");
-        Console.ResetColor();
-        Console.WriteLine($"Passenger: {accountToEdit.FirstName + " " + accountToEdit.LastName}");
-        Console.WriteLine($"Booking Code: {bookingToEdit.BookingCode}");
-        Console.WriteLine($"Flight Number: {bookingToEdit.FlightNumber}");
-        Console.WriteLine($"Departure: {bookingToEdit.Departure}");
-        Console.WriteLine($"Destination: {bookingToEdit.Destination}");
-        Console.WriteLine($"Date: {bookingToEdit.Date:yyyy-MM-dd}");
-        Console.WriteLine($"Departure Time: {bookingToEdit.TimeDeparture}");
-        Console.WriteLine($"Arrival Time: {bookingToEdit.TimeArrival}");
-        Console.WriteLine($"Catering: {bookingToEdit.Catering}");
-        Console.WriteLine();
-
-        foreach (var seat in bookingToEdit.Seats)
-        {
-            Console.WriteLine($"Seat ID: {seat.SeatId}");
-            Console.WriteLine($"Seat Type: {seat.Type}");
-            Console.WriteLine($"Seat Price: {seat.Price}");
-        }
-
+        string searchText = "";
         while (true)
         {
-            Console.WriteLine("\nWhat would you like to edit?");
-            //Console.WriteLine("1. Destination");
-            //Console.WriteLine("2. Date");
-            //Console.WriteLine("3. Departure Time");
-            Console.WriteLine("(1) Delete booking");
-            Console.WriteLine("(2) Catering");
-            Console.WriteLine("(3) Save Changes");
-            Console.WriteLine("(4) Cancel");
+            Console.Clear();
+
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine(new string('=', 26));
+            Console.WriteLine("  View All Bookings Menu  ".PadLeft(20).PadRight(20));
+            Console.WriteLine(new string('=', 26));
+            Console.ResetColor();
+
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.WriteLine("  Press 'Enter' to view the full list of bookings.");
+            Console.WriteLine("  Use the following categories to search for specific values:");
+            Console.ResetColor();
+
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.WriteLine("  Name-based search:");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("    - Full Name");
+            Console.WriteLine("    - First Name");
+            Console.WriteLine("    - Last Name");
+            Console.ResetColor();
+
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.WriteLine("  Flight-related search:");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("    - Flight Number");
+            Console.WriteLine("    - Departure Date (dd/mm/yyyy)");
+            Console.ResetColor();
+
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.WriteLine("  Location-based search:");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("    - Destination");
+            Console.ResetColor();
+
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("");
+            Console.WriteLine("'/Quit' to return to the menu.");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("'/Edit' to edit bookings");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine(new string('-', 50));
+            Console.ResetColor();
+
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("> ");
+            Console.ResetColor();
 
-            string choice = Console.ReadLine();
-
-            switch (choice)
+            searchText = Console.ReadLine()?.Trim();
+            if (searchText.Equals("/Quit", StringComparison.OrdinalIgnoreCase))
             {
-                // case "1":
-                //     Console.Write("Enter new destination: ");
-                //     string newDestination = Console.ReadLine();
-                //     if (!string.IsNullOrWhiteSpace(newDestination))
-                //     {
-                //         bookingToEdit.Destination = newDestination;
-                //         Console.WriteLine("Destination updated.");
-                //     }
-                //     break;
-                //
-                // case "2":
-                //     Console.Write("Enter new date (YYYY-MM-DD): ");
-                //     if (DateTime.TryParse(Console.ReadLine(), out DateTime newDate))
-                //     {
-                //         bookingToEdit.Date = newDate;
-                //         Console.WriteLine("Date updated.");
-                //     }
-                //     else
-                //     {
-                //         Console.WriteLine("Invalid date format.");
-                //     }
-                //     break;
-                //
-                // case "3":
-                //     Console.Write("Enter new departure time (HH:mm:ss): ");
-                //     if (TimeSpan.TryParse(Console.ReadLine(), out TimeSpan newDepartureTime))
-                //     {
-                //         bookingToEdit.TimeDeparture = newDepartureTime;
-                //         Console.WriteLine("Departure time updated.");
-                //     }
-                //     else
-                //     {
-                //         Console.WriteLine("Invalid time format.");
-                //     }
-                //     break;
-                //
-                // case "4":
-                //     Console.Write("Enter new arrival time (HH:mm:ss): ");
-                //     if (TimeSpan.TryParse(Console.ReadLine(), out TimeSpan newArrivalTime))
-                //     {
-                //         bookingToEdit.TimeArrival = newArrivalTime;
-                //         Console.WriteLine("Arrival time updated.");
-                //     }
-                //     else
-                //     {
-                //         Console.WriteLine("Invalid time format.");
-                //     }
-                //     break;
-                case "1":
-                    DeleteDelete();
-                    break;
-                
-                case "2":
-                    Console.WriteLine("Select a catering option:");
-                    Console.WriteLine("(1) Basic");
-                    Console.WriteLine("(2) Standard");
-                    Console.WriteLine("(3) Premium");
-                    Console.WriteLine("(4) No catering");
-                    Console.Write("> ");
-                    ConsoleKey cateringKey = Console.ReadKey().Key;
-                    Console.WriteLine();
+                break;
+            }
 
-                    var (newCatering, isValid) = Catering.GetCatering(cateringKey);
-                    if (isValid)
+            if (searchText.Equals("/Edit"))
+            {
+                EditBooking();
+            }
+            List<Account> matchingResults = AdminLogic.ViewBookings(searchText);
+            while (true)
+            {
+                if (matchingResults.Any())
+                {
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.WriteLine(new string('=', 26));
+                    Console.WriteLine("Search Results:".PadLeft(20).PadRight(20));
+                    Console.WriteLine(new string('=', 26));
+
+                    if (string.IsNullOrEmpty(searchText))
                     {
-                        bookingToEdit.Catering = newCatering;
-                        Console.WriteLine("Catering option updated.");
+                        // Empty search -> group destination
+                        var flightsByDestination = matchingResults
+                            .Where(a => a.BookedFlights != null && a.BookedFlights.Any())
+                            .GroupBy(a => a.BookedFlights.First().Destination)
+                            .ToList();
+
+                        Console.WriteLine("Flights by Destination:");
+                        Console.WriteLine(new string('=', 50));
+
+                        foreach (var destinationGroup in flightsByDestination)
+                        {
+                            string destination = destinationGroup.Key;
+                            Console.WriteLine($"\nDestination: {destination}");
+                            Console.WriteLine(new string('-', 30));
+
+                            foreach (var account in destinationGroup)
+                            {
+                                var flight = account.BookedFlights.First();
+                                Console.WriteLine($"  Passenger: {account.FirstName} {account.LastName}");
+                                Console.WriteLine($"  Booking Code:{flight.BookingCode}");
+                                Console.WriteLine($"  Flight Number: {flight.FlightNumber}");
+
+                                Console.WriteLine($"  Departure: {flight.Departure}");
+                                Console.WriteLine($"  Date: {flight.Date:dd/MM/yyyy}");
+                                Console.WriteLine($"  Departure Time: {flight.TimeDeparture}");
+
+
+                                // Print seat details
+                                Console.WriteLine("  Seats:");
+                                foreach (var seat in flight.Seats)
+                                {
+                                    Console.WriteLine($"  Seat ID: {seat.SeatId}");
+                                    Console.WriteLine($"  Type: {seat.Type}");
+                                    Console.WriteLine($"  Price: {seat.Price}");
+                                    Console.WriteLine();
+                                }
+
+                                Console.WriteLine();
+                            }
+                        }
                     }
                     else
                     {
-                        Console.WriteLine("Invalid catering option.");
+                        foreach (var account in matchingResults)
+                        {
+                            HighlightIfMatch(
+                                $"Full Name: {account.FirstName} {account.LastName}",
+                                searchText
+                            );
+
+                            foreach (var flight in account.BookedFlights)
+                            {
+                                HighlightIfMatch($"  Flight Number: {flight.FlightNumber}", searchText);
+                                HighlightIfMatch($"  Destination: {flight.Destination}", searchText);
+                                HighlightIfMatch($"  Date: {flight.Date:dd/MM/yyyy}", searchText);
+                                HighlightIfMatch($"  Departure: {flight.Departure}", searchText);
+                                HighlightIfMatch($"  Departure Time: {flight.TimeDeparture}", searchText);
+
+                                // Print seat details with highlights
+                                HighlightIfMatch("  Seats:", searchText);
+                                foreach (var seat in flight.Seats)
+                                {
+                                    HighlightIfMatch($"  Seat ID: {seat.SeatId}", searchText);
+                                    HighlightIfMatch($"  Type: {seat.Type}", searchText);
+                                    HighlightIfMatch($"  Price: {seat.Price}", searchText);
+                                }
+
+                                Console.WriteLine(new string('-', 40));
+                            }
+                        }
                     }
+
+                    Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("'/Edit' to edit bookings");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("No results match the search criteria.");
+                    Console.ResetColor();
+                }
+
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("'/Quit' to quit");
+                Console.ResetColor();
+                Console.Write("\n>");
+
+                searchText = Console.ReadLine()?.Trim();
+                if (searchText.Equals("/Edit"))
+                {
+                    EditBooking();
+                }
+                if (searchText.Equals("/Quit"))
+                {
                     break;
-
-                case "3":
-                    AdminLogic.SaveBookings(accountToEdit);
-                    Console.Clear();
-                    Console.WriteLine("Booking updated successfully.");
-                    Console.WriteLine("\nPress any key to continue");
-                    Console.ReadKey();
-                    return;
-
-                case "4":
-                    return;
-
-                default:
-                    Console.WriteLine("Invalid option. Please try again.");
-                    break;
+                }
             }
         }
     }
+
+    private static void HighlightIfMatch(string fullText, string searchText)
+    {
+        if (fullText.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+        {
+            int index = fullText.IndexOf(searchText, StringComparison.OrdinalIgnoreCase);
+            Console.Write(fullText.Substring(0, index));
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(fullText.Substring(index, searchText.Length));
+            Console.ResetColor();
+
+            Console.WriteLine(fullText.Substring(index + searchText.Length));
+        }
+        else
+        {
+            Console.WriteLine(fullText);
+        }
+    }
+
+    public static void EditBooking()
+    {
+        while (true)
+        {
+            Console.WriteLine(
+                "Enter the booking code to edit the booking\nType '/Quit' to return to the menu");
+            string bookingCode = Console.ReadLine();
+
+            if (bookingCode.Equals("/Quit", StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            // Get all accounts with their bookings
+            List<Account> accounts = AdminLogic.ViewBookings();
+
+            // Find the account and booking associated with the given booking code
+            var result = accounts
+                .Select(a => new
+                {
+                    Account = a,
+                    Booking = a.BookedFlights.FirstOrDefault(f => f.BookingCode.Equals(bookingCode, StringComparison.OrdinalIgnoreCase))
+                })
+                .FirstOrDefault(r => r.Booking != null);
+
+            if (result == null)
+            {
+                Console.Clear();
+                Console.WriteLine("No booking found with that booking code. Please try again.");
+                continue;
+            }
+
+            Account accountToEdit = result.Account;
+            Booking bookingToEdit = result.Booking;
+
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("'/Quit' to return");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Current Booking Details:");
+            Console.ResetColor();
+            Console.WriteLine($"Passenger: {accountToEdit.FirstName + " " + accountToEdit.LastName}");
+            Console.WriteLine($"Booking Code: {bookingToEdit.BookingCode}");
+            Console.WriteLine($"Flight Number: {bookingToEdit.FlightNumber}");
+            Console.WriteLine($"Departure: {bookingToEdit.Departure}");
+            Console.WriteLine($"Destination: {bookingToEdit.Destination}");
+            Console.WriteLine($"Date: {bookingToEdit.Date:yyyy-MM-dd}");
+            Console.WriteLine($"Departure Time: {bookingToEdit.TimeDeparture}");
+            Console.WriteLine($"Arrival Time: {bookingToEdit.TimeArrival}");
+            Console.WriteLine($"Catering: {bookingToEdit.Catering}");
+            Console.WriteLine();
+
+            foreach (var seat in bookingToEdit.Seats)
+            {
+                Console.WriteLine($"Seat ID: {seat.SeatId}");
+                Console.WriteLine($"Seat Type: {seat.Type}");
+                Console.WriteLine($"Seat Price: {seat.Price}");
+            }
+
+            while (true)
+            {
+                Console.WriteLine("\nWhat would you like to edit?");
+                //Console.WriteLine("1. Destination");
+                //Console.WriteLine("2. Date");
+                //Console.WriteLine("3. Departure Time");
+                Console.WriteLine("(1) Delete booking");
+                Console.WriteLine("(2) Change Seats");
+                Console.WriteLine("(3) Catering");
+                Console.WriteLine("(4) Save Changes");
+                Console.WriteLine("(5) Cancel");
+                Console.Write("> ");
+
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    // case "1":
+                    //     Console.Write("Enter new destination: ");
+                    //     string newDestination = Console.ReadLine();
+                    //     if (!string.IsNullOrWhiteSpace(newDestination))
+                    //     {
+                    //         bookingToEdit.Destination = newDestination;
+                    //         Console.WriteLine("Destination updated.");
+                    //     }
+                    //     break;
+                    //
+                    // case "2":
+                    //     Console.Write("Enter new date (YYYY-MM-DD): ");
+                    //     if (DateTime.TryParse(Console.ReadLine(), out DateTime newDate))
+                    //     {
+                    //         bookingToEdit.Date = newDate;
+                    //         Console.WriteLine("Date updated.");
+                    //     }
+                    //     else
+                    //     {
+                    //         Console.WriteLine("Invalid date format.");
+                    //     }
+                    //     break;
+                    //
+                    // case "3":
+                    //     Console.Write("Enter new departure time (HH:mm:ss): ");
+                    //     if (TimeSpan.TryParse(Console.ReadLine(), out TimeSpan newDepartureTime))
+                    //     {
+                    //         bookingToEdit.TimeDeparture = newDepartureTime;
+                    //         Console.WriteLine("Departure time updated.");
+                    //     }
+                    //     else
+                    //     {
+                    //         Console.WriteLine("Invalid time format.");
+                    //     }
+                    //     break;
+                    //
+                    // case "4":
+                    //     Console.Write("Enter new arrival time (HH:mm:ss): ");
+                    //     if (TimeSpan.TryParse(Console.ReadLine(), out TimeSpan newArrivalTime))
+                    //     {
+                    //         bookingToEdit.TimeArrival = newArrivalTime;
+                    //         Console.WriteLine("Arrival time updated.");
+                    //     }
+                    //     else
+                    //     {
+                    //         Console.WriteLine("Invalid time format.");
+                    //     }
+                    //     break;
+                    case "1":
+                        DeleteDelete();
+                        break;
+
+                    case "2":
+                        bookingToEdit = ChangeSeats(bookingToEdit);
+                        break;
+
+                    case "3":
+                        Console.WriteLine("Select a catering option:");
+                        Console.WriteLine("(1) Basic");
+                        Console.WriteLine("(2) Standard");
+                        Console.WriteLine("(3) Premium");
+                        Console.WriteLine("(4) No catering");
+                        Console.Write("> ");
+                        ConsoleKey cateringKey = Console.ReadKey().Key;
+                        Console.WriteLine();
+
+                        var (newCatering, isValid) = Catering.GetCatering(cateringKey);
+                        if (isValid)
+                        {
+                            bookingToEdit.Catering = newCatering;
+                            Console.WriteLine("Catering option updated.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid catering option.");
+                        }
+                        break;
+
+                    case "4":
+                        AdminLogic.SaveBookings(accountToEdit);
+                        Console.Clear();
+                        Console.WriteLine("Booking updated successfully.");
+                        Console.WriteLine("\nPress any key to continue");
+                        Console.ReadKey();
+                        return;
+
+                    default:
+                        Console.WriteLine("Invalid option. Please try again.");
+                        break;
+                }
+            }
+        }
+    }
+
+public static Booking ChangeSeats(Booking bookingToEdit)
+{
+        List<Seat> seats = bookingToEdit.Seats;
+        List<Flight> flights = FlightDataRW.ReadJson();
+        Flight flight = flights.FirstOrDefault(x => x.FlightNumber == bookingToEdit.FlightNumber);
+
+        flight.Aircraft.BookedSeats = flight.Aircraft.BookedSeats.Where(seat => !seats.Contains(seat)).ToList();
+        seats = GeneralSeatSelection.SeatMenuAdmin(flight, null, seats);
+
+        foreach (var x in flights)
+        {
+            if (x.FlightNumber == flight.FlightNumber)
+            {
+                x.Aircraft.BookedSeats = flight.Aircraft.BookedSeats;
+                x.Aircraft.BookedSeats.AddRange(seats);
+            }
+        }
+        FlightDataRW.WriteJson(flights);
+        return bookingToEdit;
 }
 
 public static void EditFlight()
