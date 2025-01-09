@@ -57,6 +57,10 @@ public static class ViewFlights
         List<Flight> flights = new List<Flight>();
         foreach (var flight in _flights)
         {
+            if (flight.Date.Date == DateTime.Today) // check if the flight leaves today
+            {
+                flight.Price = (int)(flight.Price * 0.75); // Apply 25% discount
+            }
             if (flight.Destination.ToLower() == location.ToLower() && date == "")
             {
                 flights.Add(flight);

@@ -11,6 +11,8 @@
             Console.WriteLine("----------------------------");
             Console.WriteLine("           Flights          ");
             Console.WriteLine("----------------------------");
+            Console.WriteLine("   TODAY'S FLIGHTS ARE OFF  ");
+            Console.WriteLine("----------------------------");
             Console.WriteLine("FlightNumber|Departure|Destination|   Date   |TimeDeparture|TimeArrival|Duration|    Country    |   Aircraft  | Price | Status");
             ViewFlights.View(page);
             Console.WriteLine("--------------");
