@@ -459,7 +459,7 @@ public static class Admin
 
         foreach (Feedback x in feedback)
         {
-            Console.WriteLine(x.FeedbackMessage + "\n ");
+            Console.WriteLine(x.FeedbackMessage + " " + x.Date  + "\n ");
         }
 
         Console.WriteLine("\nPress any key to continue.");
