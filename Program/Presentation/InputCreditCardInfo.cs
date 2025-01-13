@@ -34,7 +34,7 @@ public class InputCreditCardInfo
         do
         {
             Console.Write("Enter card Expiration Date (mm/yy): ");
-            date = Console.ReadLine() ?? string.Empty; // Default to empty string if null
+            date = Console.ReadLine() ?? string.Empty;
             bool isParsingSuccessful = false;
 
             while (!isParsingSuccessful)
@@ -60,7 +60,6 @@ public class InputCreditCardInfo
                     Console.WriteLine($"Error: {ex.Message}");
                     Console.WriteLine("Please enter a valid date in the format MM/yy.");
 
-                    // Prompt for new input if necessary (this requires `date` to be re-assigned)
                     date = Console.ReadLine();
                 }
             }
