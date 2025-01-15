@@ -1,7 +1,10 @@
 ﻿public static class WelcomingMenu
 {
+    
     public static void Menu()
     {
+        StartupAnimation.ShowStartupLogo();
+        Console.ResetColor();
         while (true)
         {
             Console.Clear();
