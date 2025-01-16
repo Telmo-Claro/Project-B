@@ -608,6 +608,7 @@ public static class Admin
                             foreach (var flight in account.BookedFlights)
                             {
                                 HighlightIfMatch($"  Flight Number: {flight.FlightNumber}", searchText);
+                                HighlightIfMatch($"  Booking Code: {flight.BookingCode}", searchText);
                                 HighlightIfMatch($"  Destination: {flight.Destination}", searchText);
                                 HighlightIfMatch($"  Date: {flight.Date:dd/MM/yyyy}", searchText);
                                 HighlightIfMatch($"  Departure: {flight.Departure}", searchText);
@@ -740,9 +741,6 @@ public static class Admin
             while (true)
             {
                 Console.WriteLine("\nWhat would you like to edit?");
-                //Console.WriteLine("1. Destination");
-                //Console.WriteLine("2. Date");
-                //Console.WriteLine("3. Departure Time");
                 Console.WriteLine("(1) Delete booking");
                 Console.WriteLine("(2) Change Seats");
                 Console.WriteLine("(3) Catering");
@@ -754,54 +752,6 @@ public static class Admin
 
                 switch (choice)
                 {
-                    // case "1":
-                    //     Console.Write("Enter new destination: ");
-                    //     string newDestination = Console.ReadLine();
-                    //     if (!string.IsNullOrWhiteSpace(newDestination))
-                    //     {
-                    //         bookingToEdit.Destination = newDestination;
-                    //         Console.WriteLine("Destination updated.");
-                    //     }
-                    //     break;
-                    //
-                    // case "2":
-                    //     Console.Write("Enter new date (YYYY-MM-DD): ");
-                    //     if (DateTime.TryParse(Console.ReadLine(), out DateTime newDate))
-                    //     {
-                    //         bookingToEdit.Date = newDate;
-                    //         Console.WriteLine("Date updated.");
-                    //     }
-                    //     else
-                    //     {
-                    //         Console.WriteLine("Invalid date format.");
-                    //     }
-                    //     break;
-                    //
-                    // case "3":
-                    //     Console.Write("Enter new departure time (HH:mm:ss): ");
-                    //     if (TimeSpan.TryParse(Console.ReadLine(), out TimeSpan newDepartureTime))
-                    //     {
-                    //         bookingToEdit.TimeDeparture = newDepartureTime;
-                    //         Console.WriteLine("Departure time updated.");
-                    //     }
-                    //     else
-                    //     {
-                    //         Console.WriteLine("Invalid time format.");
-                    //     }
-                    //     break;
-                    //
-                    // case "4":
-                    //     Console.Write("Enter new arrival time (HH:mm:ss): ");
-                    //     if (TimeSpan.TryParse(Console.ReadLine(), out TimeSpan newArrivalTime))
-                    //     {
-                    //         bookingToEdit.TimeArrival = newArrivalTime;
-                    //         Console.WriteLine("Arrival time updated.");
-                    //     }
-                    //     else
-                    //     {
-                    //         Console.WriteLine("Invalid time format.");
-                    //     }
-                    //     break;
                     case "1":
                         DeleteDelete();
                         break;
@@ -840,6 +790,8 @@ public static class Admin
                         Console.ReadKey();
                         return;
 
+                    case "5":
+                        return;
                     default:
                         Console.WriteLine("Invalid option. Please try again.");
                         break;
@@ -892,7 +844,7 @@ public static void EditFlight()
             Console.WriteLine("No flight found with that number. Please try again.");
             continue;
         }
-        
+
         Console.Clear();
         Console.WriteLine("Current Flight Details:");
         Console.WriteLine($"Flight Number: {flightToEdit.FlightNumber}");
@@ -1037,7 +989,7 @@ public static void AdminDeleteBooking(string firstName, string lastName, string 
             Console.WriteLine("Error: Unable to read account or flight data.");
             return;
         }
-        
+
         var account = accounts.FirstOrDefault(a => 
             a.FirstName == firstName && 
             a.LastName == lastName);
@@ -1047,7 +999,7 @@ public static void AdminDeleteBooking(string firstName, string lastName, string 
             Console.WriteLine($"No account found for {firstName} {lastName}");
             return;
         }
-        
+
         var bookingToCancel = account.BookedFlights
             .FirstOrDefault(b => b.BookingCode == bookingCode);
 
@@ -1056,7 +1008,7 @@ public static void AdminDeleteBooking(string firstName, string lastName, string 
             Console.WriteLine($"No booking found with booking code {bookingCode}");
             return;
         }
-        
+
         var correspondingFlight = flights
             .FirstOrDefault(f => f.FlightNumber == bookingToCancel.FlightNumber);
 
@@ -1065,21 +1017,22 @@ public static void AdminDeleteBooking(string firstName, string lastName, string 
             Console.WriteLine($"No flight found for booking {bookingCode}");
             return;
         }
-        
+
         correspondingFlight.Aircraft.BookedSeats = correspondingFlight.Aircraft.BookedSeats
             .Where(seat => !bookingToCancel.Seats.Any(s => s.SeatId == seat.SeatId))
             .ToList();
         
         account.BookedFlights.Remove(bookingToCancel);
 
-        
         var accountIndex = accounts.FindIndex(a => a.FirstName == firstName && a.LastName == lastName);
 
-        if (accountIndex != -1)
+        if (accountIndex !< 0)
         {
             accounts[accountIndex] = account;
         }
+
         AccountDataRW.WriteToJson(accounts);
+        AdminLogic.SaveBookings(account);
         FlightDataRW.WriteJson(flights);
         
         Console.WriteLine($"Successfully deleted booking {bookingCode} for {firstName} {lastName}");
@@ -1145,6 +1098,7 @@ public static void DeleteDelete()
 
     Console.WriteLine("\nPress any key to continue...");
     Console.ReadKey();
+    AdminMenu();
 }
 }
 
