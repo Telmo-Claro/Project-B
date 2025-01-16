@@ -10,7 +10,7 @@ public static class BookFlightMenu
         Console.ResetColor();
         Console.Write("> ");
         string? givenFlightNumber = Console.ReadLine().ToUpper();
-        if (givenFlightNumber.Equals("Exit"))
+        if (givenFlightNumber.Equals("EXIT"))
         {
             return;
         }
@@ -41,7 +41,7 @@ public static class BookFlightMenu
                 Console.WriteLine($"Duration: {flight.Duration}");
                 Console.WriteLine("Correct flight? (Y/N)");
                 Console.Write("> ");
-                
+
                 ConsoleKey key = Console.ReadKey().Key;
                 while (true)
                 {
