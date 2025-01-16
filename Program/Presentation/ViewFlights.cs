@@ -31,6 +31,10 @@ public static class ViewFlights
             {
                 for (int i = indexStart; i < indexEnd; i++)
                 {
+                    if (_flights[i].Date.Date == DateTime.Today.AddDays(1)) // check if the flight leaves tomorrow
+                    {
+                        _flights[i].Price = (int)(_flights[i].Price * 0.1); // Apply 25% discount
+                    }
                     Console.WriteLine(FlightInfo(_flights[i]));
                 }
             }
@@ -38,6 +42,10 @@ public static class ViewFlights
             {
                 for (int i = indexStart; i < 12 + indexStart; i++)
                 {
+                    if (_flights[i].Date.Date == DateTime.Today.AddDays(1)) // check if the flight leaves tomorrow
+                    {
+                        _flights[i].Price = (int)(_flights[i].Price * 0.1); // Apply 25% discount
+                    }
                     Console.WriteLine(FlightInfo(_flights[i]));
                 }
             }
@@ -47,6 +55,10 @@ public static class ViewFlights
         {
             for (int i = 0; i < _flights.Count; i++)
             {
+                if (_flights[i].Date.Date == DateTime.Today.AddDays(1)) // check if the flight leaves tomorrow
+                {
+                    _flights[i].Price = (int)(_flights[i].Price * 0.1); // Apply 25% discount
+                }
                 Console.WriteLine(FlightInfo(_flights[i]));
             }
         }
@@ -57,9 +69,9 @@ public static class ViewFlights
         List<Flight> flights = new List<Flight>();
         foreach (var flight in _flights)
         {
-            if (flight.Date.Date == DateTime.Today) // check if the flight leaves today
+            if (flight.Date.Date == DateTime.Today.AddDays(1)) // check if the flight leaves tomorrow
             {
-                flight.Price = (int)(flight.Price * 0.75); // Apply 25% discount
+                flight.Price = (int)(flight.Price * 0.1); // Apply 25% discount
             }
             if (flight.Destination.ToLower() == location.ToLower() && date == "")
             {
@@ -97,7 +109,6 @@ public static class ViewFlights
                     Console.WriteLine(FlightInfo(flights[i]));
                 }
             }
-
         }
         else if (flights.Count < 1)
         {
