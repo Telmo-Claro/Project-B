@@ -21,7 +21,7 @@ public static class StartupAnimation
         Thread.Sleep(500);
         Console.Clear();
         DisplayLogo(logoLines);
-
+            //yes
         Console.SetCursorPosition((Console.WindowWidth - 45) / 2, Console.WindowHeight - 4);
         Console.ForegroundColor = ConsoleColor.White;
         Console.Write("Press ENTER to continue or ESC to exit...");
