@@ -166,6 +166,7 @@ public class AdminLogic
                 if (accountIndex >= 0)
                 {
                     // Completely replace the existing account's booked flights
+                    Console.ReadKey();
                     accounts[accountIndex].BookedFlights = updatedAccount.BookedFlights;
 
                     // Write the updated accounts back to the JSON file
