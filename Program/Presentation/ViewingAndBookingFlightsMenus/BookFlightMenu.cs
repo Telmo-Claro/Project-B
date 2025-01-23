@@ -3,8 +3,8 @@ public static class BookFlightMenu
     private static readonly List<Flight> _flights = FlightDataRW.ReadJson();
     public static void BookingMenu(Account account)
     {
-        Console.Clear();
-        Console.WriteLine("What is the flight number from the flight you would like to book?");
+        // Console.Clear(); keeps the flight overview so you don't have to remember the flightnumber
+        Console.WriteLine("\nWhat is the flight number from the flight you would like to book?");
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("Type 'Exit' to go back");
         Console.ResetColor();
@@ -56,7 +56,7 @@ public static class BookFlightMenu
                         Console.WriteLine("Make sure you enter the correct flight number.");
                         Console.WriteLine("Press any key to continue.");
                         Console.ReadKey();
-                        BookingMenu(account);
+                        ViewFlightMenu.DisplayMenu(account);
                     }
                     else
                     {
