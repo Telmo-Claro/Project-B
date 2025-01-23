@@ -1,12 +1,12 @@
 using System;
 using System.Net;
 using System.Net.Mail;
-public class Email
+public static class Email
 {
     public static void SendBookingEmail(Account account, Booking booking, List<Seat> seats)
     {
-        string fromMail = "trenlines010@gmail.com";
-        string fromPassword = "wcmt inui pwzm ymvh";
+        private const string fromMail = "trenlines010@gmail.com";
+        private const string fromPassword = "wcmt inui pwzm ymvh";
 
         MailMessage message = new MailMessage();
         message.From = new MailAddress(fromMail);
@@ -75,8 +75,8 @@ public class Email
 
     public static void SendCancellationEmail(Account account, Booking booking)
     {
-        string fromMail = "trenlines010@gmail.com";
-        string fromPassword = "wcmt inui pwzm ymvh";
+        private const string fromMail = "trenlines010@gmail.com";
+        private const string fromPassword = "wcmt inui pwzm ymvh";
 
         MailMessage message = new MailMessage();
         message.From = new MailAddress(fromMail);
