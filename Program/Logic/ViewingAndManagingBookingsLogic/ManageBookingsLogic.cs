@@ -23,6 +23,7 @@
                         cancelBooking = true;
                         break;
                     case ConsoleKey.Tab or ConsoleKey.Escape:
+                        LoggedInPresentation.DisplayMenu(account);
                         break;
                     default:
                         Console.WriteLine("Please enter a valid choice");

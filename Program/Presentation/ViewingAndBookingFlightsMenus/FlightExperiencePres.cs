@@ -31,7 +31,7 @@ public static class FlightExperiencePres
         }
 
         // Let the user select a timeslot
-        Console.WriteLine("Please select a timeslot from the available options:");
+        Console.WriteLine("Please select a timeslot from the available options (or type 'exit' to return):");
 
         TimeSpan selectedTimeslot = TimeSpan.Zero;
         bool isValid = false;
@@ -40,31 +40,45 @@ public static class FlightExperiencePres
         {
             var userInput = Console.ReadLine();
 
+            // Check if the user wants to exit
+            if (userInput?.ToLower() == "exit")
+            {
+                isValid = true;
+                return null;
+            }
+
             // Try to parse the input to a valid TimeSpan
-            if (TimeSpan.TryParse(userInput, out selectedTimeslot) && availableTimeslots.Contains(selectedTimeslot) && !flight.SelectedTimeslots.Contains(selectedTimeslot))
+            if (TimeSpan.TryParse(userInput, out selectedTimeslot)
+                && availableTimeslots.Contains(selectedTimeslot)
+                && !flight.SelectedTimeslots.Contains(selectedTimeslot))
             {
                 isValid = true; // If valid, break out of the loop
             }
             else
             {
-                Console.WriteLine("Invalid timeslot selected. Please choose a valid option from the available timeslots.");
+                Console.WriteLine("Invalid timeslot selected. Please choose a valid option from the available timeslots or type 'exit' to return.");
             }
         }
 
         // Book the selected timeslot for this flight
-        flight.SelectedTimeslots.Add(selectedTimeslot);
-
-        int index = _flights.FindIndex(f => f.FlightNumber == flight.FlightNumber);
-        if (index != -1)
+        if (selectedTimeslot != TimeSpan.Zero)
         {
-            _flights[index] = flight;
+            flight.SelectedTimeslots.Add(selectedTimeslot);
+
+            int index = _flights.FindIndex(f => f.FlightNumber == flight.FlightNumber);
+            if (index != -1)
+            {
+                _flights[index] = flight;
+            }
+
+            FlightDataRW.WriteJson(_flights);
+
+            Console.WriteLine($"Timeslot {selectedTimeslot} successfully booked for the flight.");
+            Console.WriteLine("Press any key to continue.");
+            Console.ReadKey();
+            return selectedTimeslot;
         }
-
-        FlightDataRW.WriteJson(_flights);
-
-        Console.WriteLine($"Timeslot {selectedTimeslot} successfully booked for the flight.");
-        Console.WriteLine("Press any key to continue.");
-        Console.ReadKey();
-        return selectedTimeslot;
+        else
+            return null;
     }
 }
