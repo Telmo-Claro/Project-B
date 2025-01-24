@@ -112,7 +112,9 @@ public static class ViewFlights
         }
         else if (flights.Count < 1)
         {
+            Console.ForegroundColor = ConsoleColor.Red; 
             Console.WriteLine("There are no flights with the given data.");
+            Console.ResetColor();
         }
         else
         {
