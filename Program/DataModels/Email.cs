@@ -1,15 +1,17 @@
 using System;
 using System.Net;
 using System.Net.Mail;
+
+
 public static class Email
 {
+    private const string FromMail = "trenlines010@gmail.com";
+    private const string FromPassword = "wcmt inui pwzm ymvh";
+
     public static void SendBookingEmail(Account account, Booking booking, List<Seat> seats)
     {
-        private const string fromMail = "trenlines010@gmail.com";
-        private const string fromPassword = "wcmt inui pwzm ymvh";
-
         MailMessage message = new MailMessage();
-        message.From = new MailAddress(fromMail);
+        message.From = new MailAddress(FromMail);
         message.Subject = "Your Flight Booking Confirmation";
         message.To.Add(new MailAddress(account.Email));
 
@@ -56,17 +58,12 @@ public static class Email
             </body>
             </html>";
 
-
-
-
-
-
         message.IsBodyHtml = true;
 
         var smtpClient = new SmtpClient("smtp.gmail.com")
         {
             Port = 587,
-            Credentials = new NetworkCredential(fromMail, fromPassword),
+            Credentials = new NetworkCredential(FromMail, FromPassword),
             EnableSsl = true,
         };
 
@@ -75,11 +72,8 @@ public static class Email
 
     public static void SendCancellationEmail(Account account, Booking booking)
     {
-        private const string fromMail = "trenlines010@gmail.com";
-        private const string fromPassword = "wcmt inui pwzm ymvh";
-
         MailMessage message = new MailMessage();
-        message.From = new MailAddress(fromMail);
+        message.From = new MailAddress(FromMail);
         message.Subject = "Your Flight Cancellation Confirmation";
         message.To.Add(new MailAddress(account.Email));
 
@@ -123,12 +117,10 @@ public static class Email
         var smtpClient = new SmtpClient("smtp.gmail.com")
         {
             Port = 587,
-            Credentials = new NetworkCredential(fromMail, fromPassword),
+            Credentials = new NetworkCredential(FromMail, FromPassword),
             EnableSsl = true,
         };
 
         smtpClient.Send(message);
     }
-
-
 }
