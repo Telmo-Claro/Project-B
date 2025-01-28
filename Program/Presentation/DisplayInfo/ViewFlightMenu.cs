@@ -13,7 +13,7 @@
             Console.WriteLine("----------------------------");
             Console.WriteLine(" TOMORROW'S FLIGHTS ARE OFF ");
             Console.WriteLine("----------------------------");
-            Console.WriteLine("FlightNumber|Departure|Destination|   Date   |TimeDeparture|TimeArrival|Duration|    Country    |   Aircraft  | Price | Status");
+            Console.WriteLine("FlightNumber|Departure |Destination |   Date   |TimeDeparture|TimeArrival  |Duration |    Country    |   Aircraft   | Price   | Status");
             ViewFlights.View(page);
             Console.WriteLine("--------------");
             Console.WriteLine($"Page: {page}");
