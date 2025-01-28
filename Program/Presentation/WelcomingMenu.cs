@@ -1,6 +1,6 @@
 ﻿public static class WelcomingMenu
 {
-    
+
     public static void Menu()
     {
         StartupAnimation.ShowStartupLogo();
@@ -37,7 +37,7 @@
                     Thread.Sleep(1000);
                     break;
             }
-            
+
         }
     }
 }
