@@ -13,6 +13,5 @@
         Console.Write("> ");
         var input = Console.ReadKey().Key;
         ManageBookingsLogic.ManageBooking(account, input);
-
     }
 }
