@@ -15,13 +15,13 @@ public class Aircraft
     public List<Seat> BookedSeats { get; set; }
 
     [JsonPropertyName("ValidSeats")]
-    public virtual List<string> ValidSeats { get; set; }
+    public List<string> ValidSeats { get; set; }
 
     [JsonPropertyName("PlaneOverview")]
-    public virtual string PlaneOverview { get; set; }
+    public string PlaneOverview { get; set; }
 
     [JsonPropertyName("RestOverview")]
-    public virtual string RestOverview { get; set; }
+    public string RestOverview { get; set; }
 
     public Aircraft(int totalSeats, string? name)
     {

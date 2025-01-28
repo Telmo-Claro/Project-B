@@ -1,8 +1,8 @@
 ﻿public class Boeing787 : Aircraft
 {
-    public override List<string> ValidSeats { get; set; }
-    public override string PlaneOverview { get; set; }
-    public override string RestOverview { get; set; }
+    public List<string> ValidSeats { get; set; }
+    public string PlaneOverview { get; set; }
+    public string RestOverview { get; set; }
     public Boeing787() : base(282, "Boeing 787") 
     {
         ValidSeats = [
