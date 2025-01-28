@@ -10,7 +10,7 @@
             Console.WriteLine("------------------");
 
             Console.WriteLine("Enter email [Q to exit]");
-            string? email = Console.ReadLine();
+            string? email = Console.ReadLine().ToLower();
             if (string.IsNullOrWhiteSpace(email) || email.ToLower() == "q")
             {
                 break;

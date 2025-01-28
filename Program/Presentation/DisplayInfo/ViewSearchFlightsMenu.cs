@@ -11,7 +11,7 @@
             Console.WriteLine("----------------------------");
             Console.WriteLine("           Flights          ");
             Console.WriteLine("----------------------------");
-            Console.WriteLine("FlightNumber|Departure|Destination|   Date   |TimeDeparture|TimeArrival|Duration|    Country    |   Aircraft  | Status");
+            Console.WriteLine("FlightNumber|Departure |Destination |   Date   |TimeDeparture|TimeArrival  |Duration |    Country    |   Aircraft   | Price   | Status");
             bool feedback = ViewFlights.View(page, locationSearch, dateSearch);
             Console.WriteLine("--------------");
             Console.WriteLine($"Page: {page}");

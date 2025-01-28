@@ -7,19 +7,39 @@ public static class ViewFlights
     {
         _flights = ViewUpdatedFlights.UpdateFlights();
     }
-
-    private static string SpacesAdd(string str, string header)
+    private static string SpacesAdd(string input, int totalWidth)
     {
-        if (str.Length < header.Length)
-        {
-            return $"{str}{new string(' ', header.Length - str.Length)}";
-        }
-        else { return str; }
+        return input.PadRight(totalWidth);
     }
+
     private static string FlightInfo(Flight flight)
     {
-        return $"{SpacesAdd(flight.FlightNumber, "FlightNumber")}|{SpacesAdd(flight.Departure, "Departure")}|{SpacesAdd(flight.Destination, "Destination")}|{flight.Date.ToShortDateString()}|{flight.TimeDeparture}     |{flight.TimeArrival}   |{flight.Duration}|{SpacesAdd(flight.Country, "    Country    ")}|{SpacesAdd(flight.Aircraft.ToString(), "   Aircraft ")} | {SpacesAdd("€" + flight.Price.ToString(), "Price")} |{SpacesAdd(flight.Status, "Status")}";
+        // Define column widths based on header and maximum possible values
+        int flightNumberWidth = 12;    // "FlightNumber" length (adjusted for padding)
+        int departureWidth = 10;       // "Departure" length
+        int destinationWidth = 12;     // "Destination" length
+        int dateWidth = 10;            // "Date" length (adjusted for "dd-MM-yyyy")
+        int timeWidth = 13;            // "TimeDeparture" and "TimeArrival" length (adjusted for time)
+        int durationWidth = 9;         // "Duration" length
+        int countryWidth = 15;         // "Country" length (longest value in your list)
+        int aircraftWidth = 14;        // "Aircraft" length (longest value in your list)
+        int priceWidth = 9;            // "Price" length (adjusted for padding)
+        int statusWidth = 8;           // "Status" length (longest value in your list)
+
+        return $"{SpacesAdd(flight.FlightNumber, flightNumberWidth)}|" +
+            $"{SpacesAdd(flight.Departure, departureWidth)}|" +
+            $"{SpacesAdd(flight.Destination, destinationWidth)}|" +
+            $"{SpacesAdd(flight.Date.ToString("dd-MM-yyyy"), dateWidth)}|" +
+            $"{SpacesAdd(flight.TimeDeparture.ToString(), timeWidth)}|" +
+            $"{SpacesAdd(flight.TimeArrival.ToString(), timeWidth)}|" +
+            $"{SpacesAdd(flight.Duration.ToString(), durationWidth)}|" +
+            $"{SpacesAdd(flight.Country, countryWidth)}|" +
+            $"{SpacesAdd(flight.Aircraft.ToString(), aircraftWidth)}|" +
+            $"{SpacesAdd("€" + flight.Price.ToString("0.00"), priceWidth)}|" +
+            $"{SpacesAdd(flight.Status, statusWidth)}";
     }
+
+
     public static void View(int page)
     {
         UpdateFlights();
