@@ -12,14 +12,21 @@
             Console.WriteLine("           Flights          ");
             Console.WriteLine("----------------------------");
             Console.WriteLine("FlightNumber|Departure|Destination|   Date   |TimeDeparture|TimeArrival|Duration|    Country    |   Aircraft  | Status");
-            ViewFlights.View(page, locationSearch, dateSearch);
+            bool feedback = ViewFlights.View(page, locationSearch, dateSearch);
             Console.WriteLine("--------------");
             Console.WriteLine($"Page: {page}");
             Console.WriteLine("--------------");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            if (feedback)
+                Console.WriteLine("Use the \u2190 and \u2192 arrows on your keyboard to navigate through the list");
+            Console.ResetColor();
+            Console.WriteLine("Press 'Enter' to view all the flights again.");
             Console.WriteLine("Press S search");
-            Console.WriteLine("To book a flight, check the flightnumber and press B");
+            if (feedback)
+                Console.WriteLine("To book a flight, check the flightnumber and press B");
             ConsoleKey key = Console.ReadKey().Key;
             page = PageScroller.NextPage(key, page);
+            if (key == ConsoleKey.Enter) ViewFlightMenu.DisplayMenu(account);
             if (key == ConsoleKey.Escape || key == ConsoleKey.Tab) { break; }
             if (key == ConsoleKey.S)
             {
@@ -29,13 +36,14 @@
                 string? location = Console.ReadLine();
                 Console.Write("Date (DD/MM/YYYY): ");
                 string? date = Console.ReadLine();
-                ViewSearchFlightsMenu.DisplayMenu(location, date, account);
+                DisplayMenu(location, date, account);
                 break;
             }
-            if (key == ConsoleKey.B)
-            {
-                BookFlightMenu.BookingMenu(account);
-            }
+            if (feedback)
+                if (key == ConsoleKey.B)
+                {
+                    BookFlightMenu.BookingMenu(account);
+                }
         }
     }
 }

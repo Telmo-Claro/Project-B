@@ -2,7 +2,7 @@ public static class ViewFlights
 {
     // public static List<Flight> _flights = FlightDataRW.ReadJson();
     private static List<Flight> _flights = ViewUpdatedFlights.UpdateFlights();
-    
+
     private static void UpdateFlights()
     {
         _flights = ViewUpdatedFlights.UpdateFlights();
@@ -63,29 +63,48 @@ public static class ViewFlights
             }
         }
     }
-    public static void View(int page, string? location, string? date)
+    public static bool View(int page, string? location, string? date)
     {
+        bool feedback = true;
         UpdateFlights();
         List<Flight> flights = new List<Flight>();
+
+        DateTime inputDate = DateTime.MinValue; // Initialize to a default value
+        bool hasValidDate = false;
+
+        if (!string.IsNullOrEmpty(date))
+        {
+            string[] dateFormats = { "d-MM-yyyy", "dd-M-yyyy", "dd-MM-yyyy", "d-M-yyyy" };
+
+            hasValidDate = DateTime.TryParseExact(
+                date,
+                dateFormats,
+                System.Globalization.CultureInfo.InvariantCulture,
+                System.Globalization.DateTimeStyles.None,
+                out inputDate
+            );
+        }
+
         foreach (var flight in _flights)
         {
             if (flight.Date.Date == DateTime.Today.AddDays(1)) // check if the flight leaves tomorrow
             {
-                flight.Price = (int)(flight.Price * 0.1); // Apply 25% discount
+                flight.Price = (int)(flight.Price * 0.75); // Apply 25% discount
             }
-            if (flight.Destination.ToLower() == location.ToLower() && date == "")
+
+            if (!string.IsNullOrEmpty(location) && location.ToLower() == flight.Destination.ToLower() && !hasValidDate)
             {
                 flights.Add(flight);
             }
-            else if (flight.Date.ToShortDateString() == date && location == "")
+            else if (hasValidDate && flight.Date.Date == inputDate && string.IsNullOrEmpty(location))
             {
                 flights.Add(flight);
             }
-            else if (flight.Date.ToShortDateString() == date && location.ToLower() == flight.Destination.ToLower())
+            else if (hasValidDate && flight.Date.Date == inputDate && location?.ToLower() == flight.Destination.ToLower())
             {
                 flights.Add(flight);
             }
-            else if (date == "" && location == "")
+            else if (string.IsNullOrEmpty(date) && string.IsNullOrEmpty(location))
             {
                 flights.Add(flight);
             }
@@ -93,6 +112,7 @@ public static class ViewFlights
 
         int indexEnd = flights.Count;
         int indexStart = (page - 1) * 12;
+
         if (flights.Count > 11)
         {
             if (indexEnd - indexStart < 12)
@@ -112,9 +132,10 @@ public static class ViewFlights
         }
         else if (flights.Count < 1)
         {
-            Console.ForegroundColor = ConsoleColor.Red; 
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("There are no flights with the given data.");
             Console.ResetColor();
+            return feedback = false;
         }
         else
         {
@@ -123,5 +144,9 @@ public static class ViewFlights
                 Console.WriteLine(FlightInfo(flights[i]));
             }
         }
+
+        return feedback;
     }
+
+
 }
