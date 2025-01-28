@@ -11,8 +11,7 @@
                 return account;
             }
         }
-        Console.WriteLine("No matches with the given credentials");
-        Console.ReadKey();
+        DisplayAccountInfo.NoAccInfo();
         LoggingInPresentation.MenuDisplay();
         return null;
     }

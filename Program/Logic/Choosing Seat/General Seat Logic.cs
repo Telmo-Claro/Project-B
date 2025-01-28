@@ -35,10 +35,22 @@
             }
         }
         return false;
-        //if (SelectedSeats.Contains(SelectedSeats.FirstOrDefault(seat => seat.SeatId == seatCheck)))
-        //{
-        //    return true;
-        //}
+    }
+
+    public static string SeatsString(List<Seat> seats)
+    {
+        string seatString = "";
+        foreach (var seat in seats)
+        {
+            seatString += $"{seat}\n";
+        }
+        return seatString;
+    }
+
+    public static List<Seat> RemoveSeat(List<Seat> selectedSeat, Seat seat)
+    {
+        selectedSeat.Remove(selectedSeat.FirstOrDefault(x => x == seat));
+        return selectedSeat;
     }
 
     public static Seat MakeSeat(string seat)
