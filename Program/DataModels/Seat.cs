@@ -50,6 +50,16 @@ public class Seat : IEquatable<Seat>
         }
         return false;
     }
+
+    public static bool operator ==(Seat seat1, Seat seat2)
+    {
+        return seat1.Equals(seat2);
+    }
+
+    public static bool operator !=(Seat seat1, Seat seat2)
+    {
+        return !(seat1.Equals(seat2));
+    }
     public override string ToString()
     {
         return $"{SeatId}";
