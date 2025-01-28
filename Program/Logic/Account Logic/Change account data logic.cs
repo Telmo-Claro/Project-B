@@ -8,7 +8,6 @@ public static class ChangeAccountDataLogic
         foreach (var x in accounts)
         {
             Console.WriteLine(x);
-            Console.ReadLine();
             if (x.Email == account.Email && x.Password == account.Password)
             {
                 x.FirstName = firstName;
