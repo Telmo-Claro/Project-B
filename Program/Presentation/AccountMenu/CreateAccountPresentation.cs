@@ -18,8 +18,8 @@
             string? phoneNumber = null;
             CreditCard? creditCard = null;
             TrenLines();
-            
-            while(!ValidateAccountInformation.ValidateFirstName(firstName))
+
+            while (!ValidateAccountInformation.ValidateFirstName(firstName))
             {
                 TrenLines();
                 Console.Write("First name: ");
@@ -33,7 +33,7 @@
                     Thread.Sleep(2000);
                 }
             }
-            
+
             while (!ValidateAccountInformation.ValidateLastName(lastName))
             {
                 TrenLines();
@@ -67,7 +67,7 @@
                 TrenLines();
                 Console.Write("Phone number: ");
                 phoneNumber = Console.ReadLine();
-                if(!ValidateAccountInformation.ValidatePhoneNumber(phoneNumber))
+                if (!ValidateAccountInformation.ValidatePhoneNumber(phoneNumber))
                 {
                     Thread.Sleep(800);
                     Console.WriteLine("Please enter a valid phone number.");
@@ -88,7 +88,7 @@
                     Thread.Sleep(800);
                     Console.WriteLine("Please enter a valid password.");
                     Thread.Sleep(800);
-                    Console.WriteLine("A password has to have more than 6 characters.");
+                    Console.WriteLine("A password has to have at least 6 characters.");
                     Thread.Sleep(2000);
                 }
             }
