@@ -34,7 +34,7 @@
                 Console.WriteLine("Search (leave empty for all):");
                 Console.Write("Location: ");
                 string? location = Console.ReadLine();
-                Console.Write("Date (DD/MM/YYYY): ");
+                Console.Write("Date (DD-MM-YYYY): ");
                 string? date = Console.ReadLine();
                 ViewSearchFlightsMenu.DisplayMenu(location, date, account);
                 break;
