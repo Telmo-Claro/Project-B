@@ -79,5 +79,4 @@ public static class ChangeAccountDataLogic
         }
         return null;
     }
-
 }
