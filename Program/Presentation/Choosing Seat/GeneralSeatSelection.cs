@@ -128,6 +128,29 @@
         }
         if (SelectedSeats.Count == 0)
         {
+            bool valid = false;
+            while (!valid)
+            {
+                Console.WriteLine("You haven't selected a seat. Would you like to select one or go back?");
+                Console.WriteLine("(1) Try again and select a seat.");
+                Console.WriteLine("(2) Go back.");
+                Console.Write("> ");
+                var answer = Console.ReadKey().KeyChar.ToString();
+                switch (answer)
+                {
+                    case "1":
+                        SeatMenu(flight, account, SelectedSeats);
+                        break;
+                    case "2":
+                        ViewFlightMenu.DisplayMenu(account);
+                        break;
+                    default:
+                        Console.Write("\nInvalid option. Please try again.");
+                        Thread.Sleep(1000);
+                        break;
+                }
+                break;
+            }
             ViewFlightMenu.DisplayMenu(account);
             return null;
         }
