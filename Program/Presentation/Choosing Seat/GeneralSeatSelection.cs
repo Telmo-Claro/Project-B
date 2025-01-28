@@ -66,21 +66,6 @@
                 continue;
             }
 
-            if (General_Seat_Logic.IsBooked(input, flight))
-            {
-                Console.WriteLine("This Seat is already booked");
-                Thread.Sleep(1000);
-                continue;
-            }
-
-            if (General_Seat_Logic.IsSelected(input, SelectedSeats))
-            {
-                SelectedSeats.Remove(SelectedSeats.FirstOrDefault(seat => seat.SeatId == input));
-                Console.WriteLine("Seat has been deselected");
-                Thread.Sleep(1000);
-                continue;
-            }
-
             Seat seat;
             switch (flight.Aircraft.Name)
             {
@@ -97,6 +82,22 @@
                     seat = General_Seat_Logic.MakeSeat(input);
                     break;
             }
+
+            if (General_Seat_Logic.IsBooked(seat, flight))
+            {
+                Console.WriteLine("This Seat is already booked");
+                Thread.Sleep(1000);
+                continue;
+            }
+
+            if (General_Seat_Logic.IsSelected(seat, SelectedSeats))
+            {
+                SelectedSeats.Remove(SelectedSeats.FirstOrDefault(x => x == seat));
+                Console.WriteLine("Seat has been deselected");
+                Thread.Sleep(1000);
+                continue;
+            }
+
             Console.WriteLine($"\nThis is a {seat.Type}. \nPrice: ${seat.Price}. \nWould you like to reserve this seat?");
             Console.WriteLine("(1) Yes");
             Console.WriteLine("(2) No");
@@ -169,21 +170,6 @@
                 continue;
             }
 
-            if (General_Seat_Logic.IsBooked(input, flight))
-            {
-                Console.WriteLine("This Seat is already booked");
-                Thread.Sleep(1000);
-                continue;
-            }
-
-            if (General_Seat_Logic.IsSelected(input, SelectedSeats))
-            {
-                SelectedSeats.Remove(SelectedSeats.FirstOrDefault(seat => seat.SeatId == input));
-                Console.WriteLine("Seat has been deselected");
-                Thread.Sleep(1000);
-                continue;
-            }
-
             Seat seat;
             switch (flight.Aircraft.Name)
             {
@@ -200,6 +186,22 @@
                     seat = General_Seat_Logic.MakeSeat(input);
                     break;
             }
+
+            if (General_Seat_Logic.IsBooked(seat, flight))
+            {
+                Console.WriteLine("This Seat is already booked");
+                Thread.Sleep(1000);
+                continue;
+            }
+
+            if (General_Seat_Logic.IsSelected(seat, SelectedSeats))
+            {
+                SelectedSeats.Remove(SelectedSeats.FirstOrDefault(x => x == seat));
+                Console.WriteLine("Seat has been deselected");
+                Thread.Sleep(1000);
+                continue;
+            }
+
             Console.WriteLine($"\nWould you like to reserve this seat?");
             Console.WriteLine("(1) Yes");
             Console.WriteLine("(2) No");

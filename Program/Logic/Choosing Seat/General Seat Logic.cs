@@ -13,21 +13,32 @@
         return false;
     }
 
-    public static bool IsBooked(string seatCheck, Flight flight)
+    public static bool IsBooked(Seat seatCheck, Flight flight)
     {
-        if (flight.Aircraft.BookedSeats.Any(seat => seat.SeatId == seatCheck))
+        foreach (var seat in flight.Aircraft.BookedSeats)
         {
-            return true;
+            if (seat == seatCheck)
+            {
+                return true;
+            }
         }
+
         return false;
     }
-    public static bool IsSelected(string seatCheck, List<Seat> SelectedSeats)
+    public static bool IsSelected(Seat seatCheck, List<Seat> SelectedSeats)
     {
-        if (SelectedSeats.Contains(SelectedSeats.FirstOrDefault(seat => seat.SeatId == seatCheck)))
+        foreach (var seat in SelectedSeats)
         {
-            return true;
+            if (seat == seatCheck)
+            {
+                return true;
+            }
         }
         return false;
+        //if (SelectedSeats.Contains(SelectedSeats.FirstOrDefault(seat => seat.SeatId == seatCheck)))
+        //{
+        //    return true;
+        //}
     }
 
     public static Seat MakeSeat(string seat)
