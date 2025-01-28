@@ -26,7 +26,7 @@
                         LoggedInPresentation.DisplayMenu(account);
                         break;
                     default:
-                        Console.WriteLine("Please enter a valid choice");
+                        DisplayAccountInfo.WrongChoice();
                         break;
                 }
             }

@@ -11,4 +11,21 @@ public static class DisplayAccountInfo
         Console.WriteLine($"Account phone number: {account.PhoneNumber}");
         Console.WriteLine("--------------------------------------------");
     }
+
+    public static void DeletedMessage()
+    {
+        Console.WriteLine("Account deleted succesfully");
+        Console.ReadKey();
+    }
+
+    public static void NoAccInfo()
+    {
+        Console.WriteLine("No matches with the given credentials");
+        Console.ReadKey();
+    }
+
+    public static void WrongChoice()
+    {
+        Console.WriteLine("Please enter a valid choice");
+    }
 }

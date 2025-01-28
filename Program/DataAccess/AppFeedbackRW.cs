@@ -11,7 +11,7 @@ public static class AppFeedbackRW
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error reading JSON: {e.Message}");
+            ErrorMessagePrinter.PrintError(e);
             return new List<Feedback>();
         }
     }
@@ -26,7 +26,7 @@ public static class AppFeedbackRW
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error writing JSON: {e.Message}");
+            ErrorMessagePrinter.PrintError(e);
         }
     }
 }

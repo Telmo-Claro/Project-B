@@ -11,9 +11,7 @@
             accounts.Remove(accountToRemove);
             AccountDataRW.WriteToJson(accounts);
             Console.Clear();
-            Console.WriteLine("Account deleted succesfully");
-
-            Console.ReadKey();
+            DisplayAccountInfo.DeletedMessage();
             WelcomingMenu.Menu();
         }
     }

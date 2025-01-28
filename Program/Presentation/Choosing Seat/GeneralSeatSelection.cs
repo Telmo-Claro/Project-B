@@ -48,10 +48,10 @@
             Console.WriteLine("\nEnter seat designation (e.g. A1, B2) or type 'continue' to continue:");
             Console.WriteLine("If you type 'continue' without selecting a seat you will return.");
             Console.WriteLine("\nSelected seats:");
-            foreach (var seat1 in SelectedSeats)
-            {
-                Console.WriteLine(seat1);
-            }
+
+            string SeatString = General_Seat_Logic.SeatsString(SelectedSeats);
+            Console.WriteLine(SeatString);
+            
             Console.Write("> ");
             string input = Console.ReadLine();
             if (input.ToLower() == "continue")
@@ -92,7 +92,7 @@
 
             if (General_Seat_Logic.IsSelected(seat, SelectedSeats))
             {
-                SelectedSeats.Remove(SelectedSeats.FirstOrDefault(x => x == seat));
+                SelectedSeats = General_Seat_Logic.RemoveSeat(SelectedSeats, seat);
                 Console.WriteLine("Seat has been deselected");
                 Thread.Sleep(1000);
                 continue;
@@ -175,10 +175,10 @@
             Console.WriteLine("\nEnter seat designation (e.g. A1, B2) or type 'continue' to continue:");
             Console.WriteLine("If you type 'continue' without selecting a seat you will return.");
             Console.WriteLine("\nSelected seats:");
-            foreach (var seat1 in SelectedSeats)
-            {
-                Console.WriteLine(seat1);
-            }
+
+            string SeatString = General_Seat_Logic.SeatsString(SelectedSeats);
+            Console.WriteLine(SeatString);
+
             Console.Write("> ");
             string input = Console.ReadLine();
             if (input.ToLower() == "continue")
@@ -219,7 +219,7 @@
 
             if (General_Seat_Logic.IsSelected(seat, SelectedSeats))
             {
-                SelectedSeats.Remove(SelectedSeats.FirstOrDefault(x => x == seat));
+                SelectedSeats = General_Seat_Logic.RemoveSeat(SelectedSeats, seat);
                 Console.WriteLine("Seat has been deselected");
                 Thread.Sleep(1000);
                 continue;

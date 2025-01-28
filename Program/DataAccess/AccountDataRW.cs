@@ -23,7 +23,7 @@ public static class AccountDataRW
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error reading JSON: {e.Message}");
+            ErrorMessagePrinter.PrintError(e);
         }
         return new List<Account>();
     }
@@ -38,7 +38,7 @@ public static class AccountDataRW
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error writing JSON: {e.Message}");
+            ErrorMessagePrinter.PrintError(e);
         }
     }
 }

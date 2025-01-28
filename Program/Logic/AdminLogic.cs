@@ -127,7 +127,6 @@ public class AdminLogic
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error occurred: {ex.Message}");
             return new List<Account>();
         }
     }
@@ -145,40 +144,31 @@ public class AdminLogic
     }
     public static void SaveBookings(Account updatedAccount)
     {
-        try
+        string jsonContent = File.ReadAllText(jsonFilePath);
+        var options = new JsonSerializerOptions
         {
-            string jsonContent = File.ReadAllText(jsonFilePath);
-            var options = new JsonSerializerOptions
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = true
+        };
+
+        var accounts = JsonSerializer.Deserialize<List<Account>>(jsonContent, options);
+
+        if (accounts != null)
+        {
+            // Find the account by a unique identifier (e.g., combination of first and last name)
+            var accountIndex = accounts.FindIndex(a => 
+                a.FirstName == updatedAccount.FirstName && 
+                a.LastName == updatedAccount.LastName);
+
+            if (accountIndex >= 0)
             {
-                PropertyNameCaseInsensitive = true,
-                WriteIndented = true
-            };
+                // Completely replace the existing account's booked flights
+                accounts[accountIndex].BookedFlights = updatedAccount.BookedFlights;
 
-            var accounts = JsonSerializer.Deserialize<List<Account>>(jsonContent, options);
-
-            if (accounts != null)
-            {
-                // Find the account by a unique identifier (e.g., combination of first and last name)
-                var accountIndex = accounts.FindIndex(a => 
-                    a.FirstName == updatedAccount.FirstName && 
-                    a.LastName == updatedAccount.LastName);
-
-                if (accountIndex >= 0)
-                {
-                    // Completely replace the existing account's booked flights
-                    Console.ReadKey();
-                    accounts[accountIndex].BookedFlights = updatedAccount.BookedFlights;
-
-                    // Write the updated accounts back to the JSON file
-                    File.WriteAllText(jsonFilePath, JsonSerializer.Serialize(accounts, options));
-                }
+                // Write the updated accounts back to the JSON file
+                File.WriteAllText(jsonFilePath, JsonSerializer.Serialize(accounts, options));
             }
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error updating bookings: {ex.Message}");
-        }
-        
     }
     public static void UpdateFlightAndUserBookings(Flight updatedFlight)
 {
@@ -195,48 +185,42 @@ public class AdminLogic
         // Now update all user bookings with this flight number
         string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DataBases", "Accounts.json");
         
-        try
+        string jsonContent = File.ReadAllText(jsonFilePath);
+        var options = new JsonSerializerOptions
         {
-            string jsonContent = File.ReadAllText(jsonFilePath);
-            var options = new JsonSerializerOptions
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = true
+        };
+
+        var accounts = JsonSerializer.Deserialize<List<Account>>(jsonContent, options);
+
+        if (accounts != null)
+        {
+            bool accountsUpdated = false;
+
+            // Iterate through all accounts
+            foreach (var account in accounts)
             {
-                PropertyNameCaseInsensitive = true,
-                WriteIndented = true
-            };
+                // Find bookings with the same flight number
+                var matchingBookings = account.BookedFlights
+                    .Where(b => b.FlightNumber == updatedFlight.FlightNumber)
+                    .ToList();
 
-            var accounts = JsonSerializer.Deserialize<List<Account>>(jsonContent, options);
-
-            if (accounts != null)
-            {
-                bool accountsUpdated = false;
-
-                // Iterate through all accounts
-                foreach (var account in accounts)
+                // Update the date for matching bookings
+                foreach (var booking in matchingBookings)
                 {
-                    // Find bookings with the same flight number
-                    var matchingBookings = account.BookedFlights
-                        .Where(b => b.FlightNumber == updatedFlight.FlightNumber)
-                        .ToList();
-
-                    // Update the date for matching bookings
-                    foreach (var booking in matchingBookings)
-                    {
-                        booking.Date = updatedFlight.Date;
-                        accountsUpdated = true;
-                    }
-                }
-
-                // If any accounts were updated, save the changes
-                if (accountsUpdated)
-                {
-                    File.WriteAllText(jsonFilePath, JsonSerializer.Serialize(accounts, options));
+                    booking.Date = updatedFlight.Date;
+                    accountsUpdated = true;
                 }
             }
+
+            // If any accounts were updated, save the changes
+            if (accountsUpdated)
+            {
+                File.WriteAllText(jsonFilePath, JsonSerializer.Serialize(accounts, options));
+            }
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error updating user bookings: {ex.Message}");
-        }
+        
     }
     AdminLogic.UpdateFlightAndUserBookings(updatedFlight);
 }
