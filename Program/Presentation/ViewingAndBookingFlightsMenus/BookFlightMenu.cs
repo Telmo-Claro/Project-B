@@ -6,12 +6,23 @@ public static class BookFlightMenu
         // Console.Clear(); keeps the flight overview so you don't have to remember the flightnumber
         Console.WriteLine("\nWhat is the flight number from the flight you would like to book?");
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("Type 'Exit' to go back");
+        Console.WriteLine("Type 'Cancel' to leave the booking menu");
         Console.ResetColor();
         Console.Write("> ");
         string? givenFlightNumber = Console.ReadLine().ToUpper();
-        if (givenFlightNumber.Equals("EXIT"))
+        if (givenFlightNumber.Equals("CANCEL"))
         {
+            return;
+        } // als input =/= TREN#### -> invalid input behalve 'Cancel' #
+        
+        else if (!System.Text.RegularExpressions.Regex.IsMatch(givenFlightNumber, @"^TREN\d{4}$"))
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Invalid input. Use the following format: TREN#### (e.g. TREN0001)");
+            Console.ResetColor();
+            Console.WriteLine("Press any key to continue.");
+            Console.ReadKey();
+            ViewFlightMenu.DisplayMenu(account);
             return;
         }
         foreach (Flight flight in _flights)

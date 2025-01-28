@@ -103,7 +103,9 @@ public static class Admin
             Console.WriteLine("Displaying all flights:");
             ViewFlights.View(page);
             Console.WriteLine($"Page: {page}");
-
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Use the \u2190 and \u2192 arrows on your keyboard to navigate through the list");
+            Console.ResetColor();
             Console.WriteLine("");
             Console.WriteLine("Press X to return to the menu");
             Console.WriteLine("Press S search");

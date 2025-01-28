@@ -18,6 +18,9 @@
             Console.WriteLine("--------------");
             Console.WriteLine($"Page: {page}");
             Console.WriteLine("--------------");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Use the \u2190 and \u2192 arrows on your keyboard to navigate through the list");
+            Console.ResetColor();
             Console.WriteLine("Press [S] to search");
             Console.WriteLine("To book a flight, please press [B]");
             Console.WriteLine("Or press 'ESC' to return");
