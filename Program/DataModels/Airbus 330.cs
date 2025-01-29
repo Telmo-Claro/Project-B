@@ -1,8 +1,8 @@
 ﻿public class Airbus330 : Aircraft
 {
-    public override List<string> ValidSeats { get; set; }
-    public override string PlaneOverview { get; set; }
-    public override string RestOverview { get; set; }
+    public List<string> ValidSeats { get; set; }
+    public string PlaneOverview { get; set; }
+    public string RestOverview { get; set; }
     public Airbus330() : base(329, "Airbus 330")
     {
         ValidSeats = ["J1", "J2", "J3", "J6", "J7", "J8", "J9", "J10", "J11", "J12", "J13", "J14", "J15", "J16", "J17", "J18", "J19", "J20", "J21", "J22", "J23", "J24", "J30", "J31", "J32", "J33", "J34", "J35", "J36", "J37", "J38", "J39", "J40", "J41", "J42", "J43",
