@@ -129,8 +129,7 @@
         }
         if (SelectedSeats.Count == 0)
         {
-            bool valid = false;
-            while (!valid)
+            while (SelectedSeats.Count == 0)
             {
                 Console.WriteLine("You haven't selected a seat. Would you like to select one or go back?");
                 Console.WriteLine("(1) Try again and select a seat.");
@@ -140,7 +139,8 @@
                 switch (answer)
                 {
                     case "1":
-                        SeatMenu(flight, account, SelectedSeats);
+                        List<Seat> newListSeat = SeatMenu(flight, account, SelectedSeats);
+                        return newListSeat;
                         break;
                     case "2":
                         ViewFlightMenu.DisplayMenu(account);
